@@ -11,6 +11,7 @@ export default {
     tabBar: '#FFF',
     tabBarAddBackground: '#033043',
     tabBarAddTint: tintColorLight,
+    exerciseBlockBackground: '#E6E6E6',
   },
   dark: {
     text: '#fff',
@@ -21,5 +22,6 @@ export default {
     tabBar: '#000', // To be changed
     tabBarAddBackground: '#033043', // To be changed
     tabBarAddTint: tintColorDark,
+    exerciseBlockBackground: '#E6E6E6',// To be changed
   },
 };

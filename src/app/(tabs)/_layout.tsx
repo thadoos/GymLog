@@ -4,13 +4,14 @@ import React from 'react'
 import { Tabs } from 'expo-router'
 import Colors from '../../constants/Colors'
 import Ionicons from '@expo/vector-icons/Ionicons';
-
+import CustomTabbar from '../../components/CustomTabbar';
 
 
 export default function tab_layout() {
   const colorScheme = useColorScheme();
   return (
     <Tabs
+      tabBar={props => <CustomTabbar {...props} />}
       screenOptions={{
         headerShown:false,
 
@@ -30,6 +31,7 @@ export default function tab_layout() {
         
         options={{
           title: "Home",
+          tabBarLabel: "home",
           tabBarIcon:({color}) => (
             <Ionicons name="home" size = {28} color={color}/>
           )
@@ -39,7 +41,8 @@ export default function tab_layout() {
       <Tabs.Screen
         name="(workout)"
         options={{
-          headerShown: false,
+          title: "Workout",
+          tabBarLabel: "barbell",
           tabBarIcon:({color}) => (
             <Ionicons name="barbell" size = {28} color={color}/>
           )
@@ -65,9 +68,11 @@ export default function tab_layout() {
         }}
       /> */}
       <Tabs.Screen
+        
         name="(profile)"
         options={{
-          headerShown: false,
+          title:"Profile",
+          tabBarLabel: "person",
           tabBarIcon:({color}) => (
             <Ionicons name="person" size = {28} color={color}/>
           )
@@ -77,6 +82,7 @@ export default function tab_layout() {
       <Tabs.Screen
         name="index" 
         options={{
+          tabBarLabel: "notused",
           href:null,
         }}
       />

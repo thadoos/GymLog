@@ -8,15 +8,26 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const home_layout = () => {
   return (
-    <Stack>
+    <Stack screenOptions={{headerShadowVisible:false}}>
       <Stack.Screen name="index" options={{
           title:"Home",
-          headerShadowVisible: false,
           // headerTransparent: true,
           headerStyle:{
             // backgroundColor: 'red',
             
+            
+          },
+          headerTitleStyle:{
+            // fontWeight: '800',
+            // fontSize: 20,
           }
+        }}
+      />
+      <Stack.Screen 
+        name="ViewExercises"
+        options={{
+          title:"View Exercises",
+
         }}
       />
     </Stack>

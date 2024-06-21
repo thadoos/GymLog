@@ -1,21 +1,17 @@
-interface Workout {
-  exercisesDone: Array<Exercise>,
-  timeTaken: number,
-  
-}
 
-interface Exercise {
+
+export interface Exercise {
   id: number,
   name: string,
-  sets: Array<WorkoutBasicSet | WorkoutSuperSet>,
+  sets: {[setNumber: number]: Array<WorkoutBasicSet | WorkoutSuperSet>},
 }
 
-interface WorkoutBasicSet {
+export interface WorkoutBasicSet {
   reps: number,
   weight: number,
 }
 
-interface WorkoutSuperSet {
+export interface WorkoutSuperSet {
   superset: Array<WorkoutBasicSet>,
 }
 

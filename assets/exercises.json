@@ -1,0 +1,83 @@
+[
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Bench Press",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Lower, Middle, Upper",
+    "equipment": "Barbell, Bench",
+    "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
+  },
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Incline Bench Press",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Middle, Upper",
+    "equipment": "Barbell, Bench",
+    "notes": "Rack Height: 15"
+  },
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Pec Dec",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Middle",
+    "equipment": "Machine",
+    "notes": "Seat Height: 3"
+  },
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Standing Cable High Fly",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Lower",
+    "equipment": "Cable Machine",
+    "notes": "Cable Height: 17"
+  },
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Bench Press",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Lower, Middle, Upper",
+    "equipment": "Barbell, Bench",
+    "notes": "Rack Height: 10"
+  },
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Incline Bench Press",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Middle, Upper",
+    "equipment": "Barbell, Bench",
+    "notes": "Rack Height: 15"
+  },
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Pec Dec",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Middle",
+    "equipment": "Machine",
+    "notes": "Seat Height: 3"
+  },
+  {
+    "id":"1",
+    "imageName": "../../assets/exerciseIcons/benchPress.png",
+    "name": "Standing Cable High Fly",
+    "type": "Strength",
+    "muscleGroup": "Chest",
+    "specificMuscle": "Lower",
+    "equipment": "Cable Machine",
+    "notes": "Cable Height: 17"
+  }
+
+]
