@@ -10,7 +10,8 @@ const profile_layout = () => {
   const colorScheme = useColorScheme();
   return (
     <Stack screenOptions={{
-      headerTransparent: true,
+      // headerTransparent: true,
+      headerShadowVisible: false,
       
     }}>
       <Stack.Screen name="index" 
@@ -22,7 +23,11 @@ const profile_layout = () => {
           
         }}
       />
-      <Stack.Screen name="settings"/>
+      <Stack.Screen name="settings"
+        options={{
+          title: "Settings"
+        }}
+      />
 
     </Stack>
   )
