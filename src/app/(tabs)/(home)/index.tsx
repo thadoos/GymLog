@@ -1,35 +1,37 @@
-import { View, Text, StyleSheet, useColorScheme, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Colors from '../../../constants/Colors'
+import { useAppSettingStore } from '../../../store/appSettings'
 import { useRouter } from 'expo-router'
+
 
 const index = () => {
   const router = useRouter();
-  const colorScheme = useColorScheme();
+  const colorTheme = useAppSettingStore(state=>state.theme)
 
   return (
-    <View style = {[styles.container, {backgroundColor: Colors[colorScheme ?? 'light'].background}]}>
+    <View style = {[styles.container, {backgroundColor: Colors[colorTheme].background}]}>
       <TouchableOpacity 
-        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorScheme ?? 'light'].exerciseBlockBackground}]}  
+        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
         onPress={() => router.push('ViewExercises')}
       >
-        <Text style={styles.viewExercisesText}>Training History</Text>
+        <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>Training History</Text>
       </TouchableOpacity>
 
 
       <TouchableOpacity 
-        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorScheme ?? 'light'].exerciseBlockBackground}]}  
+        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
         onPress={() => router.push('ViewExercises')}
       >
-        <Text style={styles.viewExercisesText}>View Exercises</Text>
+        <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>View Exercises</Text>
       </TouchableOpacity>
 
       
       <TouchableOpacity 
-        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorScheme ?? 'light'].exerciseBlockBackground}]}  
+        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
         onPress={() => router.push('ViewExercises')}
       >
-        <Text style={styles.viewExercisesText}>View Exercises</Text>
+        <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>View Exercises</Text>
       </TouchableOpacity>
         
     </View>

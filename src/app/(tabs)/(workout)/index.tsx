@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, useColorScheme } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 
-import Colors from '../../../constants/Colors'
+import Colors from '../../../constants/Colors';
+import { useAppSettingStore } from '../../../store/appSettings';
 
 const index = () => {
-  const colorScheme = useColorScheme();
+  const colorTheme = useAppSettingStore(state=>state.theme);
   return (
-    <View style = {[styles.container, {backgroundColor: Colors[colorScheme ?? 'light'].background}]}>
+    <View style = {[styles.container, {backgroundColor: Colors[colorTheme].background}]}>
       
 
     </View>

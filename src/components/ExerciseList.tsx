@@ -1,54 +1,83 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, useColorScheme } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import React from 'react'
 import { FlashList } from "@shopify/flash-list";
 import exercises from '../../assets/exercises.json'
 import Colors from '../constants/Colors'
+import { useAppSettingStore } from '../store/appSettings';
+
+interface ExerciseDetail {
+  id: string,
+  imageName: string,
+  type: string,
+  primaryGeneralMuscleGroup: string,
+  secondaryGeneralMuscleGroup: string,
+  primarySpecificMuscleGroup: Array<string>,
+  secondarySpecificMuscleGroup: Array<string>,
+  equipment: string,
+  notes: string,
+}
+
+type ExerciseDetailOptions = "id" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
 
 interface ExerciseDetailProps {
   keyword: string,
-  description: string,
+  description: ExerciseDetailOptions,
+  item: ExerciseDetail,
 }
 
 interface ExerciseListProps {
-  details: Array<{ keyword: string; description: string }>;
+  details: Array<{ keyword: string; description: ExerciseDetailOptions }>;
 }
 
-function ExerciseDetail({ keyword, description }: ExerciseDetailProps) {
-  return (<View style={[styles.exerciseDetailBlock, { flexDirection: keyword === "Notes" ? 'column' : 'row',flexWrap: keyword ==="Notes" ? 'wrap' : 'nowrap' }]}>
-    <Text style={styles.exerciseDetailsKeyword}>
+function ExerciseDetailLine({ keyword, description, item }: ExerciseDetailProps) {
+  let colorTheme = useAppSettingStore(state=>state.theme);
+  // TODO Change the styling to be based on a prop rather than based on the keyword used
+  return (<View style={[styles.exerciseDetailBlock, { flexDirection: keyword === "Notes" ? 'column' : 'row', flexWrap: keyword ==="Notes" ? 'wrap' : 'nowrap' }]}>
+    <Text style={[styles.exerciseDetailsKeyword, {color: Colors[colorTheme].text}]}>
       {keyword}:
     </Text>
-    <Text style={[styles.exerciseDetailsDesc]}>
-      {description}
+    <Text style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>
+      {/* {typeof description === "string" ? description : description.map(item => {item})} */}
+      {
+        typeof item[description] === "string"
+          ? item[description]
+          : JSON.stringify(item[description])
+          
+
+      }
     </Text>
   </View>);
 }
 
 export default function ExerciseList({ details }: ExerciseListProps) {
-  let colorScheme = useColorScheme();
+  let colorTheme = useAppSettingStore(state=>state.theme);
   return (
     <View style={styles.container}>
 
-      <FlashList
+      {/* Can replace FlatList with FlashList - Just need to include the estimatedItemSize */}
+      <FlatList
+        // estimatedItemSize={2}
         showsVerticalScrollIndicator={false}
         data={exercises}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={[styles.exerciseBlock, { backgroundColor: Colors[colorScheme ?? 'light'].exerciseBlockBackground}]}>
+          <TouchableOpacity key = {item.id} style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
             <Image style={styles.exerciseImage} source={require('../../assets/exerciseIcons/benchPress.png')} />
             <View style={styles.detailsBlock}>
-              <Text style={styles.exerciseName}>
+              <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>
                 {item.name}
               </Text>
 
               {details.map(({ keyword, description }) => {
-                return <ExerciseDetail key={keyword} keyword={keyword} description={item[description as keyof typeof item]} />
+                return <ExerciseDetailLine key = {description} keyword={keyword} description={description} item = {item}/>
+                // return <ExerciseDetailLine keyword={keyword} description={item[description as keyof typeof item]} />
               })}
             </View>
 
 
           </TouchableOpacity>
         )}
-        estimatedItemSize={2}
+        
       />
     </View>
   )

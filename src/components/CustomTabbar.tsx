@@ -1,20 +1,37 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';  
 import { useRouter } from 'expo-router';
+import Colors from '../constants/Colors';
+import { useAppSettingStore } from '../store/appSettings';
 
 type Icon = 'home' | 'barbell' | 'person' | 'alert' | 'add-outline';
 const validIcon : Icon[] = ['home' , 'barbell' , 'person' , 'alert', 'add-outline'];
 
 export default function CustomTabbar({ state, descriptors, navigation } : BottomTabBarProps){
   const router = useRouter();
+  const colorTheme = useAppSettingStore(state => state.theme);
   
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: Colors[colorTheme].background}]}>
 
       
-      <View style={ styles.tabbar }>
+      <View 
+        style={ 
+          [
+            styles.tabbar, 
+            Platform.OS === 'android' ? {
+              borderWidth: 1,
+              borderColor: Colors[colorTheme].shadow,
+            } : null,
+            {
+              backgroundColor: Colors[colorTheme].background,
+              shadowColor: Colors[colorTheme].shadow
+            }
+          ] 
+        }
+      >
         {
         state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
@@ -61,10 +78,15 @@ export default function CustomTabbar({ state, descriptors, navigation } : Bottom
                 testID={options.tabBarTestID}
                 onPress={!workoutActive && label ==="add-outline" ? addExercise : onPress}
                 onLongPress={onLongPress}
-                style={label === "add-outline" ? styles.tabbarAddWorkoutButton : styles.tabbarButton}
+                style={[label === "add-outline" ? styles.tabbarAddWorkoutButton : styles.tabbarButton, {borderColor: Colors[colorTheme].tabIconDefault, shadowColor: Colors[colorTheme].shadow}]}
               >
                 
-                <Ionicons name={label} size = {30} color={isFocused ? '#673ab7' : '#222'}/>
+                <Ionicons name={label} size = {30} 
+                  color={isFocused 
+                    ? Colors[colorTheme].focusedTabButton
+                    : Colors[colorTheme].unfocusedTabButton
+                  }
+                />
                 
               </TouchableOpacity>
             );
@@ -79,10 +101,14 @@ export default function CustomTabbar({ state, descriptors, navigation } : Bottom
 const styles = StyleSheet.create({
   container:{
     backgroundColor: 'white',
-    position: 'absolute',
+    position: 'relative',
     bottom: 0,
-    paddingBottom: 30,
     width: '100%',
+    paddingBottom: 30,
+    paddingTop: 0,
+
+    // borderColor: 'green',
+    // borderWidth: 1,
 
     shadowColor: 'black',
     shadowOpacity: 0.2,
@@ -100,20 +126,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
 
     borderRadius: 25,
-    backgroundColor: '#fff',
-    
-    shadowColor: 'black',
+    // borderWidth: 1, 
+    // borderColor: 'black',
     shadowRadius: 5,
     shadowOpacity: 0.35,
     shadowOffset: { width: 0, height: 0 },
     marginTop: 20,
   },
+
+  tabbarAndroid:{
+
+    
+  },
   tabbarButton:{
 
   },
   tabbarAddWorkoutButton:{
-    borderRadius: 15,
+    width: 31,
+    height: 31,
+    borderRadius: 15.5,
     borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
 })

@@ -1,14 +1,14 @@
-import { View, Text, useColorScheme,  } from 'react-native'
+import { View, Text  } from 'react-native'
 import React from 'react'
 
 import { Tabs } from 'expo-router'
-import Colors from '../../constants/Colors'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomTabbar from '../../components/CustomTabbar';
-
+import Colors from '../../constants/Colors';
+import { useAppSettingStore } from '../../store/appSettings';
 
 export default function tab_layout() {
-  const colorScheme = useColorScheme();
+  const colorTheme = useAppSettingStore(state=>state.theme);
   return (
     <Tabs
       tabBar={props => <CustomTabbar {...props} />}
@@ -16,14 +16,14 @@ export default function tab_layout() {
         headerShown:false,
 
         tabBarStyle:{
-          backgroundColor: Colors[colorScheme ?? 'light'].tabBar,
+          backgroundColor: Colors[colorTheme].tabBar,
           borderTopWidth: 0,
           
 
         },
         tabBarShowLabel: false,
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tabIconSelected,
-        tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].tabIconDefault,
+        tabBarActiveTintColor: Colors[colorTheme].tabIconSelected,
+        tabBarInactiveTintColor: Colors[colorTheme].tabIconDefault,
       }}
     >
       <Tabs.Screen
@@ -48,25 +48,7 @@ export default function tab_layout() {
           )
         }}
       />
-      {/* <Tabs.Screen
-        name="addWorkout"
-        options={{
-          tabBarIcon:({color}) => (
-            <View style={{
-              marginBottom: 15,
-              height:38,
-              width:38,
-              alignItems:'center',
-              justifyContent:'center',
-              backgroundColor: Colors[colorScheme ?? "light"].tabBarAddBackground,
-              borderRadius: 19,
 
-            }}>
-              <Ionicons name="add-outline" size = {34} color={Colors[colorScheme ?? "light"].tabBarAddTint}/>
-            </View>
-          )
-        }}
-      /> */}
       <Tabs.Screen
         
         name="(profile)"

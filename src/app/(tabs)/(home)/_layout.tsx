@@ -3,24 +3,30 @@ import React from 'react'
 
 import { Stack } from 'expo-router'
 import Colors from '../../../constants/Colors'
+import { useAppSettingStore } from '../../../store/appSettings'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const home_layout = () => {
+  const colorTheme = useAppSettingStore(state => state.theme);
   return (
-    <Stack screenOptions={{headerShadowVisible:false}}>
+    <Stack screenOptions={{
+      headerShadowVisible:false, 
+      headerTitleAlign:"center",
+      headerStyle:{
+        backgroundColor: Colors[colorTheme].background,
+      },
+      headerTitleStyle:{
+        color: Colors[colorTheme].text,
+        fontWeight: '900',
+      },
+      // headerBackTitleVisible: false,
+      // headerBackTitleStyle:{
+      //   color: Colors[colorTheme].text,
+      // }
+    }}>
       <Stack.Screen name="index" options={{
           title:"Home",
-          // headerTransparent: true,
-          headerStyle:{
-            // backgroundColor: 'red',
-            
-            
-          },
-          headerTitleStyle:{
-            // fontWeight: '800',
-            // fontSize: 20,
-          }
         }}
       />
       <Stack.Screen 
