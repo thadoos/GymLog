@@ -2,7 +2,7 @@
 
 export interface Exercise {
   id: number,
-  name: string,
+  // name: string,
   sets: {[setNumber: number]: Array<WorkoutBasicSet | WorkoutSuperSet>},
 }
 

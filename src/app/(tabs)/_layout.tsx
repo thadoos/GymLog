@@ -27,6 +27,13 @@ export default function tab_layout() {
       }}
     >
       <Tabs.Screen
+        name="index" 
+        options={{
+          tabBarLabel: "notused",
+          href:null,
+        }}
+      />
+      <Tabs.Screen
         name="(home)"
         
         options={{
@@ -61,13 +68,7 @@ export default function tab_layout() {
 
         }}
       />
-      <Tabs.Screen
-        name="index" 
-        options={{
-          tabBarLabel: "notused",
-          href:null,
-        }}
-      />
+      
     </Tabs>
   )
 }

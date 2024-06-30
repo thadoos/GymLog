@@ -36,7 +36,7 @@ export default function CustomTabbar({ state, descriptors, navigation } : Bottom
         state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           
-          var [workoutActive, setWorkoutActive] = useState(false);
+          let [workoutActive, setWorkoutActive] = useState(false);
 
           const label: Icon = options.tabBarLabel !== undefined && validIcon.includes(options.tabBarLabel as Icon)
             ? (options.tabBarLabel === "barbell" ? (workoutActive ? options.tabBarLabel as Icon : 'add-outline') : options.tabBarLabel as Icon)
@@ -50,15 +50,27 @@ export default function CustomTabbar({ state, descriptors, navigation } : Bottom
               canPreventDefault: true,
             });
 
+
+
             if (!isFocused && !event.defaultPrevented) {
               navigation.navigate(route.name, route.params);
             }
           };
 
           const addExercise = () => {
-            // navigation.navigate('(workout)');
             setWorkoutActive(true);
-            router.replace('(workout)');
+            // navigation.navigate('(workout)');
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            });
+
+
+
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name, route.params);
+            }
           }
 
           const onLongPress = () => {

@@ -4,7 +4,7 @@ import React from 'react'
 import { Stack } from 'expo-router'
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
-import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 
 const home_layout = () => {

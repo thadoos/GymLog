@@ -8,15 +8,15 @@ export default function root_layout() {
     <Stack
       
       screenOptions={{
-
+        headerShown:false
       }}
     >
-      <Stack.Screen
+      {/* <Stack.Screen
         name='(tabs)'
         options={{
           headerShown:false
         }}
-      />
+      /> */}
     </Stack>
   )
 }

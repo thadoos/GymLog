@@ -1,6 +1,6 @@
 [
   {
-    "id":"1",
+    "id":1,
     "imageName": "../../assets/exerciseIcons/benchPress.png",
     "name": "Bench Press",
     "type": "Strength",
@@ -12,7 +12,7 @@
     "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
   }
   ,{
-    "id":"2",
+    "id":2,
     "imageName": "../../assets/exerciseIcons/benchPress.png",
     "name": "Bench Press",
     "type": "Strength",
@@ -24,7 +24,7 @@
     "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
   }
   ,{
-    "id":"3",
+    "id":3,
     "imageName": "../../assets/exerciseIcons/benchPress.png",
     "name": "Bench Press",
     "type": "Strength",
@@ -36,7 +36,7 @@
     "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
   }
   ,{
-    "id":"4",
+    "id":4,
     "imageName": "../../assets/exerciseIcons/benchPress.png",
     "name": "Bench Press",
     "type": "Strength",
@@ -48,7 +48,7 @@
     "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
   }
   ,{
-    "id":"5",
+    "id":5,
     "imageName": "../../assets/exerciseIcons/benchPress.png",
     "name": "Bench Press",
     "type": "Strength",
@@ -60,7 +60,7 @@
     "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
   }
   ,{
-    "id":"6",
+    "id":6,
     "imageName": "../../assets/exerciseIcons/benchPress.png",
     "name": "Bench Press",
     "type": "Strength",

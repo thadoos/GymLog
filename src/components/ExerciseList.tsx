@@ -4,9 +4,10 @@ import { FlashList } from "@shopify/flash-list";
 import exercises from '../../assets/exercises.json'
 import Colors from '../constants/Colors'
 import { useAppSettingStore } from '../store/appSettings';
+import { useWorkoutStore } from '../store/workoutState';
 
 interface ExerciseDetail {
-  id: string,
+  id: number,
   imageName: string,
   type: string,
   primaryGeneralMuscleGroup: string,
@@ -19,37 +20,51 @@ interface ExerciseDetail {
 
 type ExerciseDetailOptions = "id" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
 
+const ExerciseListOptions = ["primarySpecificMuscleGroup", "secondarySpecificMuscleGroup", "notes"];
 interface ExerciseDetailProps {
   keyword: string,
   description: ExerciseDetailOptions,
   item: ExerciseDetail,
-}
 
+}
+type ExercisePressHandler = (exerciseID: number) => void;
 interface ExerciseListProps {
   details: Array<{ keyword: string; description: ExerciseDetailOptions }>;
+  onExercisePress?: (exerciseID: number) => ExercisePressHandler;
 }
 
 function ExerciseDetailLine({ keyword, description, item }: ExerciseDetailProps) {
   let colorTheme = useAppSettingStore(state=>state.theme);
-  // TODO Change the styling to be based on a prop rather than based on the keyword used
-  return (<View style={[styles.exerciseDetailBlock, { flexDirection: keyword === "Notes" ? 'column' : 'row', flexWrap: keyword ==="Notes" ? 'wrap' : 'nowrap' }]}>
+  return (
+  <View style={[styles.exerciseDetailBlock, { flexDirection: ExerciseListOptions.includes(description) ? 'column' : 'row', flexWrap: ExerciseListOptions.includes(description) ? 'wrap' : 'nowrap' }]}>
     <Text style={[styles.exerciseDetailsKeyword, {color: Colors[colorTheme].text}]}>
       {keyword}:
     </Text>
-    <Text style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>
-      {/* {typeof description === "string" ? description : description.map(item => {item})} */}
-      {
-        typeof item[description] === "string"
-          ? item[description]
-          : JSON.stringify(item[description])
-          
+    
+      { 
+        Array.isArray(item[description]) 
+          ? 
+            <Text style={[styles.exerciseDetailsDesc, { color: Colors[colorTheme].text }]}>
+              {(item[description] as string[]).join(', ')}
+            </Text>
+            // <View style = {styles.exerciseDetailsDescListContainer}>
+            //   {(item[description] as string[]).map((desc: string, index: number) => (
+            //         <Text key={index} style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>
+            //           {desc}
+            //         </Text>
+            //     )) }
+            // </View>
 
+          : <Text style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>{item[description]}</Text>
       }
-    </Text>
-  </View>);
+  
+  
+  </View>
+  );
 }
 
-export default function ExerciseList({ details }: ExerciseListProps) {
+export default function ExerciseList({ details, onExercisePress }: ExerciseListProps) {
+  let addExercise = useWorkoutStore(state=>state.addExercise);
   let colorTheme = useAppSettingStore(state=>state.theme);
   return (
     <View style={styles.container}>
@@ -59,9 +74,10 @@ export default function ExerciseList({ details }: ExerciseListProps) {
         // estimatedItemSize={2}
         showsVerticalScrollIndicator={false}
         data={exercises}
-        keyExtractor={(item) => item.id}
+        // keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity key = {item.id} style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
+          // onExercisePress && onExercisePress(item.id)
+          <TouchableOpacity onPress={()=>addExercise(item.id)} key = {item.id} style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
             <Image style={styles.exerciseImage} source={require('../../assets/exerciseIcons/benchPress.png')} />
             <View style={styles.detailsBlock}>
               <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>
@@ -125,7 +141,7 @@ const styles = StyleSheet.create({
 
   exerciseDetailBlock: {
     width: '100%',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
   },
 
   exerciseDetailsKeyword: {
@@ -133,6 +149,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 3,
     marginRight: 5,
+  },
+  exerciseDetailsDescListContainer:{
+    flexDirection: 'column',
+
+
   },
 
   exerciseDetailsDesc: {
