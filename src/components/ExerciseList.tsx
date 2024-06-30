@@ -5,6 +5,8 @@ import exercises from '../../assets/exercises.json'
 import Colors from '../constants/Colors'
 import { useAppSettingStore } from '../store/appSettings';
 import { useWorkoutStore } from '../store/workoutState';
+import { useNavigation, useRouter } from 'expo-router';
+import { router } from 'expo-router';
 
 interface ExerciseDetail {
   id: number,
@@ -30,7 +32,7 @@ interface ExerciseDetailProps {
 type ExercisePressHandler = (exerciseID: number) => void;
 interface ExerciseListProps {
   details: Array<{ keyword: string; description: ExerciseDetailOptions }>;
-  onExercisePress?: (exerciseID: number) => ExercisePressHandler;
+  onExercisePressAddExercise: boolean; //(exerciseID: number) => ExercisePressHandler;
 }
 
 function ExerciseDetailLine({ keyword, description, item }: ExerciseDetailProps) {
@@ -63,9 +65,20 @@ function ExerciseDetailLine({ keyword, description, item }: ExerciseDetailProps)
   );
 }
 
-export default function ExerciseList({ details, onExercisePress }: ExerciseListProps) {
-  let addExercise = useWorkoutStore(state=>state.addExercise);
+export default function ExerciseList({ details, onExercisePressAddExercise }: ExerciseListProps) {
   let colorTheme = useAppSettingStore(state=>state.theme);
+  
+  let addExercise = useWorkoutStore(state=>state.addExercise);
+  
+
+  const navigation = useNavigation();
+  let addExerciseButtonHandler = (exerciseID: number) => {
+    addExercise(exerciseID);
+    navigation.goBack();
+    
+    // console.log(router.canGoBack());
+    // router.back();
+  }
   return (
     <View style={styles.container}>
 
@@ -77,7 +90,13 @@ export default function ExerciseList({ details, onExercisePress }: ExerciseListP
         // keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           // onExercisePress && onExercisePress(item.id)
-          <TouchableOpacity onPress={()=>addExercise(item.id)} key = {item.id} style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
+          <TouchableOpacity 
+            onPress={()=>{
+              onExercisePressAddExercise
+                ? addExerciseButtonHandler(item.id)
+                : null
+            }} 
+            key = {item.id} style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
             <Image style={styles.exerciseImage} source={require('../../assets/exerciseIcons/benchPress.png')} />
             <View style={styles.detailsBlock}>
               <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>

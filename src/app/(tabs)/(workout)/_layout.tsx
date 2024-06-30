@@ -1,18 +1,33 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
-import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { Stack, useNavigation, useRouter } from "expo-router";
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from "expo-router";
+import { useWorkoutStore } from "../../../store/workoutState";
 
 
 
 export default function workout_stack(){
   const colorTheme = useAppSettingStore(state => state.theme);
+  const navigation = useNavigation();
   const router = useRouter();
+  let resetWorkout = useWorkoutStore(state => state.resetWorkout);
 
+  useEffect(() => {
+    // Update header options when theme changes
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: Colors[colorTheme].background,
+      },
+      headerTitleStyle: {
+        color: Colors[colorTheme].text,
+      },
+    });
+  }, [colorTheme, navigation, router]);
   return(
-    <Stack screenOptions={{headerShadowVisible:false, 
+    <Stack screenOptions={{
+      headerShadowVisible:false, 
       headerTitleAlign:"center",
       headerStyle:{
         backgroundColor: Colors[colorTheme].background,
@@ -25,10 +40,16 @@ export default function workout_stack(){
     }}>
       <Stack.Screen name="index" options={{
         title:"Workout",
-        headerTransparent: true,
-        headerRight: () => 
-          <TouchableOpacity style = {styles.addExerciseButton} onPress={() => router.push('addExercise')}>
-            <Ionicons name="add-outline" size = {25} color={Colors[colorTheme].iconDefault}/>
+        // headerTransparent: true,
+        headerLeft: () => 
+          <TouchableOpacity style = {styles.addExerciseButton} onPress={() => {
+            // TODO This should eventually be changed to lead to cancel workout confirmation modal
+            navigation.goBack(); // FIXME This should navigate to home rather than just go back
+            resetWorkout();
+            // router.push('addExercise');
+
+          }}>
+            <Ionicons name="close" size = {25} color={Colors[colorTheme].iconDefault}/>
           </TouchableOpacity>
       }}/>
 

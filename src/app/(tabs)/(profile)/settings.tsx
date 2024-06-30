@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
 const settings = () => {
-  let colorTheme = useAppSettingStore(state => state.theme);
+  const colorTheme = useAppSettingStore(state => state.theme);
   const toggleTheme = useAppSettingStore(state => state.toggleTheme);
   
   // const [isDarkMode, setDarkMode] = useState(colorTheme === "dark");

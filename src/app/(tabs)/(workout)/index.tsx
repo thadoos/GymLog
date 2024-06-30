@@ -12,6 +12,7 @@ const index = () => {
   return (
     <View style = {[styles.container, {backgroundColor: Colors[colorTheme].background}]}>
       <Text style = {{fontSize: 14,}}>
+        
         {JSON.stringify(exerciseList)}
       </Text>
 

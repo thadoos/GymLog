@@ -9,9 +9,11 @@ export interface WorkoutState {
   timeStart: number,
   workoutDuration: number,
   workoutExercises: Array<Exercise>,
+  workoutActive: boolean,
 
   setWorkoutName: (workoutName: string) => void,
   setWorkoutDescription: (workoutDescription: string) => void,
+  startWorkout: () => void,
   addExercise: (exerciseID: number) => void,
   deleteExercise: (exerciseID: number, setNumber: number) => void,
   addSetToExercise: (reps: number, weight: number) => void,
@@ -29,6 +31,7 @@ export const useWorkoutStore = create<WorkoutState>()(
       timeStart: 0,
       workoutDuration: 0,
       workoutExercises: [],
+      workoutActive: false,
 
       setWorkoutName: (workoutName: string) => set({ workoutName }),
       setWorkoutDescription: (workoutDescription: string) => set({ workoutDescription }),
@@ -38,7 +41,8 @@ export const useWorkoutStore = create<WorkoutState>()(
           sets: {},
         }])
         
-      })); console.log("added");},
+      }))},
+      startWorkout: () => set((state)=>({workoutActive: true})),
       deleteExercise: (exerciseID: number, setNumber: number) => set((state) => {
         return{
           
@@ -65,6 +69,7 @@ export const useWorkoutStore = create<WorkoutState>()(
         timeStart: 0,
         workoutDuration: 0,
         workoutExercises: [],
+        workoutActive: false,
       })),
     }),
     {

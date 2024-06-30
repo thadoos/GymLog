@@ -21,6 +21,7 @@ const ViewExercises = () => {
             {keyword:"Notes", description:"notes"},
           ]
         }
+        onExercisePressAddExercise={false}
       />
     </View>
   )

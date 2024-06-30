@@ -20,7 +20,7 @@ const addExercise = () => {
             
           ]
         }
-        onExercisePress={(exerciseID: number)=>addExercise}
+        onExercisePressAddExercise={true} //(exerciseID: number)=>addExercise
       />
     </View>
   )
