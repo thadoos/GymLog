@@ -1,17 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Switch } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
 const settings = () => {
   const colorTheme = useAppSettingStore(state => state.theme);
   const toggleTheme = useAppSettingStore(state => state.toggleTheme);
-  
-  // const [isDarkMode, setDarkMode] = useState(colorTheme === "dark");
-  // const toggleSwitch = () => {
-  //   toggleTheme();
-  //   setDarkMode(colorTheme === "dark");
-  // }
 
   return (
     <View style = {[styles.container, {backgroundColor: Colors[colorTheme].background}]}>

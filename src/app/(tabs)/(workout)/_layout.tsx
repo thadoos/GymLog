@@ -1,6 +1,6 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { useEffect } from "react";
-import { Stack, useNavigation, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -10,21 +10,8 @@ import { useWorkoutStore } from "../../../store/workoutState";
 
 export default function workout_stack(){
   const colorTheme = useAppSettingStore(state => state.theme);
-  const navigation = useNavigation();
   const router = useRouter();
   let resetWorkout = useWorkoutStore(state => state.resetWorkout);
-
-  // useEffect(() => {
-  //   // Update header options when theme changes
-  //   navigation.setOptions({
-  //     headerStyle: {
-  //       backgroundColor: Colors[colorTheme].background,
-  //     },
-  //     headerTitleStyle: {
-  //       color: Colors[colorTheme].text,
-  //     },
-  //   });
-  // }, [colorTheme, navigation, router]);
 
   return(
     <Stack screenOptions={{

@@ -6,7 +6,7 @@
   import Colors from '../constants/Colors';
   import { useAppSettingStore } from '../store/appSettings';
   import { useWorkoutStore } from '../store/workoutState';
-  import { useNavigation, useRouter } from 'expo-router';
+  import { useRouter } from 'expo-router';
 
   type Icon = 'home' | 'barbell' | 'person' | 'alert' | 'add-outline';
   const validIcon : Icon[] = ['home' , 'barbell' , 'person' , 'alert', 'add-outline'];

@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
-import { useEffect, useLayoutEffect } from 'react'
-import { Stack, useRouter, usePathname } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
 import Ionicons from '@expo/vector-icons/Ionicons';
