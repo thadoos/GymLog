@@ -14,17 +14,18 @@ export default function workout_stack(){
   const router = useRouter();
   let resetWorkout = useWorkoutStore(state => state.resetWorkout);
 
-  useEffect(() => {
-    // Update header options when theme changes
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: Colors[colorTheme].background,
-      },
-      headerTitleStyle: {
-        color: Colors[colorTheme].text,
-      },
-    });
-  }, [colorTheme, navigation, router]);
+  // useEffect(() => {
+  //   // Update header options when theme changes
+  //   navigation.setOptions({
+  //     headerStyle: {
+  //       backgroundColor: Colors[colorTheme].background,
+  //     },
+  //     headerTitleStyle: {
+  //       color: Colors[colorTheme].text,
+  //     },
+  //   });
+  // }, [colorTheme, navigation, router]);
+
   return(
     <Stack screenOptions={{
       headerShadowVisible:false, 
@@ -44,7 +45,7 @@ export default function workout_stack(){
         headerLeft: () => 
           <TouchableOpacity style = {styles.addExerciseButton} onPress={() => {
             // TODO This should eventually be changed to lead to cancel workout confirmation modal
-            navigation.goBack(); // FIXME This should navigate to home rather than just go back
+            router.navigate('(home)');
             resetWorkout();
             // router.push('addExercise');
 

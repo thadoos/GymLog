@@ -1,7 +1,7 @@
 import { View, Text  } from 'react-native'
-import React from 'react'
+import React, {useEffect} from 'react'
 
-import { Tabs } from 'expo-router'
+import { Tabs, useRouter, useNavigation } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomTabbar from '../../components/CustomTabbar';
 import Colors from '../../constants/Colors';
@@ -9,10 +9,13 @@ import { useAppSettingStore } from '../../store/appSettings';
 
 export default function tab_layout() {
   const colorTheme = useAppSettingStore(state=>state.theme);
+  const router = useRouter();
+  const navigation = useNavigation();
   return (
     <Tabs
       tabBar={props => <CustomTabbar {...props} />}
       screenOptions={{
+        unmountOnBlur: true,
         headerShown:false,
 
         tabBarStyle:{

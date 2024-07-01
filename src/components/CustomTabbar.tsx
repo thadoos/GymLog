@@ -1,21 +1,24 @@
   import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-  import { useState } from 'react';
+  import { useState, useEffect } from 'react';
   import Ionicons from '@expo/vector-icons/Ionicons';
   import { BottomTabBarProps } from '@react-navigation/bottom-tabs'; 
-  import { useRouter } from 'expo-router';
+
   import Colors from '../constants/Colors';
   import { useAppSettingStore } from '../store/appSettings';
   import { useWorkoutStore } from '../store/workoutState';
+  import { useNavigation, useRouter } from 'expo-router';
 
   type Icon = 'home' | 'barbell' | 'person' | 'alert' | 'add-outline';
   const validIcon : Icon[] = ['home' , 'barbell' , 'person' , 'alert', 'add-outline'];
 
   export default function CustomTabbar({ state, descriptors, navigation } : BottomTabBarProps){
-    const router = useRouter();
+
     const colorTheme = useAppSettingStore(state => state.theme);
     const workoutActive: boolean = useWorkoutStore(state=>state.workoutActive);
     const startWorkout = useWorkoutStore(state=>state.startWorkout);
+    const router = useRouter();
     
+
     return (
       <View style={[styles.container, {backgroundColor: Colors[colorTheme].background}]}>
 
@@ -53,15 +56,14 @@
 
               if (!isFocused && !event.defaultPrevented) {
                 // navigation.navigate(route.name, {screen: 'index'});
-                router.replace(route.name);
+                router.navigate(route.name);
               }
             };
 
             const addExercise = () => {
               startWorkout();
-
               // navigation.navigate('(workout)', {screen: 'index'});
-              router.replace(route.name);
+              router.navigate(route.name);
             }
 
             const onLongPress = () => {
@@ -157,7 +159,7 @@
       width: 31,
       height: 31,
       borderRadius: 15.5,
-      borderWidth: 1,
+      borderWidth: 0,
       alignItems: 'center',
       justifyContent: 'center',
     },
