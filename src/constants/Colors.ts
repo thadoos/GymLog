@@ -20,6 +20,9 @@ export default {
     tabBarAddTint: tintColorLight,
     unfocusedTabButton: '#222',
     focusedTabButton: tintColorLight,//'#673ab7',
+
+    modalBackground: '#E6E6E6',
+    modalBorder: '#A6A6A6',
   },
   dark: {
     background: '#2F495A',
@@ -39,5 +42,8 @@ export default {
     tabBarAddTint: tintColorDark,
     unfocusedTabButton: '#fff',
     focusedTabButton: tintColorDark,//'#673ab7',
+
+    modalBackground: '#3D5F75',
+    modalBorder: 'hsl(204, 31%, 22%)',
   },
 };

@@ -2,6 +2,8 @@ import { Exercise, WorkoutBasicSet, WorkoutSuperSet } from './interfaces';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import zustandStorage from './mmkv';
+import exercisesData from '../../assets/exercisesData.json';
+import { ExerciseDetail } from './interfaces';
 
 export interface WorkoutState {
   workoutName: String,
@@ -20,8 +22,16 @@ export interface WorkoutState {
   addSupersetToExercise: (superset: WorkoutSuperSet) => void,
   setTimeTaken: (timeTaken: number) => void,
   resetWorkout: () => void,
+  endAndLogWorkout: () => void,
+
 
 }
+const exerciseMap = new Map(exercisesData.exercises.map((ex: ExerciseDetail) => [ex.id, ex]));
+
+const getExerciseName = (id: number) : string => {
+  return exerciseMap.get(id)?.name ?? "Cannot Fetch";
+}
+
 
 export const useWorkoutStore = create<WorkoutState>()(
   persist(
@@ -38,6 +48,7 @@ export const useWorkoutStore = create<WorkoutState>()(
       addExercise: (exerciseID: number) => {set((state) => ({
         workoutExercises: state.workoutExercises.concat([{
           id: exerciseID,
+          name: getExerciseName(exerciseID),
           sets: {},
         }])
         
@@ -71,6 +82,17 @@ export const useWorkoutStore = create<WorkoutState>()(
         workoutExercises: [],
         workoutActive: false,
       })),
+      endAndLogWorkout: () => set((state) => ({
+        // TODO Add the workout to online database
+        workoutName: "",
+        workoutDescription: "",
+        timeStart: 0,
+        workoutDuration: 0,
+        workoutExercises: [],
+        workoutActive: false,
+      })),
+
+
     }),
     {
       name: 'runningWorkoutDetails',

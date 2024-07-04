@@ -1,8 +1,9 @@
-import { TouchableOpacity, StyleSheet } from "react-native";
-import { useEffect } from "react";
-import { Stack, useRouter } from "expo-router";
+import { TouchableOpacity, StyleSheet, Modal, Text } from "react-native";
+import { useState } from "react";
+import { Link, Stack, useRouter } from "expo-router";
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
+import { useAppState } from "../../../store/appState";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useWorkoutStore } from "../../../store/workoutState";
 
@@ -11,6 +12,7 @@ import { useWorkoutStore } from "../../../store/workoutState";
 export default function workout_stack(){
   const colorTheme = useAppSettingStore(state => state.theme);
   const router = useRouter();
+  const setCancelWorkoutModalVisible = useAppState(state=>state.setCancelWorkoutModalVisible);
   let resetWorkout = useWorkoutStore(state => state.resetWorkout);
 
   return(
@@ -29,16 +31,22 @@ export default function workout_stack(){
       <Stack.Screen name="index" options={{
         title:"Workout",
         // headerTransparent: true,
-        headerLeft: () => 
+        headerLeft: () => (
           <TouchableOpacity style = {styles.addExerciseButton} onPress={() => {
-            // TODO This should eventually be changed to lead to cancel workout confirmation modal
-            router.navigate('(home)');
-            resetWorkout();
-            // router.push('addExercise');
+            setCancelWorkoutModalVisible(true);
 
           }}>
             <Ionicons name="close" size = {25} color={Colors[colorTheme].iconDefault}/>
           </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity style = {styles.addExerciseButton} onPress={() => {
+            router.push('FinishWorkoutModal');
+
+          }}>
+            <Ionicons name="checkmark" size = {25} color={Colors[colorTheme].iconDefault}/>
+          </TouchableOpacity>
+        )
       }}/>
 
       <Stack.Screen name="addExercise" 
@@ -47,6 +55,21 @@ export default function workout_stack(){
 
         }}
       />
+      
+      <Stack.Screen name="FinishWorkoutModal"
+        options={{
+          title: "Finish Workout",
+          presentation: 'modal',
+        
+          headerLeft: () => (
+            <Link href="../">
+              <Ionicons name="close" size = {25} color={Colors[colorTheme].iconDefault}/>
+            </Link>
+          )
+        }}
+
+
+      />
     </Stack>
   )
 }
@@ -54,5 +77,13 @@ export default function workout_stack(){
 const styles = StyleSheet.create({
   addExerciseButton: {
     alignSelf: 'center',
+  },
+  cancelWorkoutModalContainer:{
+    width: '65%',
+    aspectRatio: 2/1,
+  },
+  cancelWorkoutModalTitle:{
+    fontSize: 20,
+    fontWeight: '900',
   }
 })
