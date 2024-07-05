@@ -16,8 +16,7 @@ const addExercise = () => {
           [
             {keyword:"Primary Muscle Group", description:"primaryGeneralMuscleGroup"},
             {keyword:"Secondary Muscle Group", description:"secondaryGeneralMuscleGroup"},
-            // {keyword:"Muscle Group", description:"primaryGeneralMuscleGroup"},
-            
+            {keyword:"Primary Specific Muscle Group", description:"primarySpecificMuscleGroup"},
           ]
         }
         onExercisePressAddExercise={true} //(exerciseID: number)=>addExercise

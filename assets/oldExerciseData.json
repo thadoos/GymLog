@@ -1,7 +1,8 @@
+
 {
-  "exercises":[
+  "exercises": [
     {
-      "id":1,
+      "id": 1,
       "imageName": "../../assets/exerciseIcons/benchPress.png",
       "name": "Bench Press",
       "type": "Strength",
@@ -10,67 +11,298 @@
       "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
       "secondarySpecificMuscleGroup": ["Triceps"],
       "equipment": "Barbell, Bench",
-      "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
-    }
-    ,{
-      "id":2,
-      "imageName": "../../assets/exerciseIcons/benchPress.png",
-      "name": "Bench Press",
+      "notes": "Keep shoulders retracted and feet flat on the floor. Control the bar throughout the movement."
+    },
+    {
+      "id": 2,
+      "imageName": "../../assets/exerciseIcons/squat.png",
+      "name": "Barbell Back Squat",
       "type": "Strength",
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "Core",
+      "primarySpecificMuscleGroup": ["Quadriceps", "Hamstrings", "Glutes"],
+      "secondarySpecificMuscleGroup": ["Lower Back", "Calves"],
+      "equipment": "Barbell, Squat Rack",
+      "notes": "Keep chest up, engage core, and push through heels. Aim for parallel or below."
+    },
+    {
+      "id": 3,
+      "imageName": "../../assets/exerciseIcons/deadlift.png",
+      "name": "Conventional Deadlift",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": "Back",
+      "secondaryGeneralMuscleGroup": "Legs",
+      "primarySpecificMuscleGroup": ["Lower Back", "Lats"],
+      "secondarySpecificMuscleGroup": ["Hamstrings", "Glutes", "Forearms"],
+      "equipment": "Barbell",
+      "notes": "Keep bar close to body, engage lats, and drive through heels. Maintain neutral spine."
+    },
+    {
+      "id": 4,
+      "imageName": "../../assets/exerciseIcons/overheadPress.png",
+      "name": "Overhead Press",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": "Shoulders",
+      "secondaryGeneralMuscleGroup": "Triceps",
+      "primarySpecificMuscleGroup": ["Anterior Deltoid", "Lateral Deltoid"],
+      "secondarySpecificMuscleGroup": ["Triceps", "Upper Chest"],
+      "equipment": "Barbell",
+      "notes": "Keep core tight and avoid arching back. Press bar in a slight arc around face."
+    },
+    {
+      "id": 5,
+      "imageName": "../../assets/exerciseIcons/pullUp.png",
+      "name": "Pull-Up",
+      "type": "Bodyweight",
+      "primaryGeneralMuscleGroup": "Back",
+      "secondaryGeneralMuscleGroup": "Arms",
+      "primarySpecificMuscleGroup": ["Lats", "Upper Back"],
+      "secondarySpecificMuscleGroup": ["Biceps", "Forearms"],
+      "equipment": "Pull-Up Bar",
+      "notes": "Initiate movement by pulling shoulder blades down. Aim to bring chin over bar."
+    },
+    {
+      "id": 6,
+      "imageName": "../../assets/exerciseIcons/rows.png",
+      "name": "Barbell Rows",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": "Back",
+      "secondaryGeneralMuscleGroup": "Arms",
+      "primarySpecificMuscleGroup": ["Middle Back", "Lats"],
+      "secondarySpecificMuscleGroup": ["Biceps", "Rear Deltoids"],
+      "equipment": "Barbell",
+      "notes": "Keep back parallel to ground. Pull bar to lower chest/upper abdomen."
+    },
+    {
+      "id": 7,
+      "imageName": "../../assets/exerciseIcons/legPress.png",
+      "name": "Leg Press",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "Glutes",
+      "primarySpecificMuscleGroup": ["Quadriceps"],
+      "secondarySpecificMuscleGroup": ["Hamstrings", "Calves"],
+      "equipment": "Leg Press Machine",
+      "notes": "Avoid lifting hips off the seat. Lower weight until knees are at 90-degree angle."
+    },
+    {
+      "id": 8,
+      "imageName": "../../assets/exerciseIcons/latPulldown.png",
+      "name": "Lat Pulldown",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": "Back",
+      "secondaryGeneralMuscleGroup": "Arms",
+      "primarySpecificMuscleGroup": ["Lats"],
+      "secondarySpecificMuscleGroup": ["Biceps", "Forearms"],
+      "equipment": "Cable Machine, Lat Pulldown Bar",
+      "notes": "Keep chest up and pull bar to upper chest. Avoid leaning back excessively."
+    },
+    {
+      "id": 9,
+      "imageName": "../../assets/exerciseIcons/dips.png",
+      "name": "Dips",
+      "type": "Bodyweight",
       "primaryGeneralMuscleGroup": "Chest",
       "secondaryGeneralMuscleGroup": "Triceps",
-      "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
-      "secondarySpecificMuscleGroup": ["Triceps"],
-      "equipment": "Barbell, Bench",
-      "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
-    }
-    ,{
-      "id":3,
-      "imageName": "../../assets/exerciseIcons/benchPress.png",
-      "name": "Bench Press",
+      "primarySpecificMuscleGroup": ["Lower Chest"],
+      "secondarySpecificMuscleGroup": ["Triceps", "Front Deltoids"],
+      "equipment": "Parallel Bars",
+      "notes": "Lean forward slightly for more chest emphasis. Keep elbows close for triceps focus."
+    },
+    {
+      "id": 10,
+      "imageName": "../../assets/exerciseIcons/lunges.png",
+      "name": "Walking Lunges",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "Core",
+      "primarySpecificMuscleGroup": ["Quadriceps", "Hamstrings", "Glutes"],
+      "secondarySpecificMuscleGroup": ["Calves", "Core"],
+      "equipment": "Dumbbells (optional)",
+      "notes": "Take long steps and keep upper body straight. Lower back knee close to ground."
+    },
+    {
+      "id": 11,
+      "imageName": "../../assets/exerciseIcons/bicepCurls.png",
+      "name": "Barbell Bicep Curls",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Arms",
+      "secondaryGeneralMuscleGroup": "Forearms",
+      "primarySpecificMuscleGroup": ["Biceps"],
+      "secondarySpecificMuscleGroup": ["Forearms"],
+      "equipment": "Barbell",
+      "notes": "Keep elbows stationary at sides. Avoid swinging or using momentum."
+    },
+    {
+      "id": 12,
+      "imageName": "../../assets/exerciseIcons/tricepPushdown.png",
+      "name": "Tricep Pushdown",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Arms",
+      "secondaryGeneralMuscleGroup": "None",
+      "primarySpecificMuscleGroup": ["Triceps"],
+      "secondarySpecificMuscleGroup": [],
+      "equipment": "Cable Machine, Straight or V-Bar",
+      "notes": "Keep elbows close to body. Fully extend arms but maintain tension at bottom."
+    },
+    {
+      "id": 13,
+      "imageName": "../../assets/exerciseIcons/legExtensions.png",
+      "name": "Leg Extensions",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "None",
+      "primarySpecificMuscleGroup": ["Quadriceps"],
+      "secondarySpecificMuscleGroup": [],
+      "equipment": "Leg Extension Machine",
+      "notes": "Avoid lifting hips off seat. Focus on squeezing quads at top of movement."
+    },
+    {
+      "id": 14,
+      "imageName": "../../assets/exerciseIcons/hamstringCurls.png",
+      "name": "Lying Leg Curls",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "None",
+      "primarySpecificMuscleGroup": ["Hamstrings"],
+      "secondarySpecificMuscleGroup": [],
+      "equipment": "Leg Curl Machine",
+      "notes": "Keep hips pressed against pad. Focus on contracting hamstrings."
+    },
+    {
+      "id": 15,
+      "imageName": "../../assets/exerciseIcons/cableFly.png",
+      "name": "Cable Fly",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Chest",
+      "secondaryGeneralMuscleGroup": "Shoulders",
+      "primarySpecificMuscleGroup": ["Middle Chest", "Lower Chest"],
+      "secondarySpecificMuscleGroup": ["Front Deltoids"],
+      "equipment": "Cable Machine",
+      "notes": "Keep slight bend in elbows. Focus on squeezing chest at peak contraction."
+    },
+    {
+      "id": 16,
+      "imageName": "../../assets/exerciseIcons/facePulls.png",
+      "name": "Face Pulls",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Shoulders",
+      "secondaryGeneralMuscleGroup": "Upper Back",
+      "primarySpecificMuscleGroup": ["Rear Deltoids"],
+      "secondarySpecificMuscleGroup": ["Rotator Cuff", "Traps"],
+      "equipment": "Cable Machine, Rope Attachment",
+      "notes": "Pull rope to face level, elbows high. Focus on external rotation of shoulders."
+    },
+    {
+      "id": 17,
+      "imageName": "../../assets/exerciseIcons/calfRaises.png",
+      "name": "Standing Calf Raises",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "None",
+      "primarySpecificMuscleGroup": ["Calves"],
+      "secondarySpecificMuscleGroup": [],
+      "equipment": "Calf Raise Machine or Step",
+      "notes": "Raise heels as high as possible. Pause at top for full contraction."
+    },
+    {
+      "id": 18,
+      "imageName": "../../assets/exerciseIcons/plank.png",
+      "name": "Plank",
+      "type": "Bodyweight",
+      "primaryGeneralMuscleGroup": "Core",
+      "secondaryGeneralMuscleGroup": "Shoulders",
+      "primarySpecificMuscleGroup": ["Abs", "Lower Back"],
+      "secondarySpecificMuscleGroup": ["Shoulders"],
+      "equipment": "None",
+      "notes": "Maintain straight line from head to heels. Engage core throughout."
+    },
+    {
+      "id": 19,
+      "imageName": "../../assets/exerciseIcons/romanianDeadlift.png",
+      "name": "Romanian Deadlift",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "Back",
+      "primarySpecificMuscleGroup": ["Hamstrings", "Glutes"],
+      "secondarySpecificMuscleGroup": ["Lower Back"],
+      "equipment": "Barbell",
+      "notes": "Keep slight bend in knees. Hinge at hips and maintain neutral spine."
+    },
+    {
+      "id": 20,
+      "imageName": "../../assets/exerciseIcons/inclineBenchPress.png",
+      "name": "Incline Bench Press",
       "type": "Strength",
       "primaryGeneralMuscleGroup": "Chest",
-      "secondaryGeneralMuscleGroup": "Triceps",
-      "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
-      "secondarySpecificMuscleGroup": ["Triceps"],
-      "equipment": "Barbell, Bench",
-      "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
-    }
-    ,{
-      "id":4,
-      "imageName": "../../assets/exerciseIcons/benchPress.png",
-      "name": "Bench Press",
+      "secondaryGeneralMuscleGroup": "Shoulders",
+      "primarySpecificMuscleGroup": ["Upper Chest"],
+      "secondarySpecificMuscleGroup": ["Front Deltoids", "Triceps"],
+      "equipment": "Barbell, Incline Bench",
+      "notes": "Set bench angle between 30-45 degrees. Lower bar to upper chest."
+    },
+    {
+      "id": 21,
+      "imageName": "../../assets/exerciseIcons/lateralRaise.png",
+      "name": "Lateral Raises",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Shoulders",
+      "secondaryGeneralMuscleGroup": "None",
+      "primarySpecificMuscleGroup": ["Lateral Deltoids"],
+      "secondarySpecificMuscleGroup": [],
+      "equipment": "Dumbbells",
+      "notes": "Slight bend in elbows. Raise arms to shoulder level."
+    },
+    {
+      "id": 22,
+      "imageName": "../../assets/exerciseIcons/seatedRows.png",
+      "name": "Seated Cable Rows",
       "type": "Strength",
+      "primaryGeneralMuscleGroup": "Back",
+      "secondaryGeneralMuscleGroup": "Arms",
+      "primarySpecificMuscleGroup": ["Middle Back", "Lats"],
+      "secondarySpecificMuscleGroup": ["Biceps", "Rear Deltoids"],
+      "equipment": "Cable Machine, Row Attachment",
+      "notes": "Keep chest up and pull handle to lower abdomen. Squeeze shoulder blades at end."
+    },
+    {
+      "id": 23,
+      "imageName": "../../assets/exerciseIcons/pushUps.png",
+      "name": "Push-Ups",
+      "type": "Bodyweight",
       "primaryGeneralMuscleGroup": "Chest",
-      "secondaryGeneralMuscleGroup": "Triceps",
-      "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
-      "secondarySpecificMuscleGroup": ["Triceps"],
-      "equipment": "Barbell, Bench",
-      "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
-    }
-    ,{
-      "id":5,
-      "imageName": "../../assets/exerciseIcons/benchPress.png",
-      "name": "Bench Press",
+      "secondaryGeneralMuscleGroup": "Arms",
+      "primarySpecificMuscleGroup": ["Middle Chest", "Lower Chest"],
+      "secondarySpecificMuscleGroup": ["Triceps", "Front Deltoids"],
+      "equipment": "None",
+      "notes": "Keep body in straight line. Lower chest to just above ground."
+    },
+    {
+      "id": 24,
+      "imageName": "../../assets/exerciseIcons/bulgariaSplitSquat.png",
+      "name": "Bulgarian Split Squat",
       "type": "Strength",
-      "primaryGeneralMuscleGroup": "Chest",
-      "secondaryGeneralMuscleGroup": "Triceps",
-      "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
-      "secondarySpecificMuscleGroup": ["Triceps"],
-      "equipment": "Barbell, Bench",
-      "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
-    }
-    ,{
-      "id":6,
-      "imageName": "../../assets/exerciseIcons/benchPress.png",
-      "name": "Bench Press",
-      "type": "Strength",
-      "primaryGeneralMuscleGroup": "Chest",
-      "secondaryGeneralMuscleGroup": "Triceps",
-      "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
-      "secondarySpecificMuscleGroup": ["Triceps"],
-      "equipment": "Barbell, Bench",
-      "notes": "Rack Height: 10k that is the most insane wraparound ever oh my god this keyboard is so nice damn what else can i write here i am running out of ideas "
+      "primaryGeneralMuscleGroup": "Legs",
+      "secondaryGeneralMuscleGroup": "Core",
+      "primarySpecificMuscleGroup": ["Quadriceps", "Glutes"],
+      "secondarySpecificMuscleGroup": ["Hamstrings", "Calves"],
+      "equipment": "Bench, Dumbbells (optional)",
+      "notes": "Keep front foot far enough forward. Lower back knee towards ground."
+    },
+    {
+      "id": 25,
+      "imageName": "../../assets/exerciseIcons/hammerCurls.png",
+      "name": "Hammer Curls",
+      "type": "Isolation",
+      "primaryGeneralMuscleGroup": "Arms",
+      "secondaryGeneralMuscleGroup": "Forearms",
+      "primarySpecificMuscleGroup": ["Biceps"],
+      "secondarySpecificMuscleGroup": ["Brachialis", "Forearms"],
+      "equipment": "Dumbbells",
+      "notes": "Keep palms facing each other throughout movement. Minimize body swing."
     }
   ]
 }
+
+
+

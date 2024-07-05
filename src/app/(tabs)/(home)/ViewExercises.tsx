@@ -15,7 +15,8 @@ const ViewExercises = () => {
       <ExerciseList 
         details={
           [
-            {keyword:"Muscle Group", description:"primaryGeneralMuscleGroup"},
+            {keyword:"Primary Muscle Group", description:"primaryGeneralMuscleGroup"},
+            {keyword:"Secondary Muscle Group", description:"secondaryGeneralMuscleGroup"},
             {keyword:"Muscle Group", description:"primarySpecificMuscleGroup"},
             {keyword:"Equipment", description:"equipment"},
             {keyword:"Notes", description:"notes"},

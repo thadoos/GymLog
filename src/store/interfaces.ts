@@ -2,7 +2,7 @@
 
 export interface Exercise {
   id: number,
-  name: string,
+  // name: string,
   sets: {[setNumber: number]: Array<WorkoutBasicSet | WorkoutSuperSet>},
 }
 
@@ -20,8 +20,9 @@ export type ExerciseDetail = {
   name: string,
   imageName: string,
   type: string,
-  primaryGeneralMuscleGroup: string,
-  secondaryGeneralMuscleGroup: string,
+  twoSided: boolean,
+  primaryGeneralMuscleGroup: Array<string>,
+  secondaryGeneralMuscleGroup: Array<string>,
   primarySpecificMuscleGroup: Array<string>,
   secondarySpecificMuscleGroup: Array<string>,
   equipment: string,

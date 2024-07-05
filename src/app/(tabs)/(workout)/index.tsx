@@ -2,19 +2,28 @@ import { StyleSheet, Text, View, Modal, TouchableOpacity, FlatList, Image } from
 import React, { useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
-import { useWorkoutStore } from '../../../store/workoutState';
+import { useWorkoutStore, exerciseMap } from '../../../store/workoutState';
 import { useAppState } from '../../../store/appState';
-import { Exercise } from '../../../store/interfaces';
-import exercisesData from '../../../../assets/exercisesData.json';
 import {CancelWorkoutModal} from '../../../components/Workout/CancelWorkoutModal';
 
 import Colors from '../../../constants/Colors';
 import { useAppSettingStore } from '../../../store/appSettings';
+import { ExerciseOptionsModal } from '../../../components/Workout/ExerciseOptionsModal';
+
+const getExerciseName = (id: number) : string => {
+  return exerciseMap.get(id)?.name ?? "Cannot Fetch";
+}
+const getExerciseTwoSided = (id:number) : boolean => {
+  return exerciseMap.get(id)?.twoSided ?? true;
+}
 
 const index = () => {
   const colorTheme = useAppSettingStore(state=>state.theme);
   const exerciseList = useWorkoutStore(state => state.workoutExercises);
+  const deleteExercise = useWorkoutStore(state=>state.deleteExercise);
   const cancelWorkoutModalVisible = useAppState(state=>state.cancelWorkoutModalVisible);
+  const exerciseOptionsModalVisible = useAppState(state=>state.exerciseOptionsModalVisible);
+  const setExerciseOptionsModalVisible = useAppState(state=>state.setExerciseOptionsModalVisible);
   const router = useRouter();
   
   return (
@@ -22,8 +31,12 @@ const index = () => {
       <View style = {styles.container}>
         <FlatList
           ListFooterComponent={
-            <TouchableOpacity style={[styles.addExerciseButton, {borderColor: Colors[colorTheme].iconDefault}]} onPress={()=>router.push('addExercise')}>
+            <TouchableOpacity 
+              style={[styles.addExerciseButton, {backgroundColor: 'hsl(204, 31%, 20%)', borderColor: Colors[colorTheme].iconDefault}]} 
+              onPress={()=>router.push('addExercise')}
+            >
               <Ionicons name="add-outline" size = {25} color={Colors[colorTheme].iconDefault}/>
+              <Text style={[styles.addExerciseText, {color: Colors[colorTheme].text}]}>Add Exercise</Text>
             </TouchableOpacity>
           }
           ListFooterComponentStyle={{
@@ -34,14 +47,33 @@ const index = () => {
           // estimatedItemSize={2}
           showsVerticalScrollIndicator={false}
           data={exerciseList}
-          // keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
+          keyExtractor={(item, index) => `${index}`}
+          renderItem={({ item, index }) => (
             <View style={[styles.exerciseBlock, {backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
               <Image style={styles.exerciseImage} source={require('../../../../assets/exerciseIcons/benchPress.png')} />
+
               <View style={styles.detailsBlock}>
-                <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>
-                  {item.name}
-                </Text>
+                <View style={styles.detailsBlockTopBar}>
+                  <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>{getExerciseName(item.id)}</Text>
+                  <TouchableOpacity 
+                    style={styles.exerciseOptionsButton}
+                    onPress={() => {
+                      setExerciseOptionsModalVisible(index);
+                      // deleteExercise(index); // TODO Move to the exercise options modal
+                    }}
+                  >
+                    <Ionicons name="menu" size = {25} color={Colors[colorTheme].iconDefault}/>
+                  </TouchableOpacity>
+                </View>
+
+                {/* TODO Improve styling of how to display sidedness */}
+                <Text style={[styles.exerciseDesc,{color: Colors[colorTheme].text}]}>{getExerciseTwoSided(item.id) ? "Two-Sided" : "One-Sided"}</Text>
+                
+                
+              </View>
+
+              <View style={styles.setsAndRepsContainer}>
+
               </View>
             </View>
 
@@ -58,6 +90,10 @@ const index = () => {
       {cancelWorkoutModalVisible
         ? <CancelWorkoutModal/>
       : null
+      }
+      {exerciseOptionsModalVisible !== -1
+        ? <ExerciseOptionsModal />
+        :null
       }
 
     </View>
@@ -80,13 +116,22 @@ const styles = StyleSheet.create({
 
   },
   addExerciseButton:{
-    width: 30,
-    height: 30,
+    flexDirection: 'row',
+    // width: '50%',
+    // height: 30,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-    borderWidth: 1,
-    
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 25,
+    // borderWidth: 1,
+  },
+  addExerciseText:{
+    marginLeft: 10,
+    alignSelf: 'center',
+    fontSize: 20,
+    fontWeight: '700',
+    // textAlign: 'center',
   },
   exerciseBlock:{
     flexDirection: 'row',
@@ -99,8 +144,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 15,
     // flexGrow: 1,
-    paddingRight: 10,
-
+    // paddingRight: 10,
   },
   exerciseImage:{
     width: 85,
@@ -115,11 +159,32 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-
   },
   exerciseName:{
+    flex: 1,
     fontSize: 20,
     fontWeight: '800',
   },
+  exerciseDesc:{
+    marginTop: 2,
+    fontSize: 14,
+    fontWeight: '300',
+  },
+  detailsBlockTopBar:{
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+
+  },
+  exerciseOptionsButton:{
+    marginLeft: 10,
+  },
+
+
+
+  setsAndRepsContainer:{
+
+  }
 
 })

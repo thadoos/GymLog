@@ -5,23 +5,10 @@ import exercisesData from '../../assets/exercisesData.json'
 import Colors from '../constants/Colors'
 import { useAppSettingStore } from '../store/appSettings';
 import { useWorkoutStore } from '../store/workoutState';
-import { useNavigation, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { ExerciseDetail } from '../store/interfaces';
 
-
-// interface ExerciseDetail {
-//   id: number,
-//   imageName: string,
-//   type: string,
-//   primaryGeneralMuscleGroup: string,
-//   secondaryGeneralMuscleGroup: string,
-//   primarySpecificMuscleGroup: Array<string>,
-//   secondarySpecificMuscleGroup: Array<string>,
-//   equipment: string,
-//   notes: string,
-// }
-
-type ExerciseDetailOptions = "id" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
+type ExerciseDetailOptions = "id" | "name" | "twoSided" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
 
 const ExerciseListOptions = ["primarySpecificMuscleGroup", "secondarySpecificMuscleGroup", "notes"];
 interface ExerciseDetailProps {
@@ -30,7 +17,6 @@ interface ExerciseDetailProps {
   item: ExerciseDetail,
 
 }
-type ExercisePressHandler = (exerciseID: number) => void;
 interface ExerciseListProps {
   details: Array<{ keyword: string; description: ExerciseDetailOptions }>;
   onExercisePressAddExercise: boolean; //(exerciseID: number) => ExercisePressHandler;
@@ -50,17 +36,8 @@ function ExerciseDetailLine({ keyword, description, item }: ExerciseDetailProps)
             <Text style={[styles.exerciseDetailsDesc, { color: Colors[colorTheme].text }]}>
               {(item[description] as string[]).join(', ')}
             </Text>
-            // <View style = {styles.exerciseDetailsDescListContainer}>
-            //   {(item[description] as string[]).map((desc: string, index: number) => (
-            //         <Text key={index} style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>
-            //           {desc}
-            //         </Text>
-            //     )) }
-            // </View>
-
           : <Text style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>{item[description]}</Text>
       }
-  
   
   </View>
   );
@@ -71,19 +48,16 @@ export default function ExerciseList({ details, onExercisePressAddExercise }: Ex
   
   let addExercise = useWorkoutStore(state=>state.addExercise);
   const router = useRouter();
-  const navigation = useNavigation();
 
   let addExerciseButtonHandler = (exerciseID: number) => {
     addExercise(exerciseID);
-    // navigation.goBack();
-    // console.log(router.canGoBack());
     router.back();
   }
 
   return (
     <View style={styles.container}>
 
-      {/* Can replace FlatList with FlashList - Just need to include the estimatedItemSize */}
+      {/* Can replace FlatList with FlashList - Just need to include the estimatedItemSize. Previous problem was FlashList not re-rendering when theme change*/}
       <FlatList
         // estimatedItemSize={2}
         showsVerticalScrollIndicator={false}
@@ -97,7 +71,9 @@ export default function ExerciseList({ details, onExercisePressAddExercise }: Ex
                 ? addExerciseButtonHandler(item.id)
                 : null
             }} 
-            key = {item.id} style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
+            key = {item.id} 
+            style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}
+          >
             <Image style={styles.exerciseImage} source={require('../../assets/exerciseIcons/benchPress.png')} />
             <View style={styles.detailsBlock}>
               <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>
@@ -138,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 15,
     flexDirection: 'row',
-    // flexGrow: 1,
+    flexGrow: 1,
     paddingRight: 10,
   },
   exerciseImage: {
@@ -150,10 +126,12 @@ const styles = StyleSheet.create({
 
   },
   detailsBlock: {
+    flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
     flex: 1,
+    flexGrow: 1,
   },
   exerciseName: {
     fontSize: 20,
@@ -163,7 +141,6 @@ const styles = StyleSheet.create({
 
   exerciseDetailBlock: {
     width: '100%',
-    // flexWrap: 'wrap',
   },
 
   exerciseDetailsKeyword: {

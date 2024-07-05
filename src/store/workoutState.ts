@@ -17,7 +17,7 @@ export interface WorkoutState {
   setWorkoutDescription: (workoutDescription: string) => void,
   startWorkout: () => void,
   addExercise: (exerciseID: number) => void,
-  deleteExercise: (exerciseID: number, setNumber: number) => void,
+  deleteExercise: (index: number) => void,
   addSetToExercise: (reps: number, weight: number) => void,
   addSupersetToExercise: (superset: WorkoutSuperSet) => void,
   setTimeTaken: (timeTaken: number) => void,
@@ -26,11 +26,12 @@ export interface WorkoutState {
 
 
 }
-const exerciseMap = new Map(exercisesData.exercises.map((ex: ExerciseDetail) => [ex.id, ex]));
+// Maps all exercise IDs to their object
+export const exerciseMap = new Map(exercisesData.exercises.map((ex: ExerciseDetail) => [ex.id, ex]));
 
-const getExerciseName = (id: number) : string => {
-  return exerciseMap.get(id)?.name ?? "Cannot Fetch";
-}
+// const getExerciseName = (id: number) : string => {
+//   return exerciseMap.get(id)?.name ?? "Cannot Fetch";
+// }
 
 
 export const useWorkoutStore = create<WorkoutState>()(
@@ -48,15 +49,15 @@ export const useWorkoutStore = create<WorkoutState>()(
       addExercise: (exerciseID: number) => {set((state) => ({
         workoutExercises: state.workoutExercises.concat([{
           id: exerciseID,
-          name: getExerciseName(exerciseID),
+          // name: getExerciseName(exerciseID),
           sets: {},
         }])
         
       }))},
       startWorkout: () => set((state)=>({workoutActive: true})),
-      deleteExercise: (exerciseID: number, setNumber: number) => set((state) => {
+      deleteExercise: (index: number) => set((state) => {
         return{
-          
+          workoutExercises: state.workoutExercises.filter((obj, stateIndex) => stateIndex !== index)
         }
       }),
       addSetToExercise: (reps: number, weight: number) => set((state) => {
