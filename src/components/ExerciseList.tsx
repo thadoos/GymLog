@@ -8,7 +8,7 @@ import { useWorkoutStore } from '../store/workoutState';
 import { useRouter } from 'expo-router';
 import { ExerciseDetail } from '../store/interfaces';
 
-type ExerciseDetailOptions = "id" | "name" | "twoSided" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
+export type ExerciseDetailOptions = "id" | "name" | "twoSided" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
 
 const ExerciseListOptions = ["primarySpecificMuscleGroup", "secondarySpecificMuscleGroup", "notes"];
 interface ExerciseDetailProps {
@@ -22,7 +22,7 @@ interface ExerciseListProps {
   onExercisePressAddExercise: boolean; //(exerciseID: number) => ExercisePressHandler;
 }
 
-function ExerciseDetailLine({ keyword, description, item }: ExerciseDetailProps) {
+export const ExerciseDetailLine = ({ keyword, description, item }: ExerciseDetailProps) => {
   let colorTheme = useAppSettingStore(state=>state.theme);
   return (
   <View style={[styles.exerciseDetailBlock, { flexDirection: ExerciseListOptions.includes(description) ? 'column' : 'row', flexWrap: ExerciseListOptions.includes(description) ? 'wrap' : 'nowrap' }]}>

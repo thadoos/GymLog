@@ -1,6 +1,19 @@
 {
   "exercises": [
     {
+      "id": 0,
+      "imageName": "../../assets/exerciseIcons/lateralRaise.png",
+      "name": "Lateral Raise",
+      "type": "Strength",
+      "primaryGeneralMuscleGroup": ["Shoulders"],
+      "secondaryGeneralMuscleGroup": [],
+      "primarySpecificMuscleGroup": ["Anterior Deltoid","Posterior Deltoid"],
+      "secondarySpecificMuscleGroup": [],
+      "equipment": "Dumbbells",
+      "notes": "",
+      "twoSided": false
+    },
+    {
       "id": 1,
       "imageName": "../../assets/exerciseIcons/benchPress.png",
       "name": "Bench Press",
@@ -10,7 +23,7 @@
       "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
       "secondarySpecificMuscleGroup": ["Triceps"],
       "equipment": "Barbell, Bench",
-      "notes": "Keep shoulders retracted and feet flat on the floor. Control the bar throughout the movement.",
+      "notes": "Bar Height: 24",
       "twoSided": true
     },
     {
@@ -23,7 +36,7 @@
       "primarySpecificMuscleGroup": ["Quadriceps", "Hamstrings", "Glutes"],
       "secondarySpecificMuscleGroup": ["Lower Back", "Calves"],
       "equipment": "Barbell, Squat Rack",
-      "notes": "Keep chest up, engage core, and push through heels. Aim for parallel or below.",
+      "notes": "Bar Height: 40",
       "twoSided": true
     },
     {
@@ -36,7 +49,7 @@
       "primarySpecificMuscleGroup": ["Lower Back", "Lats"],
       "secondarySpecificMuscleGroup": ["Hamstrings", "Glutes", "Forearms"],
       "equipment": "Barbell",
-      "notes": "Keep bar close to body, engage lats, and drive through heels. Maintain neutral spine.",
+      "notes": "",
       "twoSided": true
     },
     {
@@ -49,7 +62,7 @@
       "primarySpecificMuscleGroup": ["Anterior Deltoid", "Lateral Deltoid"],
       "secondarySpecificMuscleGroup": ["Triceps", "Upper Chest"],
       "equipment": "Barbell",
-      "notes": "Keep core tight and avoid arching back. Press bar in a slight arc around face.",
+      "notes": "BarHeight: 35",
       "twoSided": true
     },
     {
@@ -62,7 +75,7 @@
       "primarySpecificMuscleGroup": ["Lats", "Upper Back"],
       "secondarySpecificMuscleGroup": ["Biceps", "Forearms"],
       "equipment": "Pull-Up Bar",
-      "notes": "Initiate movement by pulling shoulder blades down. Aim to bring chin over bar.",
+      "notes": "",
       "twoSided": true
     },
     {
@@ -75,7 +88,7 @@
       "primarySpecificMuscleGroup": ["Middle Back", "Lats"],
       "secondarySpecificMuscleGroup": ["Biceps", "Rear Deltoids"],
       "equipment": "Barbell",
-      "notes": "Keep back parallel to ground. Pull bar to lower chest/upper abdomen.",
+      "notes": "",
       "twoSided": true
     },
     {
@@ -88,7 +101,7 @@
       "primarySpecificMuscleGroup": ["Quadriceps"],
       "secondarySpecificMuscleGroup": ["Hamstrings", "Calves"],
       "equipment": "Leg Press Machine",
-      "notes": "Avoid lifting hips off the seat. Lower weight until knees are at 90-degree angle.",
+      "notes": "",
       "twoSided": true
     },
     {
@@ -101,7 +114,7 @@
       "primarySpecificMuscleGroup": ["Lats"],
       "secondarySpecificMuscleGroup": ["Biceps", "Forearms"],
       "equipment": "Cable Machine, Lat Pulldown Bar",
-      "notes": "Keep chest up and pull bar to upper chest. Avoid leaning back excessively.",
+      "notes": "",
       "twoSided": true
     },
     {
@@ -115,7 +128,7 @@
       "secondarySpecificMuscleGroup": [],
       "equipment": "Dumbbells",
       "notes": "",
-      "twoSided": true
+      "twoSided": false
     },
     {
       "id": 10,
@@ -141,7 +154,7 @@
       "secondarySpecificMuscleGroup": [],
       "equipment": "Cable Machine",
       "notes": "",
-      "twoSided": false
+      "twoSided": true
     },
     {
       "id": 12,
@@ -153,7 +166,7 @@
       "primarySpecificMuscleGroup": ["Lower Chest", "Middle Chest", "Upper Chest"],
       "secondarySpecificMuscleGroup": ["Triceps"],
       "equipment": "Barbell, Bench",
-      "notes": "Keep shoulders retracted and feet flat on the floor. Control the bar throughout the movement.",
+      "notes": "Bar Height: 30",
       "twoSided": true
     }
   ]

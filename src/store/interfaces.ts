@@ -29,3 +29,16 @@ export type ExerciseDetail = {
   notes: string,
 }
 
+export const ExerciseDetailsTitles={
+  "id": "ID",
+  "name": "Name",
+  "imageName": "Image Name",
+  "type": "Exercise Type",
+  "twoSided": "Weight on Both Sides",
+  "primaryGeneralMuscleGroup": "General Primary Muscle Group",
+  "secondaryGeneralMuscleGroup": "General Secondary Muscle Group",
+  "primarySpecificMuscleGroup": "Specific Primary Muscle Group",
+  "secondarySpecificMuscleGroup": "Specific Secondary Muscle Group",
+  "equipment": "Equipment",
+  "notes": "Notes",
+}

@@ -17,6 +17,10 @@ const getExerciseTwoSided = (id:number) : boolean => {
   return exerciseMap.get(id)?.twoSided ?? true;
 }
 
+const getExerciseNotes = (id:number) : string => {
+  return exerciseMap.get(id)?.notes ?? "";
+}
+
 const index = () => {
   const colorTheme = useAppSettingStore(state=>state.theme);
   const exerciseList = useWorkoutStore(state => state.workoutExercises);
@@ -32,7 +36,7 @@ const index = () => {
         <FlatList
           ListFooterComponent={
             <TouchableOpacity 
-              style={[styles.addExerciseButton, {backgroundColor: 'hsl(204, 31%, 20%)', borderColor: Colors[colorTheme].iconDefault}]} 
+              style={[styles.addExerciseButton, {backgroundColor: Colors[colorTheme].addExerciseButton, borderColor: Colors[colorTheme].iconDefault}]} 
               onPress={()=>router.push('addExercise')}
             >
               <Ionicons name="add-outline" size = {25} color={Colors[colorTheme].iconDefault}/>
@@ -66,10 +70,21 @@ const index = () => {
                   </TouchableOpacity>
                 </View>
 
-                {/* TODO Improve styling of how to display sidedness */}
-                <Text style={[styles.exerciseDesc,{color: Colors[colorTheme].text}]}>{getExerciseTwoSided(item.id) ? "Two-Sided" : "One-Sided"}</Text>
-                
-                
+                {
+                  getExerciseTwoSided(item.id)
+                    ? null
+                    : <Text style={[styles.exerciseDesc,{color: Colors[colorTheme].text}]}>Enter Weight for One Side</Text>
+                }
+                {
+                  getExerciseNotes(item.id) !== ""
+                    ? <View style={[styles.exerciseDetailBlock]}>
+                        <Text style={[styles.exerciseDetailsKeyword, {color: Colors[colorTheme].text}]}>
+                          Notes:
+                        </Text>
+                        <Text style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>{getExerciseNotes(item.id)}</Text>
+                      </View>
+                    : null
+                }                
               </View>
 
               <View style={styles.setsAndRepsContainer}>
@@ -92,7 +107,7 @@ const index = () => {
       : null
       }
       {exerciseOptionsModalVisible !== -1
-        ? <ExerciseOptionsModal />
+        ? <ExerciseOptionsModal index={exerciseOptionsModalVisible}/>
         :null
       }
 
@@ -185,6 +200,24 @@ const styles = StyleSheet.create({
 
   setsAndRepsContainer:{
 
-  }
+  },
+  exerciseDetailBlock: {
+    width: '100%',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+  },
+
+  exerciseDetailsKeyword: {
+    fontSize: 14,
+    fontWeight: '700',
+    marginTop: 3,
+    marginRight: 5,
+  },
+  exerciseDetailsDesc: {
+    width: '100%',
+    fontSize: 14,
+    fontWeight: '300',
+    marginTop: 3,
+  },
 
 })
