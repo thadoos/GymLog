@@ -18,7 +18,10 @@ export interface WorkoutState {
   startWorkout: () => void,
   addExercise: (exerciseID: number) => void,
   deleteExercise: (index: number) => void,
-  addSetToExercise: (reps: number, weight: number) => void,
+  addSetToExercise: (exerciseIndex: number) => void,
+  changeRepWithIndex: (exerciseIndex: number, setIndex: number, newReps: number) => void,
+  changeWeightWithIndex: (exerciseIndex: number, setIndex: number, newWeight: number) => void,
+
   addSupersetToExercise: (superset: WorkoutSuperSet) => void,
   setTimeTaken: (timeTaken: number) => void,
   resetWorkout: () => void,
@@ -50,7 +53,7 @@ export const useWorkoutStore = create<WorkoutState>()(
         workoutExercises: state.workoutExercises.concat([{
           id: exerciseID,
           // name: getExerciseName(exerciseID),
-          sets: {},
+          sets: [{reps: 0, weight: 0, done: false}], //TODO Perhaps make it set the default numbers to the same as from last set
         }])
         
       }))},
@@ -60,10 +63,31 @@ export const useWorkoutStore = create<WorkoutState>()(
           workoutExercises: state.workoutExercises.filter((obj, stateIndex) => stateIndex !== index)
         }
       }),
-      addSetToExercise: (reps: number, weight: number) => set((state) => {
+      addSetToExercise: (exerciseIndex: number) => set((state) => {
+        const oldExercises = [...state.workoutExercises];
+        const lastSet = oldExercises[exerciseIndex].sets[oldExercises[exerciseIndex].sets.length-1]
+        oldExercises[exerciseIndex].sets.push({reps: lastSet.reps, weight: lastSet.weight, done: false});
         return{
-          
+          workoutExercises: oldExercises,
         }
+      }),
+      changeRepWithIndex: (exerciseIndex: number, setIndex: number, newReps: number) => set((state) => {
+        var oldExercise = [...state.workoutExercises];
+        oldExercise[exerciseIndex].sets[setIndex].reps = newReps;
+
+        return {
+          workoutExercises: oldExercise,
+        }
+        
+      }),
+      changeWeightWithIndex: (exerciseIndex: number, setIndex: number, newWeight: number) => set((state) => {
+        var oldExercise = [...state.workoutExercises];
+        oldExercise[exerciseIndex].sets[setIndex].weight = newWeight;
+
+        return {
+          workoutExercises: oldExercise,
+        }
+        
       }),
       addSupersetToExercise: (superset: WorkoutSuperSet) => set((state) => {
         return{

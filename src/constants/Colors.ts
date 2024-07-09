@@ -11,10 +11,11 @@ export default {
     tint: tintColorLight,
     tintLight: 'hsl(45, 97%, 55%)',
     tintDark: 'hsl(45, 97%, 45%)',
+    secondaryButtonBorder: '#000',
 
     homeRouteButtons: '#E6E6E6',
     exerciseBlockBackground: '#E6E6E6',
-    addExerciseButton: '#EFEFEF',
+    addExerciseButton: '#BBBBBB',
     
     tabIconDefault: '#000',
     tabIconSelected: tintColorLight,
@@ -26,6 +27,9 @@ export default {
 
     modalBackground: '#E6E6E6',
     modalBorder: '#A6A6A6',
+
+    setsAndRepsBorder: '#A6A6A6',
+    setsAndRepsBackground: '#BABABA',
   },
   dark: {
     background: '#2F495A',
@@ -36,6 +40,7 @@ export default {
     tint: tintColorDark,
     tintLight: 'hsl(45, 97%, 55%)',
     tintDark: 'hsl(45, 97%, 45%)',
+    secondaryButtonBorder: '#fff',
     
     homeRouteButtons: '#3D5F75',
     exerciseBlockBackground: '#3D5F75',//'#E6E6E6',// To be changed
@@ -51,5 +56,8 @@ export default {
 
     modalBackground: 'hsl(204, 31%, 27%)',//'#3D5F75',
     modalBorder: 'hsl(204, 31%, 22%)',
+
+    setsAndRepsBorder: 'hsl(204, 31%, 20%)',
+    setsAndRepsBackground: 'hsl(204, 31%, 25%)',
   },
 };

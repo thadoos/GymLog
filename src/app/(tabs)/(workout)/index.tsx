@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, TouchableOpacity, FlatList, Image } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
@@ -25,6 +25,10 @@ const index = () => {
   const colorTheme = useAppSettingStore(state=>state.theme);
   const exerciseList = useWorkoutStore(state => state.workoutExercises);
   const deleteExercise = useWorkoutStore(state=>state.deleteExercise);
+  const changeRepWithIndex = useWorkoutStore(state=>state.changeRepWithIndex);
+  const changeWeightWithIndex = useWorkoutStore(state=>state.changeWeightWithIndex);
+  const addSetToExercise = useWorkoutStore(state=>state.addSetToExercise);
+
   const cancelWorkoutModalVisible = useAppState(state=>state.cancelWorkoutModalVisible);
   const exerciseOptionsModalVisible = useAppState(state=>state.exerciseOptionsModalVisible);
   const setExerciseOptionsModalVisible = useAppState(state=>state.setExerciseOptionsModalVisible);
@@ -54,42 +58,72 @@ const index = () => {
           keyExtractor={(item, index) => `${index}`}
           renderItem={({ item, index }) => (
             <View style={[styles.exerciseBlock, {backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
-              <Image style={styles.exerciseImage} source={require('../../../../assets/exerciseIcons/benchPress.png')} />
 
-              <View style={styles.detailsBlock}>
-                <View style={styles.detailsBlockTopBar}>
+              <View style={styles.topBarContainer}>
+                <Image style={styles.exerciseImage} source={require('../../../../assets/exerciseIcons/benchPress.png')} />
+                <View style={styles.topBarDetailsBlock}>
                   <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>{getExerciseName(item.id)}</Text>
-                  <TouchableOpacity 
-                    style={styles.exerciseOptionsButton}
-                    onPress={() => {
-                      setExerciseOptionsModalVisible(index);
-                      // deleteExercise(index); // TODO Move to the exercise options modal
-                    }}
-                  >
-                    <Ionicons name="menu" size = {25} color={Colors[colorTheme].iconDefault}/>
-                  </TouchableOpacity>
+                  {
+                    getExerciseTwoSided(item.id)
+                      ? null
+                      : <Text style={[styles.exerciseDesc,{color: Colors[colorTheme].text}]}>Enter Weight for One Side</Text>
+                  }
+                  {
+                    getExerciseNotes(item.id) !== ""
+                      ? <View style={[styles.exerciseDetailBlock]}>
+                          <Text style={[styles.exerciseDetailsKeyword, {color: Colors[colorTheme].text}]}>
+                            Notes:
+                          </Text>
+                          <Text style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>{getExerciseNotes(item.id)}</Text>
+                        </View>
+                      : null
+                  }
                 </View>
+                
+                <TouchableOpacity 
+                  style={styles.exerciseOptionsButton}
+                  onPress={() => {
+                    setExerciseOptionsModalVisible(index);
+                  }}
+                >
+                  <Ionicons name="menu" size = {25} color={Colors[colorTheme].iconDefault}/>
+                </TouchableOpacity>
 
-                {
-                  getExerciseTwoSided(item.id)
-                    ? null
-                    : <Text style={[styles.exerciseDesc,{color: Colors[colorTheme].text}]}>Enter Weight for One Side</Text>
-                }
-                {
-                  getExerciseNotes(item.id) !== ""
-                    ? <View style={[styles.exerciseDetailBlock]}>
-                        <Text style={[styles.exerciseDetailsKeyword, {color: Colors[colorTheme].text}]}>
-                          Notes:
-                        </Text>
-                        <Text style={[styles.exerciseDetailsDesc, {color: Colors[colorTheme].text}]}>{getExerciseNotes(item.id)}</Text>
-                      </View>
-                    : null
-                }                
+                
+              </View>
+              <View style={styles.detailsBlock}>
+                {/* TODO Add the headers */}
+
+                {/* TODO Make a subcontainer for each button so that I can include "reps" and "kg" on the right of each field */}
+                {item.sets.map(({reps,weight}, curSetIndex) => (
+                  <View style={styles.setsAndRepsContainer} key={curSetIndex}>
+                    <TextInput
+                      style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+                      placeholder='Reps'
+                      value={reps.toString()}
+                      keyboardType='decimal-pad'
+                      onChangeText={(newReps) => changeRepWithIndex(index, curSetIndex, Number(newReps))}
+                      />
+                    <TextInput
+                      style={[styles.weightTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+                      placeholder='Weight'
+                      value={weight.toString()}
+                      keyboardType='decimal-pad'
+                      onChangeText={(newWeight) => changeWeightWithIndex(index, curSetIndex, Number(newWeight))}
+                    />
+                  </View>
+                ))}
+
+                <TouchableOpacity
+                  style={[styles.addSetButton, {backgroundColor: Colors[colorTheme].addExerciseButton}]}
+                  onPress={()=>{addSetToExercise(index)}}
+                >
+                  <Ionicons name="add-outline" size = {25} color={Colors[colorTheme].iconDefault}/>
+                </TouchableOpacity>
+                
+          
               </View>
 
-              <View style={styles.setsAndRepsContainer}>
-
-              </View>
             </View>
 
           )}
@@ -107,7 +141,7 @@ const index = () => {
       : null
       }
       {exerciseOptionsModalVisible !== -1
-        ? <ExerciseOptionsModal index={exerciseOptionsModalVisible}/>
+        ? <ExerciseOptionsModal />
         :null
       }
 
@@ -149,8 +183,8 @@ const styles = StyleSheet.create({
     // textAlign: 'center',
   },
   exerciseBlock:{
-    flexDirection: 'row',
-    flex: 1,
+    flexDirection: 'column',
+    // flex: 1,
     // width: '100%',
     // height: '100%',
     alignItems: 'center',
@@ -168,15 +202,23 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 15,
   },
-  detailsBlock:{
-    flexDirection: 'column',    
+  topBarContainer:{
+    flexDirection: 'row',
+    width: '100%',
+    
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // borderWidth: 1,
+  },
+  topBarDetailsBlock:{
+    flexDirection: 'column',
+    // width: '100%',
     flex: 1,
-    height: "100%",
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  
   exerciseName:{
-    flex: 1,
     fontSize: 20,
     fontWeight: '800',
   },
@@ -185,33 +227,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '300',
   },
-  detailsBlockTopBar:{
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
 
-  },
   exerciseOptionsButton:{
-    marginLeft: 10,
-  },
-
-
-
-  setsAndRepsContainer:{
-
+    // marginLeft: 10,
+    // alignSelf: 'flex-start'
   },
   exerciseDetailBlock: {
     width: '100%',
     flexDirection: 'column',
     flexWrap: 'wrap',
+    justifyContent: 'flex-start',
   },
 
   exerciseDetailsKeyword: {
     fontSize: 14,
     fontWeight: '700',
-    marginTop: 3,
-    marginRight: 5,
+    // marginTop: 3,
+    // marginRight: 5,
   },
   exerciseDetailsDesc: {
     width: '100%',
@@ -219,5 +251,51 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     marginTop: 3,
   },
+  detailsBlock:{
+    flexDirection: 'column',    
+    flex: 1,
+    // height: "100%",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  setsAndRepsContainer:{
+    // borderWidth: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 7,
 
+  },
+  repTextInput:{
+    width: '47%',
+    paddingVertical: 7,
+    // height: 30,
+    textAlign: 'center',
+    borderRadius: 15,
+    // borderWidth: 1,
+    fontSize: 20,
+    fontWeight: '600',
+    
+  },
+  weightTextInput:{
+    width: '47%',
+    paddingVertical: 7,
+    // height: 30,
+    textAlign: 'center',
+    borderRadius: 15,
+    // borderWidth: 1,
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  addSetButton:{
+    // padding: 7,
+    marginTop: 10,
+    width: 35,
+    height: 35,
+    borderRadius: 18,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 })
