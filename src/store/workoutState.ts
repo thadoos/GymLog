@@ -16,9 +16,12 @@ export interface WorkoutState {
   setWorkoutName: (workoutName: string) => void,
   setWorkoutDescription: (workoutDescription: string) => void,
   startWorkout: () => void,
+
   addExercise: (exerciseID: number) => void,
   deleteExercise: (index: number) => void,
+  
   addSetToExercise: (exerciseIndex: number) => void,
+  deleteSetFromExercise: (exerciseIndex: number, setIndex: number) => void,
   changeRepWithIndex: (exerciseIndex: number, setIndex: number, newReps: number) => void,
   changeWeightWithIndex: (exerciseIndex: number, setIndex: number, newWeight: number) => void,
 
@@ -49,14 +52,14 @@ export const useWorkoutStore = create<WorkoutState>()(
 
       setWorkoutName: (workoutName: string) => set({ workoutName }),
       setWorkoutDescription: (workoutDescription: string) => set({ workoutDescription }),
-      addExercise: (exerciseID: number) => {set((state) => ({
+      addExercise: (exerciseID: number) => set((state) => ({
         workoutExercises: state.workoutExercises.concat([{
           id: exerciseID,
           // name: getExerciseName(exerciseID),
-          sets: [{reps: 0, weight: 0, done: false}], //TODO Perhaps make it set the default numbers to the same as from last set
+          sets: [{reps: 0, weight: 0, done: false}], // TODO Perhaps make it set the default numbers to the same as from last set
         }])
         
-      }))},
+      })),
       startWorkout: () => set((state)=>({workoutActive: true})),
       deleteExercise: (index: number) => set((state) => {
         return{
@@ -65,18 +68,30 @@ export const useWorkoutStore = create<WorkoutState>()(
       }),
       addSetToExercise: (exerciseIndex: number) => set((state) => {
         const oldExercises = [...state.workoutExercises];
-        const lastSet = oldExercises[exerciseIndex].sets[oldExercises[exerciseIndex].sets.length-1]
-        oldExercises[exerciseIndex].sets.push({reps: lastSet.reps, weight: lastSet.weight, done: false});
+        if(oldExercises[exerciseIndex].sets.length > 0){
+          const lastSet = oldExercises[exerciseIndex].sets[oldExercises[exerciseIndex].sets.length-1];
+          oldExercises[exerciseIndex].sets.push({reps: lastSet.reps, weight: lastSet.weight, done: false});
+        }else{
+          oldExercises[exerciseIndex].sets.push({reps: 0, weight: 0, done: false});
+        }
         return{
           workoutExercises: oldExercises,
         }
       }),
+      deleteSetFromExercise: (exerciseIndex: number, setIndex: number) => set((state) => {
+        const oldExercises = [...state.workoutExercises];
+        oldExercises[exerciseIndex].sets.splice(setIndex, 1);
+        // oldExercises[exerciseIndex].sets = oldExercises[exerciseIndex].sets.filter((ex, index) => index !== setIndex);
+        return {
+          workoutExercises: oldExercises,
+        }
+      }),
       changeRepWithIndex: (exerciseIndex: number, setIndex: number, newReps: number) => set((state) => {
-        var oldExercise = [...state.workoutExercises];
-        oldExercise[exerciseIndex].sets[setIndex].reps = newReps;
+        const oldExercises = [...state.workoutExercises];
+        oldExercises[exerciseIndex].sets[setIndex].reps = newReps;
 
         return {
-          workoutExercises: oldExercise,
+          workoutExercises: oldExercises,
         }
         
       }),

@@ -2,13 +2,18 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Image } 
 import React, { useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
-import { useWorkoutStore, exerciseMap } from '../../../store/workoutState';
-import { useAppState } from '../../../store/appState';
+
+
+import { RepAndWeightRow } from '../../../components/Workout/RepAndWeightRow';
+
 import {CancelWorkoutModal} from '../../../components/Workout/CancelWorkoutModal';
+import { ExerciseOptionsModal } from '../../../components/Workout/ExerciseOptionsModal';
 
 import Colors from '../../../constants/Colors';
+import { useWorkoutStore, exerciseMap } from '../../../store/workoutState';
 import { useAppSettingStore } from '../../../store/appSettings';
-import { ExerciseOptionsModal } from '../../../components/Workout/ExerciseOptionsModal';
+import { useAppState } from '../../../store/appState';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const getExerciseName = (id: number) : string => {
   return exerciseMap.get(id)?.name ?? "Cannot Fetch";
@@ -21,10 +26,10 @@ const getExerciseNotes = (id:number) : string => {
   return exerciseMap.get(id)?.notes ?? "";
 }
 
+
 const index = () => {
   const colorTheme = useAppSettingStore(state=>state.theme);
   const exerciseList = useWorkoutStore(state => state.workoutExercises);
-  const deleteExercise = useWorkoutStore(state=>state.deleteExercise);
   const changeRepWithIndex = useWorkoutStore(state=>state.changeRepWithIndex);
   const changeWeightWithIndex = useWorkoutStore(state=>state.changeWeightWithIndex);
   const addSetToExercise = useWorkoutStore(state=>state.addSetToExercise);
@@ -91,32 +96,41 @@ const index = () => {
 
                 
               </View>
+
               <View style={styles.detailsBlock}>
                 {/* TODO Add the headers */}
 
                 {/* TODO Make a subcontainer for each button so that I can include "reps" and "kg" on the right of each field */}
                 {item.sets.map(({reps,weight}, curSetIndex) => (
-                  <View style={styles.setsAndRepsContainer} key={curSetIndex}>
-                    <TextInput
-                      style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
-                      placeholder='Reps'
-                      value={reps.toString()}
-                      keyboardType='decimal-pad'
-                      onChangeText={(newReps) => changeRepWithIndex(index, curSetIndex, Number(newReps))}
-                      />
-                    <TextInput
-                      style={[styles.weightTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
-                      placeholder='Weight'
-                      value={weight.toString()}
-                      keyboardType='decimal-pad'
-                      onChangeText={(newWeight) => changeWeightWithIndex(index, curSetIndex, Number(newWeight))}
-                    />
-                  </View>
+                  // <Swipeable
+                  //   renderLeftActions={setRightSwipeAction}
+                  // >
+                      <RepAndWeightRow key={curSetIndex} index={index} curSetIndex={curSetIndex} reps={reps} weight={weight} />
+
+                      // <View style={styles.setsAndRepsContainer} key={curSetIndex}>
+                      //   <TextInput
+                      //     style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+                      //     placeholder='Reps'
+                      //     value={reps.toString()}
+                      //     keyboardType='decimal-pad'
+                      //     onChangeText={(newReps) => changeRepWithIndex(index, curSetIndex, Number(newReps))}
+                      //     />
+                      //   <TextInput
+                      //     style={[styles.weightTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+                      //     placeholder='Weight'
+                      //     value={weight.toString()}
+                      //     keyboardType='decimal-pad'
+                      //     onChangeText={(newWeight) => changeWeightWithIndex(index, curSetIndex, Number(newWeight))}
+                      //   />
+                      // </View>
+
+                  // </Swipeable>
+                  
                 ))}
 
                 <TouchableOpacity
                   style={[styles.addSetButton, {backgroundColor: Colors[colorTheme].addExerciseButton}]}
-                  onPress={()=>{addSetToExercise(index)}}
+                  onPress={()=>addSetToExercise(index)}
                 >
                   <Ionicons name="add-outline" size = {25} color={Colors[colorTheme].iconDefault}/>
                 </TouchableOpacity>
@@ -229,7 +243,7 @@ const styles = StyleSheet.create({
   },
 
   exerciseOptionsButton:{
-    // marginLeft: 10,
+    marginLeft: 10,
     // alignSelf: 'flex-start'
   },
   exerciseDetailBlock: {
@@ -257,36 +271,6 @@ const styles = StyleSheet.create({
     // height: "100%",
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-  },
-  setsAndRepsContainer:{
-    // borderWidth: 1,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 7,
-
-  },
-  repTextInput:{
-    width: '47%',
-    paddingVertical: 7,
-    // height: 30,
-    textAlign: 'center',
-    borderRadius: 15,
-    // borderWidth: 1,
-    fontSize: 20,
-    fontWeight: '600',
-    
-  },
-  weightTextInput:{
-    width: '47%',
-    paddingVertical: 7,
-    // height: 30,
-    textAlign: 'center',
-    borderRadius: 15,
-    // borderWidth: 1,
-    fontSize: 20,
-    fontWeight: '600',
   },
   addSetButton:{
     // padding: 7,

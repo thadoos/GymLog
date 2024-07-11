@@ -3,7 +3,6 @@
 export interface Exercise {
   id: number,
   // name: string,
-  // sets: {[setNumber: number]: Array<WorkoutBasicSet | WorkoutSuperSet>},
   sets: Array<WorkoutBasicSet>,
   // sets: Array<WorkoutBasicSet | WorkoutSuperSet>, // TODO Implement superset later
 }
