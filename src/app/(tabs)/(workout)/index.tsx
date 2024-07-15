@@ -98,34 +98,24 @@ const index = () => {
               </View>
 
               <View style={styles.detailsBlock}>
-                {/* TODO Add the headers */}
+                
+                <View style={styles.setRepsWeightHeaderContainer}>
+                  <Text style={styles.setHeader}>SET</Text>
+                  <Text style={styles.repsWeightHeader}>REPS</Text>
+                  <Text style={styles.repsWeightHeader}>WEIGHT (kg)</Text>
+
+                  {/* <View style={styles.repsWeightBorderContainer}>
+                    <Text style={styles.repsWeightHeader}>REPS</Text>
+                  </View>
+                  <View style={styles.repsWeightBorderContainer}>
+                    <Text style={styles.repsWeightHeader}>WEIGHT</Text>
+                  </View> */}
+                  <View style={styles.invisibileHeaderCell}></View>
+                </View>
 
                 {/* TODO Make a subcontainer for each button so that I can include "reps" and "kg" on the right of each field */}
                 {item.sets.map(({reps,weight}, curSetIndex) => (
-                  // <Swipeable
-                  //   renderLeftActions={setRightSwipeAction}
-                  // >
                       <RepAndWeightRow key={curSetIndex} index={index} curSetIndex={curSetIndex} reps={reps} weight={weight} />
-
-                      // <View style={styles.setsAndRepsContainer} key={curSetIndex}>
-                      //   <TextInput
-                      //     style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
-                      //     placeholder='Reps'
-                      //     value={reps.toString()}
-                      //     keyboardType='decimal-pad'
-                      //     onChangeText={(newReps) => changeRepWithIndex(index, curSetIndex, Number(newReps))}
-                      //     />
-                      //   <TextInput
-                      //     style={[styles.weightTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
-                      //     placeholder='Weight'
-                      //     value={weight.toString()}
-                      //     keyboardType='decimal-pad'
-                      //     onChangeText={(newWeight) => changeWeightWithIndex(index, curSetIndex, Number(newWeight))}
-                      //   />
-                      // </View>
-
-                  // </Swipeable>
-                  
                 ))}
 
                 <TouchableOpacity
@@ -146,9 +136,6 @@ const index = () => {
 
         
       </View>
-      {/* <Text style = {{fontSize: 14 }}>
-        {JSON.stringify(exerciseList)}
-      </Text> */}
 
       {cancelWorkoutModalVisible
         ? <CancelWorkoutModal/>
@@ -272,6 +259,44 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  setRepsWeightHeaderContainer:{
+    flexDirection: 'row',
+    width: '100%',
+    flex: 1,
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    paddingBottom: 5,
+  },
+  setHeader:{
+    width: '15%',
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontWeight: '700',
+    fontSize: 16,
+    borderRightWidth: 1,
+  },
+  repsWeightBorderContainer:{
+    flex: 1,
+    justifyContent:'center',
+    alignItems: 'center',
+    borderLeftWidth: 1,
+
+  },
+  repsWeightHeader:{
+    flex: 1,
+    // borderWidth: 1,
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+  invisibileHeaderCell:{
+    width: '10%',
+    // borderWidth: 1,
+  },
+
+
+
   addSetButton:{
     // padding: 7,
     marginTop: 10,

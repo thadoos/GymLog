@@ -22,20 +22,29 @@ export const RepAndWeightRow = ({index, curSetIndex, reps, weight} : SwipeableIt
 
   return(
     <View style={styles.container}>
+      {/* <View style={styles.repWeightContainer}>
+        
+
+      </View>
+      <View style={styles.repWeightContainer}>
+        
+
+      </View> */}
+      <Text style={styles.setNumberText}>{curSetIndex + 1}</Text>
       <TextInput
-        style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
-        placeholder='Reps'
-        value={reps.toString()}
-        keyboardType='decimal-pad'
-        onChangeText={(newReps) => changeRepWithIndex(index, curSetIndex, Number(newReps))}
+          style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+          placeholder='Reps'
+          value={reps.toString()}
+          keyboardType='decimal-pad'
+          onChangeText={(newReps) => changeRepWithIndex(index, curSetIndex, Number(newReps))}
         />
       <TextInput
-        style={[styles.weightTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
-        placeholder='Weight'
-        value={weight.toString()}
-        keyboardType='decimal-pad'
-        onChangeText={(newWeight) => changeWeightWithIndex(index, curSetIndex, Number(newWeight))}
-      />
+          style={[styles.weightTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+          placeholder='Weight'
+          value={weight.toString()}
+          keyboardType='decimal-pad'
+          onChangeText={(newWeight) => changeWeightWithIndex(index, curSetIndex, Number(newWeight))}
+        />
       
       <TouchableOpacity
         style={styles.deleteSetButton}
@@ -81,7 +90,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 7,
   },
   deleteSetButton:{
+    width: '10%',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    // borderWidth: 1,
+  },
+  repWeightContainer:{
 
+  },
+  setNumberText:{
+    width: '15%',
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '600',
   },
 })
 
