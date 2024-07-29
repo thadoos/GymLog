@@ -6,7 +6,7 @@ import exercisesData from '../../assets/exercisesData.json';
 import { ExerciseDetail } from './interfaces';
 
 export interface WorkoutState {
-  workoutName: String,
+  workoutName: string,
   workoutDescription: string,
   timeStart: number,
   workoutDuration: number,

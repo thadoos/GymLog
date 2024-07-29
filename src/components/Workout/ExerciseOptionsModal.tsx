@@ -52,6 +52,7 @@ export const ExerciseOptionsModal = () => {
           {
             Object.entries(exercisesData.exercises[id]).filter(([key, value]) => !noRenderKeys.includes(key as ExerciseDetailOptions)).map(([key, value]) => (
               <ExerciseDetailLine
+                key = {key}
                 keyword={ExerciseDetailsTitles[key as ExerciseDetailOptions]}
                 description={key as ExerciseDetailOptions}
                 item={exercisesData.exercises[id]}

@@ -99,10 +99,10 @@ const index = () => {
 
               <View style={styles.detailsBlock}>
                 
-                <View style={styles.setRepsWeightHeaderContainer}>
-                  <Text style={styles.setHeader}>SET</Text>
-                  <Text style={styles.repsWeightHeader}>REPS</Text>
-                  <Text style={styles.repsWeightHeader}>WEIGHT (kg)</Text>
+                <View style={[styles.setRepsWeightHeaderContainer, {borderColor: Colors[colorTheme].text}]}>
+                  <Text style={[styles.setHeader, {color: Colors[colorTheme].text}]}>SET</Text>
+                  <Text style={[styles.repsWeightHeader, {color: Colors[colorTheme].text}]}>REPS</Text>
+                  <Text style={[styles.repsWeightHeader, {color: Colors[colorTheme].text}]}>WEIGHT (kg)</Text>
 
                   {/* <View style={styles.repsWeightBorderContainer}>
                     <Text style={styles.repsWeightHeader}>REPS</Text>

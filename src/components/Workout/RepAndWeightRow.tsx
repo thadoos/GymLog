@@ -30,7 +30,7 @@ export const RepAndWeightRow = ({index, curSetIndex, reps, weight} : SwipeableIt
         
 
       </View> */}
-      <Text style={styles.setNumberText}>{curSetIndex + 1}</Text>
+      <Text style={[styles.setNumberText, {color: Colors[colorTheme].text}]}>{curSetIndex + 1}</Text>
       <TextInput
           style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
           placeholder='Reps'
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
   },
   deleteSetButton:{
     width: '10%',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
     // borderWidth: 1,
   },
   repWeightContainer:{

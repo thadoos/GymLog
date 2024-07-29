@@ -7,6 +7,8 @@ export default {
     text: '#000',
     iconDefault: '#000',
     shadow: '#000',
+
+    textInputBorder: '#000',
     
     tint: tintColorLight,
     tintLight: 'hsl(45, 97%, 55%)',
@@ -36,6 +38,8 @@ export default {
     text: '#fff',
     iconDefault: '#fff',
     shadow: '#000',
+    
+    textInputBorder: '#fff',
 
     tint: tintColorDark,
     tintLight: 'hsl(45, 97%, 55%)',

@@ -13,7 +13,7 @@ export default function workout_stack(){
   const colorTheme = useAppSettingStore(state => state.theme);
   const router = useRouter();
   const setCancelWorkoutModalVisible = useAppState(state=>state.setCancelWorkoutModalVisible);
-  let resetWorkout = useWorkoutStore(state => state.resetWorkout);
+  const endAndLogWorkout = useWorkoutStore(state => state.endAndLogWorkout);
 
   return(
     <Stack screenOptions={{
@@ -65,6 +65,17 @@ export default function workout_stack(){
             <Link href="../">
               <Ionicons name="close" size = {25} color={Colors[colorTheme].iconDefault}/>
             </Link>
+          ),
+
+          headerRight: () => (
+            <TouchableOpacity 
+              onPress={() => {
+                router.navigate('(home)');
+                endAndLogWorkout();
+              }}
+            >
+              <Ionicons name="checkmark" size = {25} color={Colors[colorTheme].iconDefault}/>
+            </TouchableOpacity>
           )
         }}
 
