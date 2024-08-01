@@ -7,13 +7,17 @@ import { useAppState } from "../../../store/appState";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useWorkoutStore } from "../../../store/workoutState";
 
+import { useRealm } from "@realm/react";
 
 
 export default function workout_stack(){
   const colorTheme = useAppSettingStore(state => state.theme);
   const router = useRouter();
   const setCancelWorkoutModalVisible = useAppState(state=>state.setCancelWorkoutModalVisible);
-  const endAndLogWorkout = useWorkoutStore(state => state.endAndLogWorkout);
+  // const endAndLogWorkout = useWorkoutStore(state => state.endAndLogWorkout);
+  const { workoutName, workoutDescription, timeStart, timeEnd, workoutExercises, endAndLogWorkout } = useWorkoutStore();
+
+  const realm = useRealm();
 
   return(
     <Stack screenOptions={{
@@ -70,7 +74,18 @@ export default function workout_stack(){
           headerRight: () => (
             <TouchableOpacity 
               onPress={() => {
+                const endTime = new Date();
                 router.navigate('(home)');
+                  realm.write(() => {
+                    realm.create('WorkoutLog', {
+                      workoutName: workoutName,
+                      workoutDescription: workoutDescription,
+                      timeStart: timeStart,
+                      timeEnd: endTime,
+                      workoutDuration: Math.floor(endTime.getTime() - timeStart.getTime()),
+                      workoutExercises: workoutExercises,
+                    })
+                  })
                 endAndLogWorkout();
               }}
             >

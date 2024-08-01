@@ -63,12 +63,13 @@ export const ExerciseOptionsModal = () => {
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={[styles.bottomButton, {borderWidth: 1, borderColor: Colors[colorTheme].secondaryButtonBorder}]}>
+              {/* TODO Change exercise can you ExerciseList - the same thing */}
               <Ionicons name="arrow-redo-outline" size = {25} color={Colors[colorTheme].iconDefault}/>
               <Text style={[styles.buttonText, {color: Colors[colorTheme].text}]}>
                 Change Exercise
               </Text>
-
             </TouchableOpacity>
+
             <TouchableOpacity 
               style={[styles.bottomButton, {backgroundColor: Colors[colorTheme].tintDark}]}
               onPress={() => {

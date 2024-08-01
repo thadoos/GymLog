@@ -10,8 +10,8 @@ import { WorkoutLog } from '../models/WorkoutLog';
 export interface WorkoutState {
   workoutName: string,
   workoutDescription: string,
-  timeStart: number,
-  timeEnd: number,
+  timeStart: Date,
+  timeEnd: Date, // ? Might not need this. Just have this found where the realm object is created
   workoutDuration: number,
   workoutExercises: Array<Exercise>,
   workoutActive: boolean,
@@ -30,6 +30,7 @@ export interface WorkoutState {
 
   addSupersetToExercise: (superset: WorkoutSuperSet) => void,
   setTimeTaken: (timeTaken: number) => void,
+  setTimeStart: () => void,
   resetWorkout: () => void,
   endAndLogWorkout: () => void,
 
@@ -48,8 +49,8 @@ export const useWorkoutStore = create<WorkoutState>()(
     (set, get) => ({
       workoutName: "",
       workoutDescription: "",
-      timeStart: 0,
-      timeEnd: 0,
+      timeStart: new Date(),
+      timeEnd: new Date(),
       workoutDuration: 0,
       workoutExercises: [],
       workoutActive: false, // This won't be saved to the database.
@@ -67,7 +68,7 @@ export const useWorkoutStore = create<WorkoutState>()(
         }])
         
       })),
-      startWorkout: () => set((state)=>({workoutActive: true})),
+      startWorkout: () => set((state)=>({workoutActive: true, timeStart: new Date()})),
       deleteExercise: (index: number) => set((state) => {
         return{
           workoutExercises: state.workoutExercises.filter((obj, stateIndex) => stateIndex !== index)
@@ -119,33 +120,36 @@ export const useWorkoutStore = create<WorkoutState>()(
           
         }
       }),
+      setTimeStart: () => set((state) => ({
+        timeStart: new Date()
+      })),
       resetWorkout: () => set((state) => ({
         workoutName: "",
         workoutDescription: "",
-        timeStart: 0,
+        timeStart: new Date(),
         workoutDuration: 0,
         workoutExercises: [],
         workoutActive: false,
       })),
       endAndLogWorkout: () => {
-        const realm = useRealm();
+        // const realm = useRealm();
         // TODO Add the workout to (online) database
         set((state) => {
-          realm.write(() => {
-            realm.create('WorkoutLog', {
-              workoutName: state.workoutName,
-              workoutDescription: state.workoutDescription,
-              timeStart: state.timeStart,
-              timeEnd: state.timeEnd,
-              workoutDuration: Math.floor(state.timeEnd - state.timeEnd),
-              workoutExercises: state.workoutExercises,
-            })
-          })
+          // realm.write(() => {
+          //   realm.create('WorkoutLog', {
+          //     workoutName: state.workoutName,
+          //     workoutDescription: state.workoutDescription,
+          //     timeStart: state.timeStart,
+          //     timeEnd: state.timeEnd,
+          //     workoutDuration: Math.floor(state.timeEnd - state.timeEnd),
+          //     workoutExercises: state.workoutExercises,
+          //   })
+          // })
 
         return({
           workoutName: "",
           workoutDescription: "",
-          timeStart: 0,
+          timeStart: new Date(),
           workoutDuration: 0,
           workoutExercises: [],
           workoutActive: false,

@@ -10,7 +10,7 @@ import { ExerciseDetail } from '../store/interfaces';
 
 export type ExerciseDetailOptions = "id" | "name" | "twoSided" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
 
-const ExerciseListOptions = ["primarySpecificMuscleGroup", "secondarySpecificMuscleGroup", "notes"];
+const ExerciseListOptions: string[] = [] // ["primarySpecificMuscleGroup", "secondarySpecificMuscleGroup", "notes"];
 interface ExerciseDetailProps {
   keyword: string,
   description: ExerciseDetailOptions,
@@ -74,14 +74,16 @@ export default function ExerciseList({ details, onExercisePressAddExercise }: Ex
             key = {item.id} 
             style={[styles.exerciseBlock, { backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}
           >
-            <Image style={styles.exerciseImage} source={require('../../assets/exerciseIcons/benchPress.png')} />
+            {/* <Image style={styles.exerciseImage} source={require('../../assets/exerciseIcons/benchPress.png')} /> */}
             <View style={styles.detailsBlock}>
               <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>
                 {item.name}
               </Text>
 
               {details.map(({ keyword, description }) => {
-                return <ExerciseDetailLine key = {description} keyword={keyword} description={description} item = {item}/>
+                return item[description] !== "" ?
+                  <ExerciseDetailLine key = {description} keyword={keyword} description={description} item = {item}/>
+                : null
                 // return <ExerciseDetailLine keyword={keyword} description={item[description as keyof typeof item]} />
               })}
             </View>

@@ -65,7 +65,7 @@ const index = () => {
             <View style={[styles.exerciseBlock, {backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}>
 
               <View style={styles.topBarContainer}>
-                <Image style={styles.exerciseImage} source={require('../../../../assets/exerciseIcons/benchPress.png')} />
+                {/* <Image style={styles.exerciseImage} source={require('../../../../assets/exerciseIcons/benchPress.png')} /> */}
                 <View style={styles.topBarDetailsBlock}>
                   <Text style={[styles.exerciseName, {color: Colors[colorTheme].text}]}>{getExerciseName(item.id)}</Text>
                   {
@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
   topBarContainer:{
     flexDirection: 'row',
     width: '100%',
+    marginBottom: 15,
     
     justifyContent: 'space-between',
     alignItems: 'center',
