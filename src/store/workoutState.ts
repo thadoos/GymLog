@@ -4,11 +4,14 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import zustandStorage from './mmkv';
 import exercisesData from '../../assets/exercisesData.json';
 import { ExerciseDetail } from './interfaces';
+import { useRealm } from '@realm/react';
+import { WorkoutLog } from '../models/WorkoutLog';
 
 export interface WorkoutState {
   workoutName: string,
   workoutDescription: string,
   timeStart: number,
+  timeEnd: number,
   workoutDuration: number,
   workoutExercises: Array<Exercise>,
   workoutActive: boolean,
@@ -46,15 +49,19 @@ export const useWorkoutStore = create<WorkoutState>()(
       workoutName: "",
       workoutDescription: "",
       timeStart: 0,
+      timeEnd: 0,
       workoutDuration: 0,
       workoutExercises: [],
-      workoutActive: false,
+      workoutActive: false, // This won't be saved to the database.
 
       setWorkoutName: (workoutName: string) => set({ workoutName }),
       setWorkoutDescription: (workoutDescription: string) => set({ workoutDescription }),
       addExercise: (exerciseID: number) => set((state) => ({
         workoutExercises: state.workoutExercises.concat([{
           id: exerciseID,
+          restStartTime: 0,
+          restEndTime: 0,
+          restDuration: 0,
           // name: getExerciseName(exerciseID),
           sets: [{reps: 0, weight: 0, done: false}], // TODO Perhaps make it set the default numbers to the same as from last set
         }])
@@ -89,27 +96,25 @@ export const useWorkoutStore = create<WorkoutState>()(
       changeRepWithIndex: (exerciseIndex: number, setIndex: number, newReps: number) => set((state) => {
         const oldExercises = [...state.workoutExercises];
         oldExercises[exerciseIndex].sets[setIndex].reps = newReps;
-
         return {
           workoutExercises: oldExercises,
         }
-        
       }),
       changeWeightWithIndex: (exerciseIndex: number, setIndex: number, newWeight: number) => set((state) => {
         var oldExercise = [...state.workoutExercises];
         oldExercise[exerciseIndex].sets[setIndex].weight = newWeight;
-
         return {
           workoutExercises: oldExercise,
         }
-        
       }),
       addSupersetToExercise: (superset: WorkoutSuperSet) => set((state) => {
+        // TODO To implement
         return{
           
         }
       }),
       setTimeTaken: (timeTaken: number) => set((state) => {
+        // TODO To implement
         return{
           
         }
@@ -122,15 +127,30 @@ export const useWorkoutStore = create<WorkoutState>()(
         workoutExercises: [],
         workoutActive: false,
       })),
-      endAndLogWorkout: () => set((state) => ({
-        // TODO Add the workout to online database
-        workoutName: "",
-        workoutDescription: "",
-        timeStart: 0,
-        workoutDuration: 0,
-        workoutExercises: [],
-        workoutActive: false,
-      })),
+      endAndLogWorkout: () => {
+        const realm = useRealm();
+        // TODO Add the workout to (online) database
+        set((state) => {
+          realm.write(() => {
+            realm.create('WorkoutLog', {
+              workoutName: state.workoutName,
+              workoutDescription: state.workoutDescription,
+              timeStart: state.timeStart,
+              timeEnd: state.timeEnd,
+              workoutDuration: Math.floor(state.timeEnd - state.timeEnd),
+              workoutExercises: state.workoutExercises,
+            })
+          })
+
+        return({
+          workoutName: "",
+          workoutDescription: "",
+          timeStart: 0,
+          workoutDuration: 0,
+          workoutExercises: [],
+          workoutActive: false,
+        })
+      })},
 
 
     }),

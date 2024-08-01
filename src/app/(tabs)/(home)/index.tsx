@@ -13,7 +13,7 @@ const index = () => {
     <View style = {[styles.container, {backgroundColor: Colors[colorTheme].background}]}>
       <TouchableOpacity 
         style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
-        onPress={() => router.push('ViewExercises')}
+        onPress={() => router.push('TrainingHistory')}
       >
         <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>Training History</Text>
       </TouchableOpacity>

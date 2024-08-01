@@ -10,8 +10,11 @@ export default function FinishWorkoutModal(){
   const colorTheme = useAppSettingStore(state => state.theme);
   const router = useRouter();
 
-  const exerciseTitle = useWorkoutStore(state=>state.workoutName);
+  const workoutTitle = useWorkoutStore(state=>state.workoutName);
   const setWorkoutName = useWorkoutStore(state=>state.setWorkoutName);
+
+  const workoutDescription = useWorkoutStore(state=>state.workoutDescription);
+  const setWorkoutDescription = useWorkoutStore(state=>state.setWorkoutDescription);
 
   return(
     <View style={{flex: 1, backgroundColor: Colors[colorTheme].background}}>
@@ -21,7 +24,7 @@ export default function FinishWorkoutModal(){
           <TextInput 
             style={[styles.textEntry, {color: Colors[colorTheme].text, borderColor: Colors[colorTheme].textInputBorder}]}
             placeholder='Enter Title'
-            value={exerciseTitle}
+            value={workoutTitle}
             onChangeText={(text) => setWorkoutName(text)}
           />
 
@@ -32,8 +35,8 @@ export default function FinishWorkoutModal(){
             multiline
             style={[styles.textEntry, {color: Colors[colorTheme].text, borderColor: Colors[colorTheme].textInputBorder,flexGrow: 1,}]}
             placeholder='Enter Title'
-            value={exerciseTitle}
-            onChangeText={(text) => setWorkoutName(text)}
+            value={workoutDescription}
+            onChangeText={(text) => setWorkoutDescription(text)}
           />
 
         </View>

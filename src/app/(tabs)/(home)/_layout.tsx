@@ -37,6 +37,13 @@ const home_layout = () => {
 
         }}
       />
+      <Stack.Screen 
+        name="TrainingHistory"
+        options={{
+          title:"Training History",
+
+        }}
+      />
     </Stack>
   )
 }

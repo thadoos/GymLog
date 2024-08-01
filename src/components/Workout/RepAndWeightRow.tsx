@@ -33,6 +33,7 @@ export const RepAndWeightRow = ({index, curSetIndex, reps, weight} : SwipeableIt
       <Text style={[styles.setNumberText, {color: Colors[colorTheme].text}]}>{curSetIndex + 1}</Text>
       <TextInput
           style={[styles.repTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+          selectTextOnFocus={true}
           placeholder='Reps'
           value={reps.toString()}
           keyboardType='decimal-pad'
@@ -40,6 +41,7 @@ export const RepAndWeightRow = ({index, curSetIndex, reps, weight} : SwipeableIt
         />
       <TextInput
           style={[styles.weightTextInput, {color: Colors[colorTheme].text, backgroundColor: Colors[colorTheme].setsAndRepsBackground}]}
+          selectTextOnFocus={true}
           placeholder='Weight'
           value={weight.toString()}
           keyboardType='decimal-pad'

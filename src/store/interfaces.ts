@@ -5,6 +5,9 @@ export interface Exercise {
   // name: string,
   sets: Array<WorkoutBasicSet>,
   // sets: Array<WorkoutBasicSet | WorkoutSuperSet>, // TODO Implement superset later
+  restStartTime: number,
+  restEndTime: number,
+  restDuration: number,
 }
 
 export interface WorkoutBasicSet {
@@ -14,6 +17,7 @@ export interface WorkoutBasicSet {
 }
 
 export interface WorkoutSuperSet {
+  // FIXME Not quite right, need to fix
   superset: Array<WorkoutBasicSet>,
 }
 
