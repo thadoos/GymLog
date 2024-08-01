@@ -273,7 +273,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '700',
     fontSize: 16,
-    borderRightWidth: 1,
   },
   repsWeightBorderContainer:{
     flex: 1,
@@ -284,7 +283,6 @@ const styles = StyleSheet.create({
   },
   repsWeightHeader:{
     flex: 1,
-    // borderWidth: 1,
     alignSelf: 'center',
     textAlign: 'center',
     fontWeight: '700',
@@ -292,7 +290,6 @@ const styles = StyleSheet.create({
   },
   invisibileHeaderCell:{
     width: '10%',
-    // borderWidth: 1,
   },
 
 
