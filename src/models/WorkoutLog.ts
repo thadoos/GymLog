@@ -9,6 +9,7 @@ export class WorkoutLog extends Realm.Object<WorkoutLog> {
   timeEnd: Date = new Date();
   workoutDuration!: number;
   workoutExercises!: Exercise[];
+  // TODO Add list of muscle groups trained
   // static schema: ObjectSchema = {
   //   name: 'WorkoutLog',
   //   properties: {

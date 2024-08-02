@@ -75,17 +75,18 @@ export default function workout_stack(){
             <TouchableOpacity 
               onPress={() => {
                 const endTime = new Date();
+                console.log(workoutExercises);
                 router.navigate('(home)');
-                  realm.write(() => {
-                    realm.create('WorkoutLog', {
-                      workoutName: workoutName,
-                      workoutDescription: workoutDescription,
-                      timeStart: timeStart,
-                      timeEnd: endTime,
-                      workoutDuration: Math.floor(endTime.getTime() - timeStart.getTime()),
-                      workoutExercises: workoutExercises,
-                    })
+                realm.write(() => {
+                  realm.create('WorkoutLog', {
+                    workoutName: workoutName,
+                    workoutDescription: workoutDescription,
+                    timeStart: timeStart,
+                    timeEnd: endTime,
+                    workoutDuration: Math.floor(endTime.getTime() - timeStart.getTime()),
+                    workoutExercises: workoutExercises,
                   })
+                })
                 endAndLogWorkout();
               }}
             >

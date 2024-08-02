@@ -4,7 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 
 
-import { RepAndWeightRow } from '../../../components/Workout/RepAndWeightRow';
+import { RepAndWeightRowTextInput } from '../../../components/Workout/RepAndWeightRowTextInput';
 
 import {CancelWorkoutModal} from '../../../components/Workout/CancelWorkoutModal';
 import { ExerciseOptionsModal } from '../../../components/Workout/ExerciseOptionsModal';
@@ -15,14 +15,14 @@ import { useAppSettingStore } from '../../../store/appSettings';
 import { useAppState } from '../../../store/appState';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const getExerciseName = (id: number) : string => {
+export const getExerciseName = (id: number) : string => {
   return exerciseMap.get(id)?.name ?? "Cannot Fetch";
 }
-const getExerciseTwoSided = (id:number) : boolean => {
+export const getExerciseTwoSided = (id:number) : boolean => {
   return exerciseMap.get(id)?.twoSided ?? true;
 }
 
-const getExerciseNotes = (id:number) : string => {
+export const getExerciseNotes = (id:number) : string => {
   return exerciseMap.get(id)?.notes ?? "";
 }
 
@@ -113,9 +113,8 @@ const index = () => {
                   <View style={styles.invisibileHeaderCell}></View>
                 </View>
 
-                {/* TODO Make a subcontainer for each button so that I can include "reps" and "kg" on the right of each field */}
                 {item.sets.map(({reps,weight}, curSetIndex) => (
-                      <RepAndWeightRow key={curSetIndex} index={index} curSetIndex={curSetIndex} reps={reps} weight={weight} />
+                      <RepAndWeightRowTextInput key={curSetIndex} index={index} curSetIndex={curSetIndex} reps={reps} weight={weight} />
                 ))}
 
                 <TouchableOpacity

@@ -44,6 +44,13 @@ const home_layout = () => {
 
         }}
       />
+      <Stack.Screen 
+        name="[workoutID]"
+        options={{
+          title:"View Past Workout",
+
+        }}
+      />
     </Stack>
   )
 }

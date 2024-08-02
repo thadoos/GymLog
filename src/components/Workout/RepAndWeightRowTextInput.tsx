@@ -13,7 +13,7 @@ interface SwipeableItemProps {
   index: number, curSetIndex: number, reps: number, weight: number
 }
 
-export const RepAndWeightRow = ({index, curSetIndex, reps, weight} : SwipeableItemProps) => {
+export const RepAndWeightRowTextInput = ({index, curSetIndex, reps, weight} : SwipeableItemProps) => {
   const colorTheme = useAppSettingStore(state=>state.theme);
   const changeRepWithIndex = useWorkoutStore(state=>state.changeRepWithIndex);
   const changeWeightWithIndex = useWorkoutStore(state=>state.changeWeightWithIndex);
