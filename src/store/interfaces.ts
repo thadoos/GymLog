@@ -5,8 +5,8 @@ export interface Exercise {
   // name: string,
   sets: Array<WorkoutBasicSet>,
   // sets: Array<WorkoutBasicSet | WorkoutSuperSet>, // TODO Implement superset later
-  restStartTime: number,
-  restEndTime: number,
+  restStartTime: Date,
+  restEndTime: Date,
   restDuration: number,
 }
 

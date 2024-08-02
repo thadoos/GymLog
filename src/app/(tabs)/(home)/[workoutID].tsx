@@ -11,6 +11,7 @@ import { useAppSettingStore } from '../../../store/appSettings'
 import { useObject} from '@realm/react';
 import { BSON } from 'realm';
 import { WorkoutLog } from '../../../models/WorkoutLog';
+import { Exercise } from '../../../store/interfaces';
 
 interface WorkoutIDProp {
   id: string
@@ -25,7 +26,7 @@ const WorkoutScreen = () => {
   const workoutID: BSON.ObjectId = new BSON.ObjectId(params.workoutID as string);
   const workoutDetails = useObject(WorkoutLog, workoutID);
   console.log(workoutDetails);
-  const exerciseList = workoutDetails?.workoutExercises;
+  const exerciseList : Exercise[] | undefined= workoutDetails?.workoutExercises;
   console.log(exerciseList);
 
   return (

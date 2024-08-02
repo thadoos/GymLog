@@ -60,8 +60,8 @@ export const useWorkoutStore = create<WorkoutState>()(
       addExercise: (exerciseID: number) => set((state) => ({
         workoutExercises: state.workoutExercises.concat([{
           id: exerciseID,
-          restStartTime: 0,
-          restEndTime: 0,
+          restStartTime: new Date(),
+          restEndTime: new Date(),
           restDuration: 0,
           // name: getExerciseName(exerciseID),
           sets: [{reps: 0, weight: 0, done: false}], // TODO Perhaps make it set the default numbers to the same as from last set

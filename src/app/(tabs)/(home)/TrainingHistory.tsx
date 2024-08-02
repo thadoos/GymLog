@@ -47,6 +47,7 @@ const TrainingHistory = () => {
   const workoutList = useQuery(WorkoutLog, workoutLogs =>{
     return workoutLogs.sorted('timeStart', true)
   });
+  console.log(workoutList)
   const router = useRouter();
   return (
       <View style={{flex: 1, alignItems:'center', width: '100%',backgroundColor: Colors[colorTheme].background}}>
@@ -58,17 +59,18 @@ const TrainingHistory = () => {
             keyExtractor={(workoutLog)=>workoutLog._id.toString()}
             renderItem={({item}) => (
               <TouchableOpacity 
-                style={[styles.workoutBlock, {backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}
-                onPress={()=>{
-                  router.push(`(home)/${item._id.toHexString()}`)
-                  // router.push(`(home)/${item.workoutName}`)
-                }}
+              style={[styles.workoutBlock, {backgroundColor: Colors[colorTheme].exerciseBlockBackground}]}
+              onPress={()=>{
+                router.push(`(home)/${item._id.toHexString()}`)
+                // router.push(`(home)/${item.workoutName}`)
+              }}
               >
                 <Text style={[styles.workoutName, {color: Colors[colorTheme].text}]}>{item.workoutName}</Text>
                 <TextBlock keyword="Date of Workout" text={item.timeStart.toUTCString()}/>
-
-                <TextBlock keyword="Duration" text={getDuration(item.workoutDuration)}/>
-
+{/* <>
+                {console.log(item)}
+</> */}
+                
                 {/* <TextBlock style={[styles.workoutName, {color: Colors[colorTheme].text}]}>{item.timeStart.toUTCString()}</TextBlock> */}
 
               </TouchableOpacity>
