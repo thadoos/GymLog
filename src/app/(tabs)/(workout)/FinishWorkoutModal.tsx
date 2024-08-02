@@ -24,6 +24,7 @@ export default function FinishWorkoutModal(){
           <TextInput 
             style={[styles.textEntry, {color: Colors[colorTheme].text, borderColor: Colors[colorTheme].textInputBorder}]}
             placeholder='Enter Title'
+            placeholderTextColor={Colors[colorTheme].text}
             value={workoutTitle}
             onChangeText={(text) => setWorkoutName(text)}
           />
@@ -35,6 +36,7 @@ export default function FinishWorkoutModal(){
             multiline
             style={[styles.textEntry, {color: Colors[colorTheme].text, borderColor: Colors[colorTheme].textInputBorder,flexGrow: 1,}]}
             placeholder='Enter Title'
+            placeholderTextColor={Colors[colorTheme].text}
             value={workoutDescription}
             onChangeText={(text) => setWorkoutDescription(text)}
           />

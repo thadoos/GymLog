@@ -37,8 +37,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   workoutBlock:{
     width: '100%',
