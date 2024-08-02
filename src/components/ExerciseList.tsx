@@ -10,7 +10,7 @@ import { ExerciseDetail } from '../store/interfaces';
 
 export type ExerciseDetailOptions = "id" | "name" | "twoSided" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
 
-const ExerciseListOptions: string[] = [] // ["primarySpecificMuscleGroup", "secondarySpecificMuscleGroup", "notes"];
+const ExerciseListOptions: string[] =["primarySpecificMuscleGroup", "secondarySpecificMuscleGroup", "notes"];
 interface ExerciseDetailProps {
   keyword: string,
   description: ExerciseDetailOptions,
@@ -58,6 +58,7 @@ export default function ExerciseList({ details, onExercisePressAddExercise }: Ex
     <View style={styles.container}>
 
       {/* Can replace FlatList with FlashList - Just need to include the estimatedItemSize. Previous problem was FlashList not re-rendering when theme change*/}
+      {/* TODO Add animation to the scrolling */}
       <FlatList
         // estimatedItemSize={2}
         showsVerticalScrollIndicator={false}
