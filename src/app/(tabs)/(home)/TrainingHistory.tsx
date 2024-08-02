@@ -31,9 +31,12 @@ const TextBlock = ({keyword, text}: TextBlockProps) => {
 const getDuration = (timeDiff: number) : string => {
   let stringDuration = "";
   let hour = Math.floor(timeDiff / 100 / 60 / 60);
-  timeDiff -= hour * 60 * 60 * 100;
+  if(hour > 0){
+    timeDiff -= hour * 60 * 60 * 100;
+    stringDuration = hour + " hours "
+  }
   let mins = Math.floor(timeDiff / 100 / 60)
-  stringDuration = hour + " hours " + mins + " mins" 
+  stringDuration = mins + " mins" 
 
   return stringDuration;
 }
@@ -41,7 +44,7 @@ const getDuration = (timeDiff: number) : string => {
 const TrainingHistory = () => {
   const colorTheme = useAppSettingStore(state=>state.theme);
   const workoutList = useQuery(WorkoutLog, workoutLogs =>{
-    return workoutLogs.sorted('timeStart')
+    return workoutLogs.sorted('timeStart', true)
   });
   return (
       <View style={{flex: 1, alignItems:'center', width: '100%',backgroundColor: Colors[colorTheme].background}}>
@@ -86,13 +89,12 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     borderRadius: 15,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    padding: 20,
 
   },
   workoutName:{
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '800',
     marginBottom: 10,
   },
 
@@ -105,12 +107,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   keywordText:{
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: '700',
     marginRight: 7,
   },
   descriptionText:{
-    fontSize: 16,
-    fontWeight: '200',
+    fontSize: 14,
+    fontWeight: '300',
   },
 })

@@ -9,9 +9,8 @@ const ViewExercises = () => {
   const colorTheme = useAppSettingStore(state=>state.theme);
   return (
     <View style = {[styles.container, {backgroundColor: Colors[colorTheme].background}]}>
-      {/* This should be in another screen that is linked to this home page
-          It will be the button where user can access list of exercises
-      */}
+      {/* // TODO Should add an option to toggle whether to show just name or with all details.*/}
+      {/* // !  Perhaps the block will not open a separate thing but just extend at the bottom to show the details */}
       <ExerciseList 
         details={
           [
