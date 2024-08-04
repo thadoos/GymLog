@@ -4,14 +4,12 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import zustandStorage from './mmkv';
 import exercisesData from '../../assets/exercisesData.json';
 import { ExerciseDetail } from './interfaces';
-import { useRealm } from '@realm/react';
-import { WorkoutLog } from '../models/WorkoutLog';
 
 export interface WorkoutState {
   workoutName: string,
   workoutDescription: string,
   timeStart: Date,
-  timeEnd: Date, // ? Might not need this. Just have this found where the realm object is created
+  timeEnd: Date, 
   workoutDuration: number,
   workoutExercises: Array<Exercise>,
   workoutActive: boolean,

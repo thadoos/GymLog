@@ -1,11 +1,8 @@
 import { FlatList, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import RealmWorkoutLogProvider from '../../../providers/Realm'
 
 import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
-import { useQuery } from '@realm/react'
-import { WorkoutLog } from '../../../models/WorkoutLog'
 import { useRouter } from 'expo-router'
 
 
@@ -44,17 +41,13 @@ const getDuration = (timeDiff: number) : string => {
 
 const TrainingHistory = () => {
   const colorTheme = useAppSettingStore(state=>state.theme);
-  const workoutList = useQuery(WorkoutLog, workoutLogs =>{
-    return workoutLogs.sorted('timeStart', true)
-  });
-  console.log(workoutList)
   const router = useRouter();
   return (
       <View style={{flex: 1, alignItems:'center', width: '100%',backgroundColor: Colors[colorTheme].background}}>
         <View style = {styles.container}>
-          <FlatList
+          {/* <FlatList
             style={styles.workoutFlatList}
-            data={workoutList}
+            data={workoutList} // ! Need to add the workoutList implementation
             showsVerticalScrollIndicator={false}
             keyExtractor={(workoutLog)=>workoutLog._id.toString()}
             renderItem={({item}) => (
@@ -67,16 +60,12 @@ const TrainingHistory = () => {
               >
                 <Text style={[styles.workoutName, {color: Colors[colorTheme].text}]}>{item.workoutName}</Text>
                 <TextBlock keyword="Date of Workout" text={item.timeStart.toUTCString()}/>
-{/* <>
-                {console.log(item)}
-</> */}
                 
-                {/* <TextBlock style={[styles.workoutName, {color: Colors[colorTheme].text}]}>{item.timeStart.toUTCString()}</TextBlock> */}
 
               </TouchableOpacity>
 
             )}
-          />
+          /> */}
           
         </View>
       </View>

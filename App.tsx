@@ -1,17 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import RealmWorkoutLogProvider from './src/providers/Realm';
 
 export default function App() {
   return (
-    <RealmWorkoutLogProvider>
       <View style={styles.container}>
         <Text>Open up App.tsx to start working on your app!</Text>
         <StatusBar style="auto" />
       </View>
 
 
-    </RealmWorkoutLogProvider>
   );
 }
 

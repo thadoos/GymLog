@@ -7,7 +7,7 @@ import { useAppState } from "../../../store/appState";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useWorkoutStore } from "../../../store/workoutState";
 
-import { useRealm } from "@realm/react";
+// import { useRealm } from "@realm/react";
 
 
 export default function workout_stack(){
@@ -17,7 +17,7 @@ export default function workout_stack(){
   // const endAndLogWorkout = useWorkoutStore(state => state.endAndLogWorkout);
   const { workoutName, workoutDescription, timeStart, timeEnd, workoutExercises, endAndLogWorkout } = useWorkoutStore();
 
-  const realm = useRealm();
+  // const realm = useRealm();
 
   return(
     <Stack screenOptions={{
@@ -77,16 +77,16 @@ export default function workout_stack(){
                 const endTime = new Date();
                 console.log(workoutExercises);
                 router.navigate('(home)');
-                realm.write(() => {
-                  realm.create('WorkoutLog', {
-                    workoutName: workoutName,
-                    workoutDescription: workoutDescription,
-                    timeStart: timeStart,
-                    timeEnd: endTime,
-                    workoutDuration: Math.floor(endTime.getTime() - timeStart.getTime()),
-                    workoutExercises: workoutExercises,
-                  })
-                })
+                // realm.write(() => {
+                //   realm.create('WorkoutLog', {
+                //     workoutName: workoutName,
+                //     workoutDescription: workoutDescription,
+                //     timeStart: timeStart,
+                //     timeEnd: endTime,
+                //     workoutDuration: Math.floor(endTime.getTime() - timeStart.getTime()),
+                //     workoutExercises: workoutExercises,
+                //   })
+                // })
                 endAndLogWorkout();
               }}
             >
