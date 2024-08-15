@@ -3,8 +3,24 @@ import { readonly, text, children, field, relation, date } from '@nozbe/watermel
 import Superset from './Superset';
 import Dropset from './Dropset';
 import Myoset from './Myoset';
+import Exercise from './Exercise';
+import WorkoutExercise from './WorkoutExercise';
 
-export default class Set extends Model {
+export default class Set extends Model{
+  static table = 'sets'
+  static associations = {
+    workout_exercises: { type: 'belongs_to' as const, key: 'workout_exercise_id' },
+    exercises: { type: 'belongs_to' as const, key: 'exercise_id'}
+  }
+  @field('reps') reps : number;
+  @field('weight') weight : number;
+  @field('set_type') setType : 'myoset' | 'dropset' | null; // null means default set
+  @text('next_set_id') nextSetId : string | null;
+
+  @relation('workout_exercises', 'workout_exercise_id') workoutExercise : Relation<WorkoutExercise>;
+  @relation('exercises', 'exercise_id') exerciseId : Relation<Exercise>;
+}
+export class OldSet extends Model {
   static table = 'sets'
   static associations = {
     supersets: { type: 'belongs_to' as const, key: 'superset_id'},
