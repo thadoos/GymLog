@@ -11,8 +11,9 @@ export default class Exercise extends Model {
   static associations = {
     exercise_muscle_groups : { type: 'has_many' as const, foreignKey: 'exercise_id'},
     exercise_muscles: { type: 'has_many' as const, foreignKey: 'exercise_id'},
-    equipments: { type: 'belongs_to' as const, key: 'equipment_id' },
     sets: { type: 'has_many' as const, foreignKey: 'exercise_id' },
+
+    equipments: { type: 'belongs_to' as const, key: 'equipment_id' },
     users: { type: 'belongs_to' as const, key: 'user_id' },
   }  
 
@@ -20,11 +21,12 @@ export default class Exercise extends Model {
   @field('is_two_side_weight') isTwoSideWeight : boolean;
   @text('note') note : string;
 
-  @relation('equipments', 'equipment_id') equipment : Relation<Equipment>;
-  @relation('users', 'user_id') user : Relation<User>;
-
   @children('exercise_muscles') exerciseMuscles : Query<ExerciseMuscle>;
   @children('exercise_muscle_groups') exerciseMuscleGroups : Query<ExerciseMuscleGroup>;
   @children('sets') sets : Query<Set>;
+
+  @relation('equipments', 'equipment_id') equipment : Relation<Equipment>;
+  @relation('users', 'user_id') user : Relation<User>;
+
 
 }

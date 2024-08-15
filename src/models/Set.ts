@@ -14,12 +14,18 @@ export default class Set extends Model{
   }
   @field('reps') reps : number;
   @field('weight') weight : number;
+  @field('note') note : string;
   @field('set_type') setType : 'myoset' | 'dropset' | null; // null means default set
+  @text('prev_set_id') prevSetId : string | null;
   @text('next_set_id') nextSetId : string | null;
 
   @relation('workout_exercises', 'workout_exercise_id') workoutExercise : Relation<WorkoutExercise>;
   @relation('exercises', 'exercise_id') exerciseId : Relation<Exercise>;
 }
+
+
+
+
 export class OldSet extends Model {
   static table = 'sets'
   static associations = {

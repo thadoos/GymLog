@@ -3,7 +3,16 @@ import { appSchema, tableSchema } from '@nozbe/watermelondb'
 export default appSchema({
   version: 1,
   tables: [
-    // We'll add tableSchemas here later
+    tableSchema({
+      name: "muscles",
+      columns: [
+        { name: "muscle_name", type: 'string' },
+        { name: 'is_primary', type: 'boolean' },
+
+        { name: "muscle_group_id", type: 'string', isIndexed: true },
+      ]
+    }),
+
     tableSchema({
       name: "muscle_groups",
       columns: [
@@ -13,24 +22,30 @@ export default appSchema({
     }),
 
     tableSchema({
-      name: "muscles",
+      name: 'exercise_muscles',
       columns: [
-        // { name: "muscle_id", type: 'number', isIndexed: true },
-        { name: "muscle_name", type: 'string' },
-        { name: "muscle_group_id", type: 'string', isIndexed: true },
-        { name: 'is_primary', type: 'boolean' },
+        { name: 'exercise_id', type: 'string', isIndexed: true },
+        { name: 'muscle_id', type: 'string', isIndexed: true },
+      ]
+    }),
+
+    tableSchema({
+      name: 'exercise_muscle_groups',
+      columns: [
+        { name: 'exercise_id', type: 'string', isIndexed: true },
+        { name: 'muscle_group_id', type: 'string', isIndexed: true },
       ]
     }),
 
     tableSchema({
       name: 'exercises',
       columns: [
-        // { name: 'exercise_id', type: 'number', isIndexed: true },
         { name: 'exercise_name', type: 'string' },
         { name: 'is_two_side_weight', type: 'boolean', isIndexed: true },
         { name: 'note', type: 'string'},
 
         { name: 'user_id', type: 'string', isIndexed: true },
+        { name: 'equipment_id', type: 'string', isIndexed: true },
       ]
     }),
 
@@ -48,52 +63,30 @@ export default appSchema({
         // { name: 'set_id', type: 'number' },
         { name: 'reps', type: 'number' },
         { name: 'weight', type: 'number' }, 
-        { name: 'set_order', type: 'number' },
-        // { name: 'created_at', type: 'number' },
-      ]
-    }),
+        { name: 'note', type: 'string'},
+        { name: 'set_type', type: 'string'},
+        { name: 'prev_set_id', type: 'string'},
+        { name: 'next_set_id', type: 'string'},
 
-    tableSchema({
-      name: 'supersets',
-      columns: [
-        { name: 'set_order', type: 'number' },
-        // { name: 'superset_id', type: 'number', isIndexed: true }, 
-      ]
-    }),
-
-    tableSchema({
-      name: 'dropsets',
-      columns: [
-        { name: 'set_order', type: 'number' },
-        // { name: 'dropset_id', type: 'number', isIndexed: true }, 
-      ]
-    }),
-
-    tableSchema({
-      name: 'myosets',
-      columns: [
-        { name: 'set_order', type: 'number' },
-        // { name: 'myoset_id', type: 'number', isIndexed: true }, 
+        { name: 'workout_exercise_id', type: 'string', isIndexed: true },
+        { name: 'exercise_id', type: 'string', isIndexed: true },
       ]
     }),
 
     tableSchema({
       name: 'workout_exercises',
       columns: [
-        { name: 'workout_exercise_id', type: 'number', isIndexed: true }, 
-        { name: 'workout_exercise_id', type: 'number', isIndexed: true }, 
+        { name: 'workout_id', type: 'string', isIndexed: true }, 
       ]
     }),
 
     tableSchema({
       name: 'workouts',
       columns: [
-        // { name: 'workout_id', type: 'number', isIndexed: true }, 
         { name: 'workout_name', type: 'string' },
         { name: 'workout_description', type: 'string' },
         { name: 'started_at', type: 'number', isIndexed: true},
         { name: 'duration', type: 'number'},
-        { name: 'created_at', type: 'number' },
 
         { name: 'user_id', type: 'string', isIndexed: true },
       ]
@@ -106,5 +99,28 @@ export default appSchema({
       ]
     })
     
+    // tableSchema({
+    //   name: 'supersets',
+    //   columns: [
+    //     { name: 'set_order', type: 'number' },
+    //     // { name: 'superset_id', type: 'number', isIndexed: true }, 
+    //   ]
+    // }),
+
+    // tableSchema({
+    //   name: 'dropsets',
+    //   columns: [
+    //     { name: 'set_order', type: 'number' },
+    //     // { name: 'dropset_id', type: 'number', isIndexed: true }, 
+    //   ]
+    // }),
+
+    // tableSchema({
+    //   name: 'myosets',
+    //   columns: [
+    //     { name: 'set_order', type: 'number' },
+    //     // { name: 'myoset_id', type: 'number', isIndexed: true }, 
+    //   ]
+    // }),
   ]
 })
