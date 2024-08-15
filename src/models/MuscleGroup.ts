@@ -9,7 +9,6 @@ export default class MuscleGroup extends Model {
     muscles: { type: 'has_many' as const, foreignKey: 'muscle_group_id'},
     exercise_muscle_groups: { type: 'has_many' as const, foreignKey: 'muscle_group_id' },
   }
-  // @field('muscle_group_id') muscleGroupId : number;
   @text('muscle_group_name') muscleGroupName : string;
   @field('is_primary') isPrimary : boolean;
 

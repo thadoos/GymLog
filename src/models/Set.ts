@@ -16,7 +16,8 @@ export default class Set extends Model {
   // @field('set_id') setId : number;
   @field('reps') reps : number;
   @field('weight') weight : number;
-  @readonly @date('created_at') createdAt : Date;
+  @field('set_number') setNumber : number;
+  // @readonly @date('created_at') createdAt : Date;
 
   @relation('supersets', 'superset_id') superset : Relation<Superset>;
   @relation('dropsets', 'dropset_id') myoset : Relation<Dropset>;

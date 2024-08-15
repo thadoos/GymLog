@@ -25,17 +25,19 @@ export default appSchema({
     tableSchema({
       name: 'exercises',
       columns: [
-        { name: 'exercise_id', type: 'number', isIndexed: true },
+        // { name: 'exercise_id', type: 'number', isIndexed: true },
         { name: 'exercise_name', type: 'string' },
         { name: 'is_two_side_weight', type: 'boolean', isIndexed: true },
         { name: 'note', type: 'string'},
+
+        { name: 'user_id', type: 'string', isIndexed: true },
       ]
     }),
 
     tableSchema({
       name: 'equipments',
       columns: [
-        { name: 'equipment_id', type: 'number', isIndexed: true},
+        // { name: 'equipment_id', type: 'number', isIndexed: true},
         { name: 'equipment_name', type: 'string'},
       ]
     }),
@@ -43,31 +45,35 @@ export default appSchema({
     tableSchema({
       name: 'sets',
       columns: [
-        { name: 'set_id', type: 'number' },
+        // { name: 'set_id', type: 'number' },
         { name: 'reps', type: 'number' },
         { name: 'weight', type: 'number' }, 
-        { name: 'created_at', type: 'number' },
-      ]
-    }),
-
-    tableSchema({
-      name: 'dropsets',
-      columns: [
-        { name: 'dropset_id', type: 'number', isIndexed: true }, 
-      ]
-    }),
-
-    tableSchema({
-      name: 'myosets',
-      columns: [
-        { name: 'myoset_id', type: 'number', isIndexed: true }, 
+        { name: 'set_order', type: 'number' },
+        // { name: 'created_at', type: 'number' },
       ]
     }),
 
     tableSchema({
       name: 'supersets',
       columns: [
-        { name: 'superset_id', type: 'number', isIndexed: true }, 
+        { name: 'set_order', type: 'number' },
+        // { name: 'superset_id', type: 'number', isIndexed: true }, 
+      ]
+    }),
+
+    tableSchema({
+      name: 'dropsets',
+      columns: [
+        { name: 'set_order', type: 'number' },
+        // { name: 'dropset_id', type: 'number', isIndexed: true }, 
+      ]
+    }),
+
+    tableSchema({
+      name: 'myosets',
+      columns: [
+        { name: 'set_order', type: 'number' },
+        // { name: 'myoset_id', type: 'number', isIndexed: true }, 
       ]
     }),
 
