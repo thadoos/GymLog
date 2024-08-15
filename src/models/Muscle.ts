@@ -1,6 +1,7 @@
-import { Model, Relation } from '@nozbe/watermelondb'
+import { Model, Query, Relation } from '@nozbe/watermelondb'
 import { text, children, field, relation } from '@nozbe/watermelondb/decorators'
 import MuscleGroup from './MuscleGroup'
+import ExerciseMuscle from './ExerciseMuscle'
 
 export default class Muscle extends Model {
   static table = 'muscles'
@@ -10,6 +11,8 @@ export default class Muscle extends Model {
   }  
   // @field('muscle_id') muscleId : number;
   @text('muscle_name') muscleName : string;
+  @field('is_primary') isPrimary : boolean;
 
-  @relation('muscle_groups', 'muscle_group_id') muscleGroup: Relation<MuscleGroup>;
+  @relation('muscle_groups', 'muscle_group_id') muscleGroup : Relation<MuscleGroup>;
+  @children('exercise_muscles') exerciseMuscles : Query<ExerciseMuscle>;
 }
