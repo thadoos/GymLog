@@ -96,6 +96,7 @@ export default appSchema({
       name: 'users',
       columns: [
         { name: 'username', type: 'string' },
+        { name: 'theme', type: 'string' },
       ]
     })
     

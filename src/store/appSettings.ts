@@ -4,6 +4,7 @@ import zustandStorage from './mmkv';
 
 type Theme = 'light' | 'dark';
 interface AppSettingState {
+  user_id: string,
   theme: Theme,
   toggleTheme: () => void,
 }
@@ -16,6 +17,7 @@ interface AppSettingState {
 export const useAppSettingStore = create<AppSettingState>()(
   persist(
     (set, get) => ({
+      user_id: 'abc',
       theme: 'light',
       // toggleTheme: () => set({theme: theme === 'light' ? 'dark' : 'light'}),
       toggleTheme: () => set((state) => ({theme: state.theme === 'light' ? 'dark' : 'light'}))

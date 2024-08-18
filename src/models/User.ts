@@ -11,6 +11,7 @@ export default class User extends Model{
   }
 
   @text('username') username : string;
+  @text('theme') theme : 'light' | 'dark';
 
   @children('workouts') workouts : Query<Workout>;
   @children('exercises') exercises : Query<Exercise>;
