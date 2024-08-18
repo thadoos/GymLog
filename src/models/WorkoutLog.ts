@@ -1,5 +1,5 @@
 import { ObjectSchema, BSON, Realm } from "realm";
-import { Exercise } from "../store/interfaces";
+import { Exercise } from "../store/oldInterfaces";
 
 export class WorkoutLog extends Realm.Object<WorkoutLog> {
   _id: BSON.ObjectId = new BSON.ObjectId(); 

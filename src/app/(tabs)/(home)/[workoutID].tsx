@@ -11,7 +11,7 @@ import { useAppSettingStore } from '../../../store/appSettings'
 import { useObject} from '@realm/react';
 import { BSON } from 'realm';
 import { WorkoutLog } from '../../../models/WorkoutLog';
-import { Exercise } from '../../../store/interfaces';
+import { Exercise } from '../../../store/oldInterfaces';
 
 interface WorkoutIDProp {
   id: string

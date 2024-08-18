@@ -1,9 +1,9 @@
-import { Exercise, WorkoutBasicSet, WorkoutSuperSet } from './interfaces';
+import { Exercise, WorkoutBasicSet, WorkoutSuperSet } from './oldInterfaces';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import zustandStorage from './mmkv';
 import exercisesData from '../../assets/exercisesData.json';
-import { ExerciseDetail } from './interfaces';
+import { ExerciseDetail } from './oldInterfaces';
 
 export interface WorkoutState {
   workoutName: string,

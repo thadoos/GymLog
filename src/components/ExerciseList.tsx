@@ -6,7 +6,7 @@ import Colors from '../constants/Colors'
 import { useAppSettingStore } from '../store/appSettings';
 import { useWorkoutStore } from '../store/workoutState';
 import { useRouter } from 'expo-router';
-import { ExerciseDetail } from '../store/interfaces';
+import { ExerciseDetail } from '../store/oldInterfaces';
 
 export type ExerciseDetailOptions = "id" | "name" | "twoSided" | "imageName" |"type" |"primaryGeneralMuscleGroup" |"secondaryGeneralMuscleGroup" |"primarySpecificMuscleGroup" |"secondarySpecificMuscleGroup" |"equipment" |"notes";
 

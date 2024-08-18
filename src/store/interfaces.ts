@@ -1,50 +1,17 @@
+export namespace ZustandWorkoutModel {
+  export interface Workout {
+    workout_name: string,
+    workout_description: string,
+    started_at: Date,
+    duration: number,
+  }
 
-
-export interface Exercise {
-  id: number,
-  // name: string,
-  sets: Array<WorkoutBasicSet>,
-  // sets: Array<WorkoutBasicSet | WorkoutSuperSet>, // TODO Implement superset later
-  restStartTime: Date,
-  restEndTime: Date,
-  restDuration: number,
-}
-
-export interface WorkoutBasicSet {
-  reps: number,
-  weight: number,
-  done: boolean,
-}
-
-export interface WorkoutSuperSet {
-  // FIXME Not quite right, need to fix
-  superset: Array<WorkoutBasicSet>,
-}
-
-export type ExerciseDetail = {
-  id: number,
-  name: string,
-  imageName: string,
-  type: string,
-  twoSided: boolean,
-  primaryGeneralMuscleGroup: Array<string>,
-  secondaryGeneralMuscleGroup: Array<string>,
-  primarySpecificMuscleGroup: Array<string>,
-  secondarySpecificMuscleGroup: Array<string>,
-  equipment: string,
-  notes: string,
-}
-
-export const ExerciseDetailsTitles={
-  "id": "ID",
-  "name": "Name",
-  "imageName": "Image Name",
-  "type": "Exercise Type",
-  "twoSided": "Weight on Both Sides",
-  "primaryGeneralMuscleGroup": "General Primary Muscle Group",
-  "secondaryGeneralMuscleGroup": "General Secondary Muscle Group",
-  "primarySpecificMuscleGroup": "Specific Primary Muscle Group",
-  "secondarySpecificMuscleGroup": "Specific Secondary Muscle Group",
-  "equipment": "Equipment",
-  "notes": "Notes",
+  export interface Set {
+    // NOTE: prev_set_id and next_set_id should not be necessary as I will just store these in an array
+    reps: number,
+    weight: number,
+    note: string,
+    set_type: 'dropset' | 'myoset' | null,
+    exercise_id: string,
+  }
 }

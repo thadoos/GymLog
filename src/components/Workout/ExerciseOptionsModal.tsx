@@ -2,7 +2,7 @@ import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { Exercise, ExerciseDetailsTitles } from '../../store/interfaces';
+import { Exercise, ExerciseDetailsTitles } from '../../store/oldInterfaces';
 import exercisesData from '../../../assets/exercisesData.json';
 import { ExerciseDetailLine, ExerciseDetailOptions } from '../ExerciseList';
 
