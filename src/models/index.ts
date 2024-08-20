@@ -30,6 +30,7 @@ const adapter = new SQLiteAdapter({
   jsi: true, /* Platform.OS === 'ios' */
   // (optional, but you should implement this method)
   onSetUpError: error => {
+    console.warn("WatermelonDB setup error");
     // Database failed to load -- offer the user to reload the app or log out
   }
 })
@@ -55,12 +56,14 @@ const database = new Database({
 export const handleFirstLaunchLoadData = async () => {
   await database.write(async () => {
     muscleAndMuscleGroupData.muscleGroups.map(async (muscleGroupWithMuscle) => {
+      console.log(muscleGroupWithMuscle.name);
       const newMuscleGroup = await database.get<MuscleGroup>('muscle_groups').create((muscleGroup: MuscleGroup)=> {
         muscleGroup.name = muscleGroupWithMuscle.name
         muscleGroup.isPrimary = true
       })
 
       muscleGroupWithMuscle.muscles.map(async muscleEntry => {
+        console.log("Muscle: " + muscleEntry);
         await database.get<Muscle>('muscle').create((muscle: Muscle) => {
           muscle.name = muscleEntry
           muscle.isPrimary = true
@@ -109,6 +112,7 @@ export async function getAllMuscleGroups(){
 
 export async function getAllMuscleGroupsWithMuscles(){
   const muscleGroups = await getAllMuscleGroups();
+  console.log(muscleGroups)
 
   const muscleGroupWithMuscle = await Promise.all(
     muscleGroups.map(async (group) => {

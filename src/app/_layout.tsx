@@ -10,7 +10,7 @@ import muscleAndMuscleGroupData from '../../assets/muscleAndMuscleGroupData.json
 export default function root_layout() {
   const { doneFirstLoad, setDoneFirstLoad } = useAppSettingStore();
 
-  useEffect(() => { console.warn(doneFirstLoad)
+  useEffect(() => { 
     if(doneFirstLoad) {
       console.warn("First load had already been done before");
     } else {
