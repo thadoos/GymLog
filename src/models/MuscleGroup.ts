@@ -9,14 +9,11 @@ export default class MuscleGroup extends Model {
     muscles: { type: 'has_many' as const, foreignKey: 'muscle_group_id'},
     exercise_muscle_groups: { type: 'has_many' as const, foreignKey: 'muscle_group_id' },
   }
-  @text('name') name: string;
+  @text('name') name!: string;
   @field('is_primary') isPrimary : boolean;
 
   // @relation('muscles', 'muscle_id') muscles : Relation<Muscle>;
-  @children('muscles') muscles : Query<Muscle>;
-  @children('exercise_muscle_groups') exerciseMuscleGroups : Query<ExerciseMuscleGroup>;
+  @children('muscles') muscles? : Query<Muscle>;
+  @children('exercise_muscle_groups') exerciseMuscleGroups? : Query<ExerciseMuscleGroup>;
 
-  @writer async addMuscleToMuscleGroup(muscleId: string){
-
-  }
 }

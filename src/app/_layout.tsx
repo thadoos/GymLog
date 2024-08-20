@@ -13,7 +13,6 @@ export default function root_layout() {
   useEffect(() => { console.warn(doneFirstLoad)
     if(doneFirstLoad) {
       console.warn("First load had already been done before");
-      setDoneFirstLoad(false);
     } else {
       console.warn("Executing first load");
       handleFirstLaunchLoadData();

@@ -4,7 +4,7 @@ import Workout from "./Workout";
 import Exercise from "./Exercise";
 
 export default class User extends Model{
-  static name = 'users'
+  static table = 'users'
   static associations = {
     workouts : { type: 'has_many' as const, foreignKey: 'user_id' },
     exercises : { type: 'has_many' as const, foreignKey: 'user_id' },

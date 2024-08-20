@@ -24,10 +24,10 @@ export async function getAllMuscleGroupsWithMuscles(database: Database){
       const muscles = await group.muscles.fetch()
       return {
         id: group.id,
-        name: group.muscleGroupName,
+        name: group.name,
         muscles: muscles.map(muscle => ({
           id: muscle.id,
-          name: muscle.muscleName,
+          name: muscle.name,
         }))
       }
     })
