@@ -6,7 +6,7 @@ export default appSchema({
     tableSchema({
       name: "muscles",
       columns: [
-        { name: "muscle_name", type: 'string' },
+        { name: 'name', type: 'string' },
         { name: 'is_primary', type: 'boolean' },
 
         { name: "muscle_group_id", type: 'string', isIndexed: true },
@@ -16,7 +16,7 @@ export default appSchema({
     tableSchema({
       name: "muscle_groups",
       columns: [
-        { name: "muscle_group_name", type: 'string' },
+        { name: 'name', type: 'string' },
         { name: 'is_primary', type: 'boolean' },
       ]
     }),

@@ -1,0 +1,43 @@
+{
+  "muscleGroups" : [
+    {
+      "name" : "Chest",
+      "muscles" : ["Upper Chest", "Middle Chest", "Lower Chest"]
+    },
+
+    {
+      "name" : "Back",
+      "muscles" : ["Latissimus Dorsi", "Trapezius", "Rhomboids", "Teres Major", "Teres Minor"]
+    },
+
+    {
+      "name": "Shoulder",
+      "muscles": ["Anterior Deltoid", "Posterior Deltoid", "Lateral Deltoid", "Rotator Cuff"]
+    },
+
+    {
+      "name": "Bicep",
+      "muscles": ["Short Head", "Long Head", "Brachialis", "Brachioradialis"]
+    },
+
+    {
+      "name": "Tricep",
+      "muscles": ["Short Head", "Long Head", "Medial Head"]
+    },
+    {
+      "name": "Legs",
+      "muscles": ["Glutes", "Hamstrings", "Quadriceps", "Hip Flexors", "Calves", "Hip Adductors"]
+    },
+
+    {
+      "name": "Forearms",
+      "muscles": []
+    },
+
+    {
+      "name": "Abs",
+      "muscles": []
+    },
+
+  ]
+}

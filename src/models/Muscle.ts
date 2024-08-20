@@ -1,5 +1,5 @@
 import { Model, Query, Relation } from '@nozbe/watermelondb'
-import { text, children, field, relation } from '@nozbe/watermelondb/decorators'
+import { text, children, field, relation, writer } from '@nozbe/watermelondb/decorators'
 import MuscleGroup from './MuscleGroup'
 import ExerciseMuscle from './ExerciseMuscle'
 
@@ -10,9 +10,13 @@ export default class Muscle extends Model {
     exercise_muscles: { type: 'has_many' as const, foreignKey: 'muscle_id' },
   }  
   // @field('muscle_id') muscleId : number;
-  @text('muscle_name') muscleName : string;
+  @text('name') name: string;
   @field('is_primary') isPrimary : boolean;
 
   @relation('muscle_groups', 'muscle_group_id') muscleGroup : Relation<MuscleGroup>;
   @children('exercise_muscles') exerciseMuscles : Query<ExerciseMuscle>;
+
+  @writer async addMuscle(muscleName: string, muscleGroupId: string){
+
+  }
 }

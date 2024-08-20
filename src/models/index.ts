@@ -4,7 +4,18 @@ import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
 
 import schema from './schema'
 import migrations from './migrations'
-// import Post from './model/Post' // ⬅️ You'll import your Models here
+import Equipment from './Equipment'
+import Exercise from './Exercise'
+import ExerciseMuscle from './ExerciseMuscle'
+import ExerciseMuscleGroup from './ExerciseMuscleGroup'
+import Muscle from './Muscle'
+import MuscleGroup from './MuscleGroup'
+import Set from './Set'
+import User from './User'
+import Workout from './Workout'
+import WorkoutExercise from './WorkoutExercise'
+
+import muscleAndMuscleGroupData from '../../assets/muscleAndMuscleGroupData.json'
 
 // First, create the adapter to the underlying database:
 const adapter = new SQLiteAdapter({
@@ -26,6 +37,27 @@ const adapter = new SQLiteAdapter({
 const database = new Database({
   adapter,
   modelClasses: [
-    // Post, // ⬅️ You'll add Models to Watermelon here
+    Equipment,
+    Exercise,
+    ExerciseMuscle,
+    ExerciseMuscleGroup,
+    Muscle,
+    MuscleGroup,
+    Set,
+    User,
+    Workout,
+    WorkoutExercise
   ],
 })
+
+
+export const handleFirstLaunchLoadData = async () => {
+  await database.write(async () => {
+    muscleAndMuscleGroupData.muscleGroups.map(async (muscleGroupWithMuscle) => {
+      const newMuscleGroup = await database.get('muscle_groups').create(muscleGroup => {
+        muscleGroup.name = muscleGroupWithMuscle.name;
+      })
+    })
+  })
+}
+

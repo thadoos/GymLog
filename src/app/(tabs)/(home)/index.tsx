@@ -34,6 +34,27 @@ const index = () => {
         <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>View Exercises</Text>
       </TouchableOpacity>
         
+      {/* // WARN: To remove this secion below after testing the functions*/}
+      <TouchableOpacity 
+        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
+        onPress={() => router.push('ViewExercises')}
+      >
+        <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>Get all muscles</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
+        onPress={() => router.push('ViewExercises')}
+      >
+        <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>Get all muscle groups</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
+        onPress={() => {
+          console.warn();
+        }}
+      >
+        <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>Get all muscle groups with muscles</Text>
+      </TouchableOpacity>
     </View>
   )
 }
