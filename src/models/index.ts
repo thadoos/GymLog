@@ -54,24 +54,35 @@ const database = new Database({
 
 
 export const handleFirstLaunchLoadData = async () => {
-  await database.write(async () => {
-    muscleAndMuscleGroupData.muscleGroups.map(async (muscleGroupWithMuscle) => {
-      console.log(muscleGroupWithMuscle.name);
-      const newMuscleGroup = await database.get<MuscleGroup>('muscle_groups').create((muscleGroup: MuscleGroup)=> {
-        muscleGroup.name = muscleGroupWithMuscle.name
-        muscleGroup.isPrimary = true
-      })
+  try {
+    await database.write(async () => {
+      for(const muscleGroupWithMuscle of muscleAndMuscleGroupData.muscleGroups){
 
-      muscleGroupWithMuscle.muscles.map(async muscleEntry => {
-        console.log("Muscle: " + muscleEntry);
-        await database.get<Muscle>('muscle').create((muscle: Muscle) => {
-          muscle.name = muscleEntry
-          muscle.isPrimary = true
-          muscle.muscleGroup.set(newMuscleGroup)
+      // muscleAndMuscleGroupData.muscleGroups.map(async (muscleGroupWithMuscle) => {
+        console.log(muscleGroupWithMuscle.name);
+        const newMuscleGroup = await database.get<MuscleGroup>('muscle_groups').create((muscleGroup: MuscleGroup)=> {
+          muscleGroup.name = muscleGroupWithMuscle.name
+          muscleGroup.isPrimary = true
         })
-      })
+
+        for(const muscleEntry of muscleGroupWithMuscle.muscles){
+
+        // muscleGroupWithMuscle.muscles.map(async muscleEntry => {
+          console.log("Muscle: " + muscleEntry);
+          await database.get<Muscle>('muscles').create((muscle: Muscle) => {
+            muscle.name = muscleEntry
+            muscle.isPrimary = true
+            muscle.muscleGroup.set(newMuscleGroup)
+          })
+        // })
+        }
+      // })
+      }
     })
-  })
+  } catch (error) {
+    console.error('Handling first load', error)
+
+  }
 }
 
 export const hardDeleteAllMuscles = async () => {

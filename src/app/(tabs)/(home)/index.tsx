@@ -56,7 +56,8 @@ const index = () => {
           const muscleGroupsWithMuscles = getAllMuscleGroupsWithMuscles();
           muscleGroupsWithMuscles.then(tempMuscle => {
             tempMuscle.forEach(muscleContainer => {
-              console.log(muscleContainer);
+              console.log(muscleContainer.name)
+              console.log(muscleContainer.muscles)
             })
           })
         }}
@@ -69,7 +70,9 @@ const index = () => {
         onPress={() => {
           const allMusclesContainer = getAllMuscles();
           allMusclesContainer.then(muscleContainer => {
-            muscleContainer.forEach(muscle => console.log(muscle.name))
+            muscleContainer.forEach(muscle => {
+              console.log(muscle.name)
+            })
           })
         }}
       >
