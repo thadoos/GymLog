@@ -38,14 +38,22 @@ export default appSchema({
     }),
 
     tableSchema({
+      name: 'types',
+      columns: [
+        { name: 'name', type: 'string' },
+      ]
+    }),
+
+    tableSchema({
       name: 'exercises',
       columns: [
-        { name: 'exercise_name', type: 'string' },
+        { name: 'name', type: 'string' },
         { name: 'is_two_side_weight', type: 'boolean', isIndexed: true },
         { name: 'note', type: 'string'},
 
         { name: 'user_id', type: 'string', isIndexed: true },
         { name: 'equipment_id', type: 'string', isIndexed: true },
+        { name: 'type_id', type: 'string', isIndexed: true },
       ]
     }),
 
@@ -53,7 +61,7 @@ export default appSchema({
       name: 'equipments',
       columns: [
         // { name: 'equipment_id', type: 'number', isIndexed: true},
-        { name: 'equipment_name', type: 'string'},
+        { name: 'name', type: 'string'},
       ]
     }),
     
@@ -83,7 +91,7 @@ export default appSchema({
     tableSchema({
       name: 'workouts',
       columns: [
-        { name: 'workout_name', type: 'string' },
+        { name: 'name', type: 'string' },
         { name: 'workout_description', type: 'string' },
         { name: 'started_at', type: 'number', isIndexed: true},
         { name: 'duration', type: 'number'},

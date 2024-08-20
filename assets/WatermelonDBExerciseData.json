@@ -2,6 +2,9 @@
   "exercises" : [
     {
       "name" : "Bench Press",
+      "type" : "Strength",
+      "equipment" : "Bench",
+      "twoSided" : true
     }
   ]
 }

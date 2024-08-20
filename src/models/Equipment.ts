@@ -9,7 +9,7 @@ export default class Equipment extends Model {
   }  
 
   // @field('equipment_id') equipmentId : number;
-  @text('equipment_name') equipmentName : string;
+  @text('name') name: string;
 
   @children('exercises') exercises : Query<Exercise>;
 }

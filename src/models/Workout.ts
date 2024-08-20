@@ -9,7 +9,7 @@ export default class Workout extends Model{
     workout_exercises: { type: 'has_many' as const, foreignKey: 'workout_id' },
     users: { type: 'belongs_to' as const, key: 'user_id' },
   }
-  @text('workout_name') workoutName : string;
+  @text('name') name: string;
   @text('workout_description') workoutDescription : string;
   @date('started_at') startedAt : Date;
   @field('duration') duration : number;

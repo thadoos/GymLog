@@ -14,8 +14,10 @@ import Set from './Set'
 import User from './User'
 import Workout from './Workout'
 import WorkoutExercise from './WorkoutExercise'
+import TypeModel from './TypeModel'
 
 import muscleAndMuscleGroupData from '../../assets/muscleAndMuscleGroupData.json'
+import exerciseTypes from '../../assets/exerciseTypes.json'
 import { useAppSettingStore } from '../store/appSettings'
 
 // First, create the adapter to the underlying database:
@@ -39,6 +41,7 @@ const adapter = new SQLiteAdapter({
 const database = new Database({
   adapter,
   modelClasses: [
+    TypeModel,
     Equipment,
     Exercise,
     ExerciseMuscle,
@@ -56,6 +59,7 @@ const database = new Database({
 export const handleFirstLaunchLoadData = async () => {
   try {
     await database.write(async () => {
+      // NOTE: Muscle Group and muscle init
       for(const muscleGroupWithMuscle of muscleAndMuscleGroupData.muscleGroups){
 
       // muscleAndMuscleGroupData.muscleGroups.map(async (muscleGroupWithMuscle) => {
@@ -77,6 +81,13 @@ export const handleFirstLaunchLoadData = async () => {
         // })
         }
       // })
+      }
+
+      // NOTE: Exercise Type initialisation
+      for(const exerciseType of exerciseTypes.types){
+        await database.get<TypeModel>('types').create((type: TypeModel) => {
+          type.name = exerciseType
+        })
       }
     })
   } catch (error) {
@@ -140,4 +151,10 @@ export async function getAllMuscleGroupsWithMuscles(){
   )
 
   return muscleGroupWithMuscle;
+}
+
+export async function getAllExerciseTypes(){
+  const typeCollection = database.get<TypeModel>('types');
+  const allExerciseTypes = await typeCollection.query().fetch();
+  return allExerciseTypes;
 }

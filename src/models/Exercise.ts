@@ -5,6 +5,7 @@ import ExerciseMuscle from './ExerciseMuscle';
 import ExerciseMuscleGroup from './ExerciseMuscleGroup';
 import Set from './Set';
 import User from './User';
+import TypeModel from './TypeModel';
 
 export default class Exercise extends Model {
   static table = 'exercises'
@@ -15,9 +16,10 @@ export default class Exercise extends Model {
 
     equipments: { type: 'belongs_to' as const, key: 'equipment_id' },
     users: { type: 'belongs_to' as const, key: 'user_id' },
+    types: { type: 'belongs_to' as const, key: 'type_id' }
   }  
 
-  @text('exercise_name') exerciseName : string;
+  @text('name') name: string;
   @field('is_two_side_weight') isTwoSideWeight : boolean;
   @text('note') note : string;
 
@@ -27,4 +29,5 @@ export default class Exercise extends Model {
 
   @relation('equipments', 'equipment_id') equipment : Relation<Equipment>;
   @relation('users', 'user_id') user : Relation<User>;
+  @relation('types', 'type_id' ) type: Relation<TypeModel>; // WARN: using 'type' might cause issues
 }

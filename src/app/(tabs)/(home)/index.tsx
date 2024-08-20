@@ -4,7 +4,7 @@ import Colors from '../../../constants/Colors'
 import { useAppSettingStore } from '../../../store/appSettings'
 import { useRouter } from 'expo-router'
 
-import { getAllMuscleGroupsWithMuscles, getAllMuscles, hardDeleteAllMusclesAndMuscleGroups } from '../../../models'
+import { getAllExerciseTypes, getAllMuscleGroupsWithMuscles, getAllMuscles, hardDeleteAllMusclesAndMuscleGroups } from '../../../models'
 
 const index = () => {
   const router = useRouter();
@@ -77,6 +77,21 @@ const index = () => {
         }}
       >
         <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>Get all muscles</Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity 
+        style = {[styles.viewExerciseButton, {backgroundColor:Colors[colorTheme].homeRouteButtons}]}  
+        onPress={() => {
+          const allTypesContainer = getAllExerciseTypes();
+          allTypesContainer.then(typeContainer => {
+            typeContainer.forEach(type => {
+              console.log(type.name)
+            })
+          })
+        }}
+      >
+        <Text style={[styles.viewExercisesText, {color: Colors[colorTheme].text}]}>Get exercise types</Text>
       </TouchableOpacity>
     </View>
   )
