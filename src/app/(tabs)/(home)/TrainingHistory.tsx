@@ -1,51 +1,63 @@
-import { FlatList, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import React from "react";
 
-import Colors from '../../../constants/Colors'
-import { useAppSettingStore } from '../../../store/appSettings'
-import { useRouter } from 'expo-router'
-
+import Colors from "../../../constants/Colors";
+import { useAppSettingStore } from "../../../store/appSettings";
+import { useRouter } from "expo-router";
 
 interface TextBlockProps {
-  keyword: string,
-  text: string
+  keyword: string;
+  text: string;
 }
-const TextBlock = ({keyword, text}: TextBlockProps) => {
-  const colorTheme = useAppSettingStore(state=>state.theme);
+const TextBlock = ({ keyword, text }: TextBlockProps) => {
+  const colorTheme = useAppSettingStore((state) => state.theme);
   return (
     <View style={[styles.textBlock, {}]}>
-      <Text style={[styles.keywordText, {color: Colors[colorTheme].text}]}>
-        {keyword}: 
+      <Text style={[styles.keywordText, { color: Colors[colorTheme].text }]}>
+        {keyword}:
       </Text>
-      <Text style={[styles.descriptionText, {color: Colors[colorTheme].text}]}>
+      <Text
+        style={[styles.descriptionText, { color: Colors[colorTheme].text }]}
+      >
         {text}
       </Text>
-
-
     </View>
-  )
-}
+  );
+};
 
-const getDuration = (timeDiff: number) : string => {
+const getDuration = (timeDiff: number): string => {
   let stringDuration = "";
   let hour = Math.floor(timeDiff / 100 / 60 / 60);
-  if(hour > 0){
+  if (hour > 0) {
     timeDiff -= hour * 60 * 60 * 100;
-    stringDuration = hour + " hours "
+    stringDuration = hour + " hours ";
   }
-  let mins = Math.floor(timeDiff / 100 / 60)
-  stringDuration = mins + " mins" 
+  let mins = Math.floor(timeDiff / 100 / 60);
+  stringDuration = mins + " mins";
 
   return stringDuration;
-}
+};
 
 const TrainingHistory = () => {
-  const colorTheme = useAppSettingStore(state=>state.theme);
+  const colorTheme = useAppSettingStore((state) => state.theme);
   const router = useRouter();
   return (
-      <View style={{flex: 1, alignItems:'center', width: '100%',backgroundColor: Colors[colorTheme].background}}>
-        <View style = {styles.container}>
-          {/* <FlatList
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        width: "100%",
+        backgroundColor: Colors[colorTheme].background,
+      }}
+    >
+      <View style={styles.container}>
+        {/* <FlatList
             style={styles.workoutFlatList}
             data={workoutList} // ! Need to add the workoutList implementation
             showsVerticalScrollIndicator={false}
@@ -66,52 +78,48 @@ const TrainingHistory = () => {
 
             )}
           /> */}
-          
-        </View>
       </View>
-  )
-}
+    </View>
+  );
+};
 
-export default TrainingHistory
+export default TrainingHistory;
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
-    width: '90%',
-    flexDirection: 'column',
+    width: "90%",
+    flexDirection: "column",
   },
-  workoutFlatList:{
-    alignSelf: 'center',
-    width:'100%',
+  workoutFlatList: {
+    alignSelf: "center",
+    width: "100%",
   },
-  workoutBlock:{
-    width: '100%',
+  workoutBlock: {
+    width: "100%",
     marginBottom: 10,
     borderRadius: 15,
     padding: 20,
-
   },
-  workoutName:{
+  workoutName: {
     fontSize: 20,
-    fontWeight: '800',
+    fontWeight: "800",
     marginBottom: 10,
   },
 
-
-
   textBlock: {
-    width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginBottom: 5,
   },
-  keywordText:{
+  keywordText: {
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: "700",
     marginRight: 7,
   },
-  descriptionText:{
+  descriptionText: {
     fontSize: 14,
-    fontWeight: '300',
+    fontWeight: "300",
   },
-})
+});
