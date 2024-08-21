@@ -1,10 +1,148 @@
 {
-  "exercises" : [
+  "exercises": [
     {
-      "name" : "Bench Press",
-      "type" : "Strength",
-      "equipment" : "Bench",
-      "twoSided" : true
+      "name": "Bench Press",
+      "type": "Strength",
+      "equipment": "Barbell",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Middle Chest"],
+      "secondaryMuscles": [
+        "Upper Chest",
+        "Lower Chest",
+        "Tricep Short Head",
+        "Tricep Long Head",
+        "Tricep Medial Head"
+      ]
+    },
+    {
+      "name": "Incline Bench Press",
+      "type": "Strength",
+      "equipment": "Barbell",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Middle Chest", "Upper Chest"],
+      "secondaryMuscles": [
+        "Lower Chest",
+        "Tricep Short Head",
+        "Tricep Long Head",
+        "Tricep Medial Head"
+      ]
+    },
+    {
+      "name": "Decline Bench Press",
+      "type": "Strength",
+      "equipment": "Barbell",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Lower Chest"],
+      "secondaryMuscles": [
+        "Middle Chest",
+        "Upper Chest",
+        "Tricep Short Head",
+        "Tricep Long Head",
+        "Tricep Medial Head"
+      ]
+    },
+    {
+      "name": "Machine Chest Press",
+      "type": "Strength",
+      "equipment": "Machine",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Middle Chest"],
+      "secondaryMuscles": [
+        "Upper Chest",
+        "Lower Chest",
+        "Tricep Short Head",
+        "Tricep Long Head",
+        "Tricep Medial Head"
+      ]
+    },
+    {
+      "name": "Smith Machine Incline Bench Press",
+      "type": "Strength",
+      "equipment": "Smith Machine",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Middle Chest", "Upper Chest"],
+      "secondaryMuscles": [
+        "Lower Chest",
+        "Tricep Short Head",
+        "Tricep Long Head",
+        "Tricep Medial Head"
+      ]
+    },
+    {
+      "name": "Smith Machine Bench Press",
+      "type": "Strength",
+      "equipment": "Smith Machine",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Middle Chest"],
+      "secondaryMuscles": [
+        "Upper Chest",
+        "Lower Chest",
+        "Tricep Short Head",
+        "Tricep Long Head",
+        "Tricep Medial Head"
+      ]
+    },
+    {
+      "name": "Dumbbell Chest Fly",
+      "type": "Strength",
+      "equipment": "Dumbbell",
+      "twoSided": false,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Middle Chest"],
+      "secondaryMuscles": ["Upper Chest", "Lower Chest"]
+    },
+    {
+      "name": "Incline Dumbbell Chest Fly",
+      "type": "Strength",
+      "equipment": "Dumbbell",
+      "twoSided": false,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Upper Chest"],
+      "secondaryMuscles": ["Middle Chest", "Lower Chest"]
+    },
+    {
+      "name": "Pec Deck",
+      "type": "Strength",
+      "equipment": "Machine",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Chest"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Middle Chest"],
+      "secondaryMuscles": ["Lower Chest", "Upper Chest"]
+    },
+    {
+      "name": "Overhead Tricep Extension",
+      "type": "Strength",
+      "equipment": "Cable Machine",
+      "twoSided": true,
+      "primaryMuscleGroups": ["Tricep"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Tricep Long Head"],
+      "secondaryMuscles": ["Tricep Short Head", "Tricep Medial Head"]
+    },
+    {
+      "name": "Overhead Tricep Extension (Single Arm)",
+      "type": "Strength",
+      "equipment": "Cable Machine",
+      "twoSided": false,
+      "primaryMuscleGroups": ["Tricep"],
+      "secondaryMuscleGroups": ["Tricep"],
+      "primaryMuscles": ["Tricep Long Head"],
+      "secondaryMuscles": ["Tricep Short Head", "Tricep Medial Head"]
     }
   ]
 }

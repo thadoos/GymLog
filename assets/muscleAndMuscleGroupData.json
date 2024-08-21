@@ -1,32 +1,55 @@
 {
-  "muscleGroups" : [
+  "muscleGroups": [
     {
-      "name" : "Chest",
-      "muscles" : ["Upper Chest", "Middle Chest", "Lower Chest"]
+      "name": "Chest",
+      "muscles": ["Upper Chest", "Middle Chest", "Lower Chest"]
     },
 
     {
-      "name" : "Back",
-      "muscles" : ["Latissimus Dorsi", "Trapezius", "Rhomboids", "Teres Major", "Teres Minor"]
+      "name": "Back",
+      "muscles": [
+        "Latissimus Dorsi",
+        "Trapezius",
+        "Rhomboids",
+        "Teres Major",
+        "Teres Minor"
+      ]
     },
 
     {
       "name": "Shoulder",
-      "muscles": ["Anterior Deltoid", "Posterior Deltoid", "Lateral Deltoid", "Rotator Cuff"]
+      "muscles": [
+        "Anterior Deltoid",
+        "Posterior Deltoid",
+        "Lateral Deltoid",
+        "Rotator Cuff"
+      ]
     },
 
     {
       "name": "Bicep",
-      "muscles": ["Short Head", "Long Head", "Brachialis", "Brachioradialis"]
+      "muscles": [
+        "Bicep Short Head",
+        "Bicep Long Head",
+        "Brachialis",
+        "Brachioradialis"
+      ]
     },
 
     {
       "name": "Tricep",
-      "muscles": ["Short Head", "Long Head", "Medial Head"]
+      "muscles": ["Tricep Short Head", "Tricep Long Head", "Tricep Medial Head"]
     },
     {
       "name": "Legs",
-      "muscles": ["Glutes", "Hamstrings", "Quadriceps", "Hip Flexors", "Calves", "Hip Adductors"]
+      "muscles": [
+        "Glutes",
+        "Hamstrings",
+        "Quadriceps",
+        "Hip Flexors",
+        "Calves",
+        "Hip Adductors"
+      ]
     },
 
     {
@@ -38,6 +61,5 @@
       "name": "Abs",
       "muscles": []
     }
-
   ]
 }
