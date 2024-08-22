@@ -18,6 +18,7 @@ import TypeModel from "./TypeModel";
 
 import muscleAndMuscleGroupData from "../../assets/muscleAndMuscleGroupData.json";
 import exerciseTypes from "../../assets/exerciseTypes.json";
+import equipmentData from "../../assets/equipmentList.json";
 import { useAppSettingStore } from "../store/appSettings";
 
 // First, create the adapter to the underlying database:
@@ -55,15 +56,22 @@ const database = new Database({
   ],
 });
 
+// NOTE: General Purpose Functions
 export const handleFirstLaunchLoadData = () => {
   loadDefaultMuscleGroupsWithMuscles();
   loadDefaultTypes();
 };
 
+export const resetAllWatermelonDB = () => {
+  resetMuscleGroupsAndMuscles();
+  resetExerciseTypes();
+};
+
+// NOTE: Muscle Groups and Musles
 export const loadDefaultMuscleGroupsWithMuscles = async () => {
   try {
     await database.write(async () => {
-      // NOTE: Muscle Group and muscle init
+      // Muscle Group and muscle init
       for (const muscleGroupWithMuscle of muscleAndMuscleGroupData.muscleGroups) {
         console.log(muscleGroupWithMuscle.name);
         const newMuscleGroup = await database
@@ -72,7 +80,7 @@ export const loadDefaultMuscleGroupsWithMuscles = async () => {
             muscleGroup.name = muscleGroupWithMuscle.name;
             muscleGroup.isPrimary = true;
           });
-
+        // Muscle init for each muscle group
         for (const muscleEntry of muscleGroupWithMuscle.muscles) {
           console.log("Muscle: " + muscleEntry);
           await database.get<Muscle>("muscles").create((muscle: Muscle) => {
@@ -86,68 +94,6 @@ export const loadDefaultMuscleGroupsWithMuscles = async () => {
   } catch (error) {
     console.error(error);
   }
-};
-
-export const loadDefaultTypes = async () => {
-  try {
-    await database.write(async () => {
-      for (const exerciseType of exerciseTypes.types) {
-        await database.get<TypeModel>("types").create((type: TypeModel) => {
-          type.name = exerciseType;
-        });
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const resetAllWatermelonDB = () => {
-  resetMuscleGroupsAndMuscles();
-  resetExerciseTypes();
-};
-
-export const resetMuscles = async () => {
-  await database.write(async () => {
-    const allmuscles = await database.get<Muscle>("muscles").query().fetch();
-    await database.batch(
-      ...allmuscles.map((muscle) => muscle.prepareDestroyPermanently()),
-    );
-  });
-};
-
-export const resetMuscleGroups = async () => {
-  await database.write(async () => {
-    const allMuscleGroups = await database
-      .get<MuscleGroup>("muscle_groups")
-      .query()
-      .fetch();
-    await database.batch(
-      ...allMuscleGroups.map((muscleGroup) =>
-        muscleGroup.prepareDestroyPermanently(),
-      ),
-    );
-  });
-};
-
-export const resetMuscleGroupsAndMuscles = () => {
-  resetMuscles();
-  resetMuscleGroups();
-  console.warn("Removed all muscles and muscle groups");
-};
-
-export const resetExerciseTypes = async () => {
-  await database.write(async () => {
-    const allExerciseTypes = await database
-      .get<TypeModel>("types")
-      .query()
-      .fetch();
-    await database.batch(
-      ...allExerciseTypes.map((exerciseType) =>
-        exerciseType.prepareDestroyPermanently(),
-      ),
-    );
-  });
 };
 
 export async function getAllMuscles() {
@@ -183,8 +129,83 @@ export async function getAllMuscleGroupsWithMuscles() {
   return muscleGroupWithMuscle;
 }
 
+export const resetMuscleGroupsAndMuscles = () => {
+  resetMuscles();
+  resetMuscleGroups();
+  console.warn("Resetted muscle groups and muscle");
+};
+
+export const resetMuscles = async () => {
+  await database.write(async () => {
+    const allmuscles = await database.get<Muscle>("muscles").query().fetch();
+    await database.batch(
+      ...allmuscles.map((muscle) => muscle.prepareDestroyPermanently()),
+    );
+  });
+};
+
+export const resetMuscleGroups = async () => {
+  await database.write(async () => {
+    const allMuscleGroups = await database
+      .get<MuscleGroup>("muscle_groups")
+      .query()
+      .fetch();
+    await database.batch(
+      ...allMuscleGroups.map((muscleGroup) =>
+        muscleGroup.prepareDestroyPermanently(),
+      ),
+    );
+  });
+};
+
+// NOTE: Exercise Type
+export const loadDefaultTypes = async () => {
+  try {
+    await database.write(async () => {
+      for (const exerciseType of exerciseTypes.types) {
+        await database.get<TypeModel>("types").create((type: TypeModel) => {
+          type.name = exerciseType;
+        });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export async function getAllExerciseTypes() {
   const typeCollection = database.get<TypeModel>("types");
   const allExerciseTypes = await typeCollection.query().fetch();
   return allExerciseTypes;
 }
+
+export const resetExerciseTypes = async () => {
+  await database.write(async () => {
+    const allExerciseTypes = await database
+      .get<TypeModel>("types")
+      .query()
+      .fetch();
+    await database.batch(
+      ...allExerciseTypes.map((exerciseType) =>
+        exerciseType.prepareDestroyPermanently(),
+      ),
+    );
+  });
+};
+
+// NOTE: Equipment
+export const loadDefaultEquipment = async () => {
+  try {
+    await database.write(async () => {
+      for (const equipmentEntry of equipmentData.equipment) {
+        await database
+          .get<Equipment>("equipments")
+          .create((equipment: Equipment) => {
+            equipment.name = equipmentEntry;
+          });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};

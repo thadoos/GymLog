@@ -78,7 +78,6 @@ const index = () => {
         onPress={() => {
           resetAllWatermelonDB();
           setDoneFirstLoad(false);
-          console.warn("Resetted watermelonDB");
         }}
       >
         <Text
