@@ -1,5 +1,4 @@
 import { Database } from "@nozbe/watermelondb";
-import { Platform } from "react-native";
 import SQLiteAdapter from "@nozbe/watermelondb/adapters/sqlite";
 
 import schema from "./schema";
@@ -209,3 +208,23 @@ export const loadDefaultEquipment = async () => {
     console.error(error);
   }
 };
+
+export async function getAllEquipment() {
+  const equipmentCollection = database.get<Equipment>("equipments");
+  const equipmentList = await equipmentCollection.query().fetch();
+  return equipmentList;
+}
+
+export async function resetEquipment() {
+  await database.write(async () => {
+    const allEquipment = await database
+      .get<Equipment>("equipments")
+      .query()
+      .fetch();
+    await database.batch(
+      ...allEquipment.map((equipmentEntry) =>
+        equipmentEntry.prepareDestroyPermanently(),
+      ),
+    );
+  });
+}
