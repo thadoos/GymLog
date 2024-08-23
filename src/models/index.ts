@@ -1,4 +1,4 @@
-import { Database } from "@nozbe/watermelondb";
+import { Database, Q } from "@nozbe/watermelondb";
 import SQLiteAdapter from "@nozbe/watermelondb/adapters/sqlite";
 
 import schema from "./schema";
@@ -18,6 +18,7 @@ import TypeModel from "./TypeModel";
 import muscleAndMuscleGroupData from "../../assets/muscleAndMuscleGroupData.json";
 import exerciseTypes from "../../assets/exerciseTypes.json";
 import equipmentData from "../../assets/equipmentList.json";
+import exerciseData from "../../assets/WatermelonDBExerciseData.json";
 import { useAppSettingStore } from "../store/appSettings";
 
 // First, create the adapter to the underlying database:
@@ -56,44 +57,49 @@ const database = new Database({
 });
 
 // NOTE: General Purpose Functions
-export const handleFirstLaunchLoadData = () => {
+export function handleFirstLaunchLoadData() {
   loadDefaultMuscleGroupsWithMuscles();
   loadDefaultTypes();
-};
+  loadDefaultEquipment();
+  loadDefaultExercises();
+}
 
-export const resetAllWatermelonDB = () => {
+export function resetAllWatermelonDB() {
   resetMuscleGroupsAndMuscles();
   resetExerciseTypes();
-};
+  resetEquipment();
+}
 
 // NOTE: Muscle Groups and Musles
-export const loadDefaultMuscleGroupsWithMuscles = async () => {
+export async function loadDefaultMuscleGroupsWithMuscles() {
   try {
     await database.write(async () => {
       // Muscle Group and muscle init
-      for (const muscleGroupWithMuscle of muscleAndMuscleGroupData.muscleGroups) {
-        console.log(muscleGroupWithMuscle.name);
-        const newMuscleGroup = await database
-          .get<MuscleGroup>("muscle_groups")
-          .create((muscleGroup: MuscleGroup) => {
-            muscleGroup.name = muscleGroupWithMuscle.name;
-            muscleGroup.isPrimary = true;
-          });
-        // Muscle init for each muscle group
-        for (const muscleEntry of muscleGroupWithMuscle.muscles) {
-          console.log("Muscle: " + muscleEntry);
-          await database.get<Muscle>("muscles").create((muscle: Muscle) => {
-            muscle.name = muscleEntry;
-            muscle.isPrimary = true;
-            muscle.muscleGroup.set(newMuscleGroup);
-          });
+      for (const isPrimaryToUse of [true, false]) {
+        for (const muscleGroupWithMuscle of muscleAndMuscleGroupData.muscleGroups) {
+          console.log(muscleGroupWithMuscle.name);
+          const newMuscleGroup = await database
+            .get<MuscleGroup>("muscle_groups")
+            .create((muscleGroup: MuscleGroup) => {
+              muscleGroup.name = muscleGroupWithMuscle.name;
+              muscleGroup.isPrimary = isPrimaryToUse;
+            });
+          // Muscle init for each muscle group
+          for (const muscleEntry of muscleGroupWithMuscle.muscles) {
+            console.log("Muscle: " + muscleEntry);
+            await database.get<Muscle>("muscles").create((muscle: Muscle) => {
+              muscle.name = muscleEntry;
+              muscle.isPrimary = isPrimaryToUse;
+              muscle.muscleGroup.set(newMuscleGroup);
+            });
+          }
         }
       }
     });
   } catch (error) {
     console.error(error);
   }
-};
+}
 
 export async function getAllMuscles() {
   const musclesCollection = database.get<Muscle>("muscles");
@@ -128,22 +134,22 @@ export async function getAllMuscleGroupsWithMuscles() {
   return muscleGroupWithMuscle;
 }
 
-export const resetMuscleGroupsAndMuscles = () => {
+export function resetMuscleGroupsAndMuscles() {
   resetMuscles();
   resetMuscleGroups();
   console.warn("Resetted muscle groups and muscle");
-};
+}
 
-export const resetMuscles = async () => {
+export async function resetMuscles() {
   await database.write(async () => {
     const allmuscles = await database.get<Muscle>("muscles").query().fetch();
     await database.batch(
       ...allmuscles.map((muscle) => muscle.prepareDestroyPermanently()),
     );
   });
-};
+}
 
-export const resetMuscleGroups = async () => {
+export async function resetMuscleGroups() {
   await database.write(async () => {
     const allMuscleGroups = await database
       .get<MuscleGroup>("muscle_groups")
@@ -155,10 +161,10 @@ export const resetMuscleGroups = async () => {
       ),
     );
   });
-};
+}
 
 // NOTE: Exercise Type
-export const loadDefaultTypes = async () => {
+export async function loadDefaultTypes() {
   try {
     await database.write(async () => {
       for (const exerciseType of exerciseTypes.types) {
@@ -170,7 +176,7 @@ export const loadDefaultTypes = async () => {
   } catch (error) {
     console.error(error);
   }
-};
+}
 
 export async function getAllExerciseTypes() {
   const typeCollection = database.get<TypeModel>("types");
@@ -178,7 +184,7 @@ export async function getAllExerciseTypes() {
   return allExerciseTypes;
 }
 
-export const resetExerciseTypes = async () => {
+export async function resetExerciseTypes() {
   await database.write(async () => {
     const allExerciseTypes = await database
       .get<TypeModel>("types")
@@ -190,10 +196,10 @@ export const resetExerciseTypes = async () => {
       ),
     );
   });
-};
+}
 
 // NOTE: Equipment
-export const loadDefaultEquipment = async () => {
+export async function loadDefaultEquipment() {
   try {
     await database.write(async () => {
       for (const equipmentEntry of equipmentData.equipment) {
@@ -207,7 +213,7 @@ export const loadDefaultEquipment = async () => {
   } catch (error) {
     console.error(error);
   }
-};
+}
 
 export async function getAllEquipment() {
   const equipmentCollection = database.get<Equipment>("equipments");
@@ -227,4 +233,41 @@ export async function resetEquipment() {
       ),
     );
   });
+}
+
+// NOTE: Exercise
+export async function loadDefaultExercises() {
+  try {
+    database.write(async () => {
+      for (const exerciseEntry of exerciseData.exercises) {
+        // Getting the record for equipment for linking
+        console.log("Exercise: " + exerciseEntry.name);
+        let equipmentRecord: Equipment = null;
+        try {
+          equipmentRecord = await database
+            .get<Equipment>("equipment")
+            .query(Q.where("name", exerciseEntry.equipment))[0];
+        } catch (errorFromGettingEquipmentRecord) {
+          console.error(errorFromGettingEquipmentRecord);
+        }
+
+        console.log(
+          "Equipment tagged to equipment: " +
+            exerciseEntry.name +
+            " : " +
+            equipmentRecord.name,
+        );
+
+        await database
+          .get<Exercise>("exercises")
+          .create((exercise: Exercise) => {
+            exercise.name = exerciseEntry.name;
+            exercise.isTwoSideWeight = exerciseEntry.twoSided;
+            exercise.equipment.set(equipmentRecord);
+          });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }

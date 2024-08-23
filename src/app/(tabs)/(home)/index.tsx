@@ -8,6 +8,7 @@ import {
   getAllExerciseTypes,
   getAllMuscleGroupsWithMuscles,
   getAllMuscles,
+  getAllEquipment,
   resetMuscleGroupsAndMuscles,
   resetExerciseTypes,
   resetAllWatermelonDB,
@@ -148,6 +149,27 @@ const index = () => {
           style={[styles.viewExercisesText, { color: Colors[colorTheme].text }]}
         >
           Get exercise types
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[
+          styles.viewExerciseButton,
+          { backgroundColor: Colors[colorTheme].homeRouteButtons },
+        ]}
+        onPress={() => {
+          const allEquipmentContainer = getAllEquipment();
+          allEquipmentContainer.then((equipmentContainer) => {
+            equipmentContainer.forEach((equipment) => {
+              console.log(equipment.name);
+            });
+          });
+        }}
+      >
+        <Text
+          style={[styles.viewExercisesText, { color: Colors[colorTheme].text }]}
+        >
+          Get equipment
         </Text>
       </TouchableOpacity>
     </View>
