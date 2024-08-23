@@ -244,19 +244,21 @@ export async function loadDefaultExercises() {
         console.log("Exercise: " + exerciseEntry.name);
         let equipmentRecord: Equipment = null;
         try {
+          console.log("Equipment to find: " + exerciseEntry.equipment);
           equipmentRecord = await database
-            .get<Equipment>("equipment")
-            .query(Q.where("name", exerciseEntry.equipment))[0];
+            .get<Equipment>("equipments")
+            .query(Q.where("name", exerciseEntry.equipment))
+            .fetch()[0];
+          console.log(equipmentRecord);
+          console.log(
+            "Equipment tagged to equipment: " +
+              exerciseEntry.name +
+              " : " +
+              equipmentRecord.name,
+          );
         } catch (errorFromGettingEquipmentRecord) {
           console.error(errorFromGettingEquipmentRecord);
         }
-
-        console.log(
-          "Equipment tagged to equipment: " +
-            exerciseEntry.name +
-            " : " +
-            equipmentRecord.name,
-        );
 
         await database
           .get<Exercise>("exercises")
