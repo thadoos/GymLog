@@ -5,15 +5,17 @@
       "type": "Strength",
       "equipment": "Barbell",
       "twoSided": true,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Middle Chest"],
-      "secondaryMuscles": [
-        "Upper Chest",
-        "Lower Chest",
-        "Tricep Short Head",
-        "Tricep Long Head",
-        "Tricep Medial Head"
+      "muscles": [
+        { "name": "Middle Chest", "isPrimary": true },
+        { "name": "Upper Chest", "isPrimary": false },
+        { "name": "Lower Chest", "isPrimary": false },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false },
+        { "name": "Tricep Long Head", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
       ]
     },
     {
@@ -21,14 +23,17 @@
       "type": "Strength",
       "equipment": "Barbell",
       "twoSided": true,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Middle Chest", "Upper Chest"],
-      "secondaryMuscles": [
-        "Lower Chest",
-        "Tricep Short Head",
-        "Tricep Long Head",
-        "Tricep Medial Head"
+      "muscles": [
+        { "name": "Middle Chest", "isPrimary": true },
+        { "name": "Upper Chest", "isPrimary": true },
+        { "name": "Lower Chest", "isPrimary": false },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Long Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
       ]
     },
     {
@@ -36,15 +41,17 @@
       "type": "Strength",
       "equipment": "Barbell",
       "twoSided": true,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Lower Chest"],
-      "secondaryMuscles": [
-        "Middle Chest",
-        "Upper Chest",
-        "Tricep Short Head",
-        "Tricep Long Head",
-        "Tricep Medial Head"
+      "muscles": [
+        { "name": "Lower Chest", "isPrimary": true },
+        { "name": "Middle Chest", "isPrimary": false },
+        { "name": "Upper Chest", "isPrimary": false },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Long Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
       ]
     },
     {
@@ -52,15 +59,17 @@
       "type": "Strength",
       "equipment": "Machine",
       "twoSided": true,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Middle Chest"],
-      "secondaryMuscles": [
-        "Upper Chest",
-        "Lower Chest",
-        "Tricep Short Head",
-        "Tricep Long Head",
-        "Tricep Medial Head"
+      "muscles": [
+        { "name": "Middle Chest", "isPrimary": true },
+        { "name": "Upper Chest", "isPrimary": false },
+        { "name": "Lower Chest", "isPrimary": false },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Long Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
       ]
     },
     {
@@ -68,14 +77,17 @@
       "type": "Strength",
       "equipment": "Smith Machine",
       "twoSided": true,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Middle Chest", "Upper Chest"],
-      "secondaryMuscles": [
-        "Lower Chest",
-        "Tricep Short Head",
-        "Tricep Long Head",
-        "Tricep Medial Head"
+      "muscles": [
+        { "name": "Middle Chest", "isPrimary": true },
+        { "name": "Upper Chest", "isPrimary": true },
+        { "name": "Lower Chest", "isPrimary": false },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Long Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
       ]
     },
     {
@@ -83,15 +95,17 @@
       "type": "Strength",
       "equipment": "Smith Machine",
       "twoSided": true,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Middle Chest"],
-      "secondaryMuscles": [
-        "Upper Chest",
-        "Lower Chest",
-        "Tricep Short Head",
-        "Tricep Long Head",
-        "Tricep Medial Head"
+      "muscles": [
+        { "name": "Middle Chest", "isPrimary": true },
+        { "name": "Upper Chest", "isPrimary": false },
+        { "name": "Lower Chest", "isPrimary": false },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Long Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
       ]
     },
     {
@@ -99,50 +113,69 @@
       "type": "Strength",
       "equipment": "Dumbbell",
       "twoSided": false,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Middle Chest"],
-      "secondaryMuscles": ["Upper Chest", "Lower Chest"]
+      "muscles": [
+        { "name": "Middle Chest", "isPrimary": true },
+        { "name": "Upper Chest", "isPrimary": false },
+        { "name": "Lower Chest", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
+      ]
     },
     {
       "name": "Incline Dumbbell Chest Fly",
       "type": "Strength",
       "equipment": "Dumbbell",
       "twoSided": false,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Upper Chest"],
-      "secondaryMuscles": ["Middle Chest", "Lower Chest"]
+      "muscles": [
+        { "name": "Upper Chest", "isPrimary": true },
+        { "name": "Middle Chest", "isPrimary": false },
+        { "name": "Lower Chest", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
+      ]
     },
     {
       "name": "Pec Deck",
       "type": "Strength",
       "equipment": "Machine",
       "twoSided": true,
-      "primaryMuscleGroups": ["Chest"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Middle Chest"],
-      "secondaryMuscles": ["Lower Chest", "Upper Chest"]
+      "muscles": [
+        { "name": "Middle Chest", "isPrimary": true },
+        { "name": "Lower Chest", "isPrimary": false },
+        { "name": "Upper Chest", "isPrimary": false }
+      ],
+      "muscleGroups": [
+        { "name": "Chest", "isPrimary": true },
+        { "name": "Tricep", "isPrimary": false }
+      ]
     },
     {
       "name": "Overhead Tricep Extension",
       "type": "Strength",
       "equipment": "Cable Machine",
       "twoSided": true,
-      "primaryMuscleGroups": ["Tricep"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Tricep Long Head"],
-      "secondaryMuscles": ["Tricep Short Head", "Tricep Medial Head"]
+      "muscles": [
+        { "name": "Tricep Long Head", "isPrimary": true },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false }
+      ],
+      "muscleGroups": [{ "name": "Tricep", "isPrimary": true }]
     },
     {
       "name": "Overhead Tricep Extension (Single Arm)",
       "type": "Strength",
       "equipment": "Cable Machine",
       "twoSided": false,
-      "primaryMuscleGroups": ["Tricep"],
-      "secondaryMuscleGroups": ["Tricep"],
-      "primaryMuscles": ["Tricep Long Head"],
-      "secondaryMuscles": ["Tricep Short Head", "Tricep Medial Head"]
+      "muscles": [
+        { "name": "Tricep Long Head", "isPrimary": true },
+        { "name": "Tricep Short Head", "isPrimary": false },
+        { "name": "Tricep Medial Head", "isPrimary": false }
+      ],
+      "muscleGroups": [{ "name": "Tricep", "isPrimary": true }]
     }
   ]
 }
