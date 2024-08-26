@@ -68,6 +68,7 @@ export function resetAllWatermelonDB() {
   resetMuscleGroupsAndMuscles();
   resetExerciseTypes();
   resetEquipment();
+  resetExercises();
 }
 
 // NOTE: Muscle Groups and Musles
@@ -241,35 +242,48 @@ export async function loadDefaultExercises() {
     database.write(async () => {
       for (const exerciseEntry of exerciseData.exercises) {
         // Getting the record for equipment for linking
-        console.log("Exercise: " + exerciseEntry.name);
-        let equipmentRecord: Equipment = null;
+        let equipmentRecord: Equipment[] = null;
         try {
           console.log("Equipment to find: " + exerciseEntry.equipment);
           equipmentRecord = await database
             .get<Equipment>("equipments")
             .query(Q.where("name", exerciseEntry.equipment))
-            .fetch()[0];
-          console.log(equipmentRecord);
-          console.log(
-            "Equipment tagged to equipment: " +
-              exerciseEntry.name +
-              " : " +
-              equipmentRecord.name,
-          );
+            .fetch();
         } catch (errorFromGettingEquipmentRecord) {
           console.error(errorFromGettingEquipmentRecord);
         }
+        console.log(
+          "Exercise: " + exerciseEntry.name + " uses ",
+          equipmentRecord[0].name,
+        );
 
+        // Adding the exercise to DB
         await database
           .get<Exercise>("exercises")
           .create((exercise: Exercise) => {
             exercise.name = exerciseEntry.name;
             exercise.isTwoSideWeight = exerciseEntry.twoSided;
-            exercise.equipment.set(equipmentRecord);
+            exercise.equipment.set(equipmentRecord[0]);
           });
       }
     });
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function resetExercises() {
+  const allExercises = await database
+    .get<Exercise>("exercises")
+    .query()
+    .fetch();
+  await database.batch(
+    ...allExercises.map((exerciseEntry) =>
+      exerciseEntry.prepareDestroyPermanently(),
+    ),
+  );
+}
+
+export async function getAllExercises() {
+  return await database.get<Exercise>("exercises").query().fetch();
 }

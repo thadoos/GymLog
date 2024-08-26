@@ -9,6 +9,7 @@ import {
   getAllMuscleGroupsWithMuscles,
   getAllMuscles,
   getAllEquipment,
+  getAllExercises,
   resetMuscleGroupsAndMuscles,
   resetExerciseTypes,
   resetAllWatermelonDB,
@@ -170,6 +171,29 @@ const index = () => {
           style={[styles.viewExercisesText, { color: Colors[colorTheme].text }]}
         >
           Get equipment
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[
+          styles.viewExerciseButton,
+          { backgroundColor: Colors[colorTheme].homeRouteButtons },
+        ]}
+        onPress={() => {
+          const allExerciseContainer = getAllExercises();
+          allExerciseContainer.then((exerciseContainer) => {
+            exerciseContainer.forEach((exercise) => {
+              exercise.equipment.fetch().then((exerciseEquipment) => {
+                console.log(exercise.name + " : " + exerciseEquipment.name);
+              });
+            });
+          });
+        }}
+      >
+        <Text
+          style={[styles.viewExercisesText, { color: Colors[colorTheme].text }]}
+        >
+          Get exercises
         </Text>
       </TouchableOpacity>
     </View>
