@@ -133,6 +133,38 @@ export async function getAllMuscleGroupsWithMuscles() {
   return muscleGroupWithMuscle;
 }
 
+export async function getMuscleIdFromName(muscleName: string): Promise<string> {
+  try {
+    const muscleObjects = await database
+      .get<Muscle>("muscles")
+      .query(Q.where("name", muscleName))
+      .fetch();
+    if (muscleObjects.length != 1) {
+      console.error("Muscle not found");
+      return "";
+    }
+    return muscleObjects[0].id;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getMuscleGroupIdFromName(muscleGroupName: string) {
+  try {
+    const muscleGroupObjects = await database
+      .get<MuscleGroup>("muscle_groups")
+      .query(Q.where("name", muscleGroupName))
+      .fetch();
+    if (muscleGroupObjects.length != 1) {
+      console.error("Muscle not found");
+      return "";
+    }
+    return muscleGroupObjects[0].id;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export function resetMuscleGroupsAndMuscles() {
   resetMuscles();
   resetMuscleGroups();
@@ -234,6 +266,104 @@ export async function resetEquipment() {
   });
 }
 
+// NOTE: ExerciseMuscle
+export async function loadExerciseMuscle(
+  exercise: Exercise,
+  muscleName: string,
+  isPrimary: boolean,
+) {
+  try {
+    const muscle = await database
+      .get<Muscle>("muscles")
+      .query(Q.where("name", muscleName))
+      .fetch()[0];
+
+    await database
+      .get<ExerciseMuscle>("exercise_muscles")
+      .create((newExerciseMuscle: ExerciseMuscle) => {
+        newExerciseMuscle.exercise.set(exercise);
+        newExerciseMuscle.muscle.set(muscle);
+        newExerciseMuscle.isPrimary = isPrimary;
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getAllExerciseMuscles() {
+  return await database.get<ExerciseMuscle>("exercise_muscles").query().fetch();
+}
+
+export async function getExercisesFromPrimaryMuscleName(muscleNames: string[]) {
+  let muscleIDs: string[];
+  muscleNames.forEach((muscleName) =>
+    getMuscleIdFromName(muscleName).then((muscleID) =>
+      muscleIDs.push(muscleID),
+    ),
+  );
+
+  const foundExercises = await database
+    .get<Exercise>("exercises")
+    .query(
+      Q.and(
+        muscleIDs.map((muscleID) =>
+          Q.on("exercise_muscles", "muscle_id", muscleID),
+        ),
+      ),
+    )
+    .fetch();
+
+  return foundExercises;
+}
+
+export async function getExercisesFromPrimaryMuscleIDs(
+  muscleIDs: string[],
+): Promise<Exercise[]> {
+  // const exerciseMuscleList = getAllExerciseMuscles();
+  // const exerciseList = getAllExercises();
+
+  // const muscleQueries = muscleIDs.map((muscleID) => {
+  //   Q.on('exercise_muscles', 'muscle_id', muscleID)
+  // })
+
+  const foundExercises = await database
+    .get<Exercise>("exercises")
+    .query(
+      Q.and(
+        muscleIDs.map((muscleID) =>
+          Q.on("exercise_muscles", "muscle_id", muscleID),
+        ),
+      ),
+    )
+    .fetch();
+
+  return foundExercises;
+}
+
+// NOTE: ExerciseMuscleGroup
+export async function loadExerciseMuscleGroup(
+  exercise: Exercise,
+  muscleGroupName: string,
+  isPrimary: boolean,
+) {
+  try {
+    const muscleGroup = await database
+      .get<MuscleGroup>("muscle_groups")
+      .query(Q.where("name", muscleGroupName))
+      .fetch()[0];
+
+    await database
+      .get<ExerciseMuscleGroup>("exercise_muscle_groups")
+      .create((newExerciseMuscleGroup: ExerciseMuscleGroup) => {
+        newExerciseMuscleGroup.exercise.set(exercise);
+        newExerciseMuscleGroup.muscleGroup.set(muscleGroup);
+        newExerciseMuscleGroup.isPrimary = isPrimary;
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // NOTE: Exercise
 export async function loadDefaultExercises() {
   try {
@@ -269,44 +399,54 @@ export async function loadDefaultExercises() {
 
         // Adding the exercise and muscles groups to initialise ExerciseMuscleGroup
         for (const muscleGroupEntry of exerciseEntry.muscleGroups) {
-          try {
-            // Finding the muscle group to link
-            const muscleGroupRecord = await database
-              .get<MuscleGroup>("muscle_groups")
-              .query(Q.where("name", muscleGroupEntry.name));
-
-            // Creating the exercise muscle group
-            await database
-              .get<ExerciseMuscleGroup>("exercise_muscle_groups")
-              .create((newExerciseMuscleGroup: ExerciseMuscleGroup) => {
-                newExerciseMuscleGroup.exercise.set(newExercise);
-                newExerciseMuscleGroup.muscleGroup.set(muscleGroupRecord[0]);
-                newExerciseMuscleGroup.isPrimary = muscleGroupEntry.isPrimary;
-              });
-          } catch (error) {
-            console.error(error);
-          }
+          loadExerciseMuscleGroup(
+            newExercise,
+            muscleGroupEntry.name,
+            muscleGroupEntry.isPrimary,
+          );
+          // try {
+          //   // Finding the muscle group to link
+          //   const muscleGroupRecord = await database
+          //     .get<MuscleGroup>("muscle_groups")
+          //     .query(Q.where("name", muscleGroupEntry.name));
+          //
+          //   // Creating the exercise muscle group
+          //   await database
+          //     .get<ExerciseMuscleGroup>("exercise_muscle_groups")
+          //     .create((newExerciseMuscleGroup: ExerciseMuscleGroup) => {
+          //       newExerciseMuscleGroup.exercise.set(newExercise);
+          //       newExerciseMuscleGroup.muscleGroup.set(muscleGroupRecord[0]);
+          //       newExerciseMuscleGroup.isPrimary = muscleGroupEntry.isPrimary;
+          //     });
+          // } catch (error) {
+          //   console.error(error);
+          // }
         }
 
         // Adding the exercise and muscles to initialise ExerciseMuscle
         for (const muscleEntry of exerciseEntry.muscles) {
-          try {
-            // Finding the muscle group to link
-            const muscleRecord = await database
-              .get<Muscle>("muscles")
-              .query(Q.where("name", muscleEntry.name));
-
-            // Creating the exercise muscle group
-            await database
-              .get<ExerciseMuscle>("exercise_muscles")
-              .create((newExerciseMuscle: ExerciseMuscle) => {
-                newExerciseMuscle.exercise.set(newExercise);
-                newExerciseMuscle.muscle.set(muscleRecord[0]);
-                newExerciseMuscle.isPrimary = muscleEntry.isPrimary;
-              });
-          } catch (error) {
-            console.error(error);
-          }
+          loadExerciseMuscle(
+            newExercise,
+            muscleEntry.name,
+            muscleEntry.isPrimary,
+          );
+          // try {
+          //   // Finding the muscle group to link
+          //   const muscleRecord = await database
+          //     .get<Muscle>("muscles")
+          //     .query(Q.where("name", muscleEntry.name));
+          //
+          //   // Creating the exercise muscle group
+          //   await database
+          //     .get<ExerciseMuscle>("exercise_muscles")
+          //     .create((newExerciseMuscle: ExerciseMuscle) => {
+          //       newExerciseMuscle.exercise.set(newExercise);
+          //       newExerciseMuscle.muscle.set(muscleRecord[0]);
+          //       newExerciseMuscle.isPrimary = muscleEntry.isPrimary;
+          //     });
+          // } catch (error) {
+          //   console.error(error);
+          // }
         }
       }
     });
