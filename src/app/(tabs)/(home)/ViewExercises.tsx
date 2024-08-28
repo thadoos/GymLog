@@ -14,7 +14,9 @@ const ViewExercises = () => {
     >
       {/* // TODO: Should add an option to toggle whether to show just name or with all details.*/}
       {/* // !  Perhaps the block will not open a separate thing but just extend at the bottom to show the details */}
-      <EnhancedExerciseFlatList />
+      <View style={styles.subContainer}>
+        <EnhancedExerciseFlatList />
+      </View>
     </View>
   );
 };
@@ -40,6 +42,10 @@ const styles = StyleSheet.create({
 
     // borderWidth: 1,
     // borderColor: "red",
+  },
+  subContainer: {
+    width: "90%",
+    flex: 1,
   },
 });
 

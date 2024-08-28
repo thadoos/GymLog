@@ -38,29 +38,7 @@ const ExerciseFlatList: React.FC<ExerciseListProps> = ({
   );
 };
 
-interface ExerciseTouchableProps {
-  exercise: Exercise;
-}
-const ExerciseTouchable = ({ exercise }) => {
-  const { theme } = useAppSettingStore();
-
-  <TouchableOpacity
-    style={[
-      styles.exerciseButton,
-      { backgroundColor: Colors[theme].exerciseBlockBackground },
-    ]}
-  >
-    <Text style={[styles.exerciseNameText, { color: Colors[theme].text }]}>
-      {exercise.name}
-    </Text>
-  </TouchableOpacity>;
-};
-
-// const enhance = withObservables(["exercises"], () => ({
-//   exercises: database.get<Exercise>("exercises").query().observe(),
-//   // exercise, // shortcut syntax for `comment: comment.observe()`
-// }));
-const enhance = withObservables([], () => ({
+const enhance = withObservables(["exercises"], () => ({
   exercises: database.get<Exercise>("exercises").query().observe(),
 }));
 const EnhancedExerciseFlatList = enhance(ExerciseFlatList);
@@ -70,16 +48,13 @@ const styles = StyleSheet.create({
   flatList: {
     width: "100%",
     flex: 1,
-    borderColor: "green",
-    borderWidth: 1,
   },
   exerciseButton: {
     width: "100%",
-    paddingVertical: 7,
-    paddingHorizontal: 15,
-
-    borderColor: "blue",
-    borderWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 5,
+    borderRadius: 10,
   },
   exerciseNameText: {
     fontSize: 18,
