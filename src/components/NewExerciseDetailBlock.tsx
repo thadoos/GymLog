@@ -25,7 +25,7 @@ const NewExerciseDetailBlock = ({
       <Text style={styles.exerciseNameText}>{exercise.name}</Text>
 
       {options.map((option) => (
-        <NewExerciseDetailLine option={option} value={exercise[option]} />
+        <NewExerciseDetailLine descriptor={option} value={exercise[option]} />
       ))}
 
       <Text style={styles.exerciseDetailsKeyword}>
