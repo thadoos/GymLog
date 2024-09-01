@@ -1,12 +1,14 @@
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { BlurView } from "expo-blur";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import NewExerciseDetailLine from "./NewExerciseDetailLine";
 import Exercise from "../models/Exercise";
 import { useAppState } from "../store/appState";
 import Colors from "../constants/Colors";
 import { useAppSettingStore } from "../store/appSettings";
+import { getExerciseTypeFromExercise } from "../models";
+import EnhancedExerciseTypeText from "./EnhancedExerciseTypeText";
 
 const FullExerciseDetailsPopUp = () => {
   const exercise = useAppState(
@@ -40,20 +42,27 @@ const FullExerciseDetailsPopUp = () => {
             <Text style={[styles.nameText, { color: Colors[theme].text }]}>
               {exercise.name}
             </Text>
-            
-            <TouchableOpacity 
+
+            <TouchableOpacity
               style={styles.closeModalButton}
-              onPress={() => (setFullExerciseDetailsPopupVisible(null))}
+              onPress={() => setFullExerciseDetailsPopupVisible(null)}
             >
-              <Ionicons name="close" size = {25} color={Colors[theme].iconDefault}/>
+              <Ionicons
+                name="close"
+                size={25}
+                color={Colors[theme].iconDefault}
+              />
             </TouchableOpacity>
           </View>
+
           <Text style={[styles.mediumText, { color: Colors[theme].text }]}>
             {exercise.isTwoSideWeight
               ? "Indicated weight is for both sides combined"
               : "Indicated weight is just for one side"}
           </Text>
 
+          <EnhancedExerciseTypeText exercise={exercise} />
+          <NewExerciseDetailLine descriptor="Equipment" value={exercise.note} />
           <NewExerciseDetailLine descriptor="Notes" value={exercise.note} />
         </View>
       </BlurView>
@@ -76,24 +85,26 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 15,
   },
-  topRow:{
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between'
+  topRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
   },
   nameText: {
     fontSize: 20,
     fontWeight: "800",
   },
-  closeModalButton:{
-    alignItems: 'center',
-    justifyContent:'center',
+  closeModalButton: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   mediumText: {
+    marginTop: 5,
     fontSize: 14,
     fontWeight: "500",
   },
   lightText: {
+    marginTop: 5,
     fontSize: 14,
     fontWeight: "300",
   },

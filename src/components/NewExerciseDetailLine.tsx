@@ -15,7 +15,6 @@ const NewExerciseDetailLine = ({
       <Text style={styles.valueText}>
         {Array.isArray(descriptor) ? (value as string[]).join(", ") : value}
       </Text>
-      <Text>NewExerciseDetailLine</Text>
     </View>
   );
 };
