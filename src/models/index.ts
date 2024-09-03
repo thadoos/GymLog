@@ -61,8 +61,7 @@ export function handleFirstLaunchLoadData() {
   loadDefaultMuscleGroupsWithMuscles();
   loadDefaultTypes();
   loadDefaultEquipment();
-  newLoadDefaultExercises();
-  // loadDefaultExercises();
+  loadDefaultExercises();
 }
 
 export function resetAllWatermelonDB() {
@@ -376,7 +375,7 @@ export async function loadExerciseMuscleGroup(
 }
 
 // NOTE: Exercise
-export async function newLoadDefaultExercises() {
+export async function loadDefaultExercises() {
   try {
     database.write(async () => {
       for (const exerciseEntry of exerciseData.exercises) {
@@ -426,68 +425,6 @@ export async function newLoadDefaultExercises() {
               muscleEntry.isPrimary,
             );
           }
-        }
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
-export async function loadDefaultExercises() {
-  try {
-    database.write(async () => {
-      for (const exerciseEntry of exerciseData.exercises) {
-        // Getting the record for equipment for linking
-        let equipmentRecord: Equipment[] = null;
-        try {
-          console.log("Equipment to find: " + exerciseEntry.equipment);
-          equipmentRecord = await database
-            .get<Equipment>("equipments")
-            .query(Q.where("name", exerciseEntry.equipment))
-            .fetch();
-        } catch (errorFromGettingEquipmentRecord) {
-          console.error(errorFromGettingEquipmentRecord);
-        }
-
-        console.log(
-          "Exercise: " + exerciseEntry.name + " uses ",
-          equipmentRecord[0].name,
-        );
-        const newExercise = await database
-          .get<Exercise>("exercises")
-          .create(async (exercise: Exercise) => {
-            exercise.name = exerciseEntry.name;
-            exercise.isTwoSideWeight = exerciseEntry.twoSided;
-            exercise.equipment.set(equipmentRecord[0]);
-            await database
-              .get<TypeModel>("types")
-              .query(Q.where("name", exerciseEntry.type))
-              .fetch()
-              .then((exerciseTypeObj: TypeModel[]) => {
-                console.log("Exercise Type: " + exerciseTypeObj[0].name);
-                exercise.exerciseType.set(exerciseTypeObj[0]);
-              });
-            // exercise.exerciseType.set(exerciseTypeRecords[0]);
-          });
-
-        // TODO: Make the initialisation of the ExerciseMuscle and ExerciseMuscleGroup have their own function - params can be the exercise record or exercise name along with the respective muscle or muscle group
-
-        // Adding the exercise and muscles groups to initialise ExerciseMuscleGroup
-        for (const muscleGroupEntry of exerciseEntry.muscleGroups) {
-          loadExerciseMuscleGroup(
-            newExercise,
-            muscleGroupEntry.name,
-            muscleGroupEntry.isPrimary,
-          );
-        }
-
-        // Adding the exercise and muscles to initialise ExerciseMuscle
-        for (const muscleEntry of exerciseEntry.muscles) {
-          loadExerciseMuscle(
-            newExercise,
-            muscleEntry.name,
-            muscleEntry.isPrimary,
-          );
         }
       }
     });
