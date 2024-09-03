@@ -4,7 +4,7 @@ import { useAppSettingStore } from "../../../store/appSettings";
 import Colors from "../../../constants/Colors";
 import ExerciseList from "../../../components/ExerciseList";
 import { useWorkoutStore } from "../../../store/workoutState";
-import EnhancedExerciseFlatList from "../../../components/EnhancedExercise";
+import EnhancedExerciseFlatList from "../../../components/EnhancedExerciseFlatList";
 
 const addExercise = () => {
   const colorTheme = useAppSettingStore((state) => state.theme);
@@ -46,4 +46,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-

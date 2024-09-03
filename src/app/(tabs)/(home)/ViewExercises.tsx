@@ -4,7 +4,7 @@ import ExerciseList from "../../../components/ExerciseList";
 import Colors from "../../../constants/Colors";
 import { useAppSettingStore } from "../../../store/appSettings";
 import NewExerciseList from "../../../components/NewExerciseList";
-import EnhancedExerciseFlatList from "../../../components/EnhancedExercise";
+import EnhancedExerciseFlatList from "../../../components/EnhancedExerciseFlatList";
 import { useAppState } from "../../../store/appState";
 import FullExerciseDetailsPopUp from "../../../components/FullExerciseDetailsPopUp";
 
@@ -61,4 +61,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-

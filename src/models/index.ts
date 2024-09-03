@@ -61,7 +61,8 @@ export function handleFirstLaunchLoadData() {
   loadDefaultMuscleGroupsWithMuscles();
   loadDefaultTypes();
   loadDefaultEquipment();
-  loadDefaultExercises();
+  newLoadDefaultExercises();
+  // loadDefaultExercises();
 }
 
 export function resetAllWatermelonDB() {
@@ -114,7 +115,6 @@ export async function getAllMuscleGroups() {
 
 export async function getAllMuscleGroupsWithMuscles() {
   const muscleGroups = await getAllMuscleGroups();
-  console.log(muscleGroups);
 
   const muscleGroupWithMuscle = await Promise.all(
     muscleGroups.map(async (group) => {
@@ -376,6 +376,63 @@ export async function loadExerciseMuscleGroup(
 }
 
 // NOTE: Exercise
+export async function newLoadDefaultExercises() {
+  try {
+    database.write(async () => {
+      for (const exerciseEntry of exerciseData.exercises) {
+        var equipmentRecord: Equipment;
+        await database
+          .get<Equipment>("equipments")
+          .query(Q.where("name", exerciseEntry.equipment))
+          .fetch()
+          .catch((error) => console.error("Equipment Error: " + error))
+          .then((equipmentRecords) => (equipmentRecord = equipmentRecords[0]));
+
+        var typeRecord: TypeModel;
+        await database
+          .get<TypeModel>("types")
+          .query(Q.where("name", exerciseEntry.type))
+          .fetch()
+          .catch((error) => console.error("TYPE ERROR: " + error))
+          .then((typeRecords) => (typeRecord = typeRecords[0]));
+
+        const newExercise = await database
+          .get<Exercise>("exercises")
+          .create((exercise) => {
+            exercise.name = exerciseEntry.name;
+            exercise.isTwoSideWeight = exerciseEntry.twoSided;
+            exercise.equipment.set(equipmentRecord);
+            exercise.exerciseType.set(typeRecord);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
+        if (newExercise) {
+          // Initialise ExerciseMuscleGroup
+          for (const muscleGroupEntry of exerciseEntry.muscleGroups) {
+            loadExerciseMuscleGroup(
+              newExercise,
+              muscleGroupEntry.name,
+              muscleGroupEntry.isPrimary,
+            );
+          }
+
+          // Initialise ExerciseMuscle
+          for (const muscleEntry of exerciseEntry.muscles) {
+            loadExerciseMuscle(
+              newExercise,
+              muscleEntry.name,
+              muscleEntry.isPrimary,
+            );
+          }
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 export async function loadDefaultExercises() {
   try {
     database.write(async () => {
@@ -396,25 +453,21 @@ export async function loadDefaultExercises() {
           "Exercise: " + exerciseEntry.name + " uses ",
           equipmentRecord[0].name,
         );
-        // Setting the exercise type
-        let exerciseTypeObj: TypeModel;
-        try {
-          exerciseTypeObj = await database
-            .get<TypeModel>("types")
-            .query(Q.where("name", exerciseEntry.type))
-            .fetch()[0];
-        } catch (error) {
-          console.error(error);
-        }
-
-        // Adding the exercise to DB
         const newExercise = await database
           .get<Exercise>("exercises")
-          .create((exercise: Exercise) => {
+          .create(async (exercise: Exercise) => {
             exercise.name = exerciseEntry.name;
             exercise.isTwoSideWeight = exerciseEntry.twoSided;
             exercise.equipment.set(equipmentRecord[0]);
-            exercise.exerciseType.set(exerciseTypeObj);
+            await database
+              .get<TypeModel>("types")
+              .query(Q.where("name", exerciseEntry.type))
+              .fetch()
+              .then((exerciseTypeObj: TypeModel[]) => {
+                console.log("Exercise Type: " + exerciseTypeObj[0].name);
+                exercise.exerciseType.set(exerciseTypeObj[0]);
+              });
+            // exercise.exerciseType.set(exerciseTypeRecords[0]);
           });
 
         // TODO: Make the initialisation of the ExerciseMuscle and ExerciseMuscleGroup have their own function - params can be the exercise record or exercise name along with the respective muscle or muscle group

@@ -39,5 +39,5 @@ export default class Exercise extends Model {
 
   @relation("equipments", "equipment_id") equipment: Relation<Equipment>;
   @relation("users", "user_id") user: Relation<User>;
-  @relation("types", "type_id") exerciseType: Relation<TypeModel>; // WARN: using 'type' might cause issues
+  @relation("types", "type_id") exerciseType: Relation<TypeModel>;
 }
