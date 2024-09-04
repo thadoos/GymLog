@@ -7,12 +7,17 @@ import { useAppState } from "../store/appState";
 import Colors from "../constants/Colors";
 import { useAppSettingStore } from "../store/appSettings";
 
+import { of as of$ } from "rxjs";
+import { switchMap } from "rxjs/operators";
 import { compose, withObservables } from "@nozbe/watermelondb/react";
 import Exercise from "../models/Exercise";
 import TypeModel from "../models/TypeModel";
 import Muscle from "../models/Muscle";
 import MuscleGroup from "../models/MuscleGroup";
 import Equipment from "../models/Equipment";
+import ExerciseMuscle from "../models/ExerciseMuscle";
+import ExerciseMuscleGroup from "../models/ExerciseMuscleGroup";
+import { Relation } from "@nozbe/watermelondb";
 
 interface ExerciseDetailLineProps {
   keyword: string;
@@ -40,8 +45,8 @@ interface ExerciseDetailsModalProps {
   exercise: Exercise;
   exerciseType: TypeModel;
   equipment: Equipment;
-  muscles: Muscle;
-  muscleGroups: MuscleGroup;
+  muscles: Muscle[];
+  muscleGroups: MuscleGroup[];
 }
 const ExerciseDetailsModal = ({
   exercise,
@@ -54,6 +59,9 @@ const ExerciseDetailsModal = ({
   const setFullExerciseDetailsPopupVisible = useAppState(
     (state) => state.setFullExerciseDetailsPopupVisible,
   );
+
+  console.log(muscles);
+  console.log(muscleGroups);
 
   return (
     <Modal
@@ -121,6 +129,22 @@ const enhance = compose(
     equipment: exercise.equipment,
     // exerciseMuscles: exercise.exerciseMuscles,
     // exerciseMuscleGroups: exercise.exerciseMuscleGroups,
+    muscles: exercise.muscles,
+    muscleGroups: exercise.muscleGroups,
+    // muscles: exercise.exerciseMuscles
+    //   .observe()
+    //   .pipe(
+    //     switchMap((exerciseMuscle: ExerciseMuscle) =>
+    //       exerciseMuscle.muscle.observe(),
+    //     ),
+    //   ),
+    // muscleGroups: exercise.exerciseMuscles
+    //   .observe()
+    //   .pipe(
+    //     switchMap((exerciseMuscleGroup: ExerciseMuscleGroup) =>
+    //       exerciseMuscleGroup.muscleGroup.observe(),
+    //     ),
+    //   ),
   })),
   // withObservables(
   //   ["exerciseMuscles", "exerciseMuscleGroups"],

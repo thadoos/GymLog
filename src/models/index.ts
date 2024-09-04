@@ -287,15 +287,20 @@ export async function loadExerciseMuscle(
     const muscle = await database
       .get<Muscle>("muscles")
       .query(Q.where("name", muscleName))
-      .fetch()[0];
-
-    await database
-      .get<ExerciseMuscle>("exercise_muscles")
-      .create((newExerciseMuscle: ExerciseMuscle) => {
-        newExerciseMuscle.exercise.set(exercise);
-        newExerciseMuscle.muscle.set(muscle);
-        newExerciseMuscle.isPrimary = isPrimary;
+      .fetch()
+      .catch((error) => {
+        console.error(error);
       });
+
+    database.write(async () => {
+      await database
+        .get<ExerciseMuscle>("exercise_muscles")
+        .create((newExerciseMuscle: ExerciseMuscle) => {
+          newExerciseMuscle.exercise.set(exercise);
+          newExerciseMuscle.muscle.set(muscle[0]);
+          newExerciseMuscle.isPrimary = isPrimary;
+        });
+    });
   } catch (error) {
     console.error(error);
   }
@@ -361,15 +366,20 @@ export async function loadExerciseMuscleGroup(
     const muscleGroup = await database
       .get<MuscleGroup>("muscle_groups")
       .query(Q.where("name", muscleGroupName))
-      .fetch()[0];
-
-    await database
-      .get<ExerciseMuscleGroup>("exercise_muscle_groups")
-      .create((newExerciseMuscleGroup: ExerciseMuscleGroup) => {
-        newExerciseMuscleGroup.exercise.set(exercise);
-        newExerciseMuscleGroup.muscleGroup.set(muscleGroup);
-        newExerciseMuscleGroup.isPrimary = isPrimary;
+      .fetch()
+      .catch((error) => {
+        console.error(error);
       });
+
+    database.write(async () => {
+      await database
+        .get<ExerciseMuscleGroup>("exercise_muscle_groups")
+        .create((newExerciseMuscleGroup: ExerciseMuscleGroup) => {
+          newExerciseMuscleGroup.exercise.set(exercise);
+          newExerciseMuscleGroup.muscleGroup.set(muscleGroup[0]);
+          newExerciseMuscleGroup.isPrimary = isPrimary;
+        });
+    });
   } catch (error) {
     console.error(error);
   }

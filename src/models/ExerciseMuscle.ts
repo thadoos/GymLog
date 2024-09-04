@@ -1,5 +1,5 @@
-import { field, immutableRelation } from "@nozbe/watermelondb/decorators";
-import { Model, Relation } from "@nozbe/watermelondb";
+import { field, immutableRelation, lazy } from "@nozbe/watermelondb/decorators";
+import { Model, Q, Relation } from "@nozbe/watermelondb";
 import Muscle from "./Muscle";
 import Exercise from "./Exercise";
 
@@ -14,4 +14,3 @@ export default class ExerciseMuscle extends Model {
   @immutableRelation("exercises", "exercise_id") exercise: Relation<Exercise>;
   @immutableRelation("muscles", "muscle_id") muscle: Relation<Muscle>;
 }
-

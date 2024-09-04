@@ -1,10 +1,11 @@
-import { Model, Query, Relation } from "@nozbe/watermelondb";
+import { Model, Q, Query, Relation } from "@nozbe/watermelondb";
 import {
   text,
   children,
   field,
   relation,
   writer,
+  lazy,
 } from "@nozbe/watermelondb/decorators";
 import MuscleGroup from "./MuscleGroup";
 import ExerciseMuscle from "./ExerciseMuscle";
@@ -23,5 +24,8 @@ export default class Muscle extends Model {
   muscleGroup?: Relation<MuscleGroup>;
   @children("exercise_muscles") exerciseMuscles?: Query<ExerciseMuscle>;
 
-  @writer async addMuscle(muscleName: string, muscleGroupId: string) {}
+  @lazy
+  exercises = this.collections
+    .get("exercises")
+    .query(Q.on("exercise_muscles", "muscle_id", this.id));
 }

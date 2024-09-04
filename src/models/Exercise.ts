@@ -1,10 +1,11 @@
-import { Model, Query, Relation } from "@nozbe/watermelondb";
+import { Model, Q, Query, Relation } from "@nozbe/watermelondb";
 import {
   text,
   children,
   field,
   relation,
   immutableRelation,
+  lazy,
 } from "@nozbe/watermelondb/decorators";
 import Equipment from "./Equipment";
 import ExerciseMuscle from "./ExerciseMuscle";
@@ -40,4 +41,13 @@ export default class Exercise extends Model {
   @relation("equipments", "equipment_id") equipment: Relation<Equipment>;
   @relation("users", "user_id") user: Relation<User>;
   @relation("types", "type_id") exerciseType: Relation<TypeModel>;
+
+  @lazy
+  muscles = this.collections
+    .get("muscles")
+    .query(Q.on("exercise_muscles", "exercise_id", this.id));
+  @lazy
+  muscleGroups = this.collections
+    .get("muscle_groups")
+    .query(Q.on("exercise_muscle_groups", "exercise_id", this.id));
 }
