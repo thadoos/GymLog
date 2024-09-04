@@ -57,20 +57,6 @@ const index = () => {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[
-          styles.viewExerciseButton,
-          { backgroundColor: Colors[colorTheme].homeRouteButtons },
-        ]}
-        onPress={() => router.push("ViewExercises")}
-      >
-        <Text
-          style={[styles.viewExercisesText, { color: Colors[colorTheme].text }]}
-        >
-          View Exercises
-        </Text>
-      </TouchableOpacity>
-
       {/* // NOTE: To remove this secion below after testing the functions*/}
       <TouchableOpacity
         style={[

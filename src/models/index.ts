@@ -78,7 +78,7 @@ export async function loadDefaultMuscleGroupsWithMuscles() {
       // Muscle Group and muscle init
       for (const isPrimaryToUse of [true, false]) {
         for (const muscleGroupWithMuscle of muscleAndMuscleGroupData.muscleGroups) {
-          console.log(muscleGroupWithMuscle.name);
+          // console.log(muscleGroupWithMuscle.name);
           const newMuscleGroup = await database
             .get<MuscleGroup>("muscle_groups")
             .create((muscleGroup: MuscleGroup) => {
@@ -86,7 +86,7 @@ export async function loadDefaultMuscleGroupsWithMuscles() {
             });
           // Muscle init for each muscle group
           for (const muscleEntry of muscleGroupWithMuscle.muscles) {
-            console.log("Muscle: " + muscleEntry);
+            // console.log("Muscle: " + muscleEntry);
             await database.get<Muscle>("muscles").create((muscle: Muscle) => {
               muscle.name = muscleEntry;
               muscle.muscleGroup.set(newMuscleGroup);
@@ -214,6 +214,7 @@ export async function getAllExerciseTypes() {
   return allExerciseTypes;
 }
 
+// TODO: Maybe remove this function, don't think it will be used
 export function getExerciseTypeFromExercise(exercise: Exercise): string {
   let exerciseType = "";
   const exerciseTypeObject = exercise.exerciseType
@@ -221,7 +222,7 @@ export function getExerciseTypeFromExercise(exercise: Exercise): string {
     .then(
       (exerciseTypeEntry: TypeModel) => (exerciseType = exerciseTypeEntry.name),
     );
-  console.log("Exercise Type: " + exerciseType);
+  // console.log("Exercise Type: " + exerciseType);
   return exerciseType;
 }
 

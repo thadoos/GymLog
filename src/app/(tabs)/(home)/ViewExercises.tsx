@@ -7,6 +7,7 @@ import NewExerciseList from "../../../components/NewExerciseList";
 import EnhancedExerciseFlatList from "../../../components/EnhancedExerciseFlatList";
 import { useAppState } from "../../../store/appState";
 import FullExerciseDetailsPopUp from "../../../components/FullExerciseDetailsPopUp";
+import EnhancedExerciseDetailsModal from "../../../components/EnhancedExerciseDetailsModal";
 
 const ViewExercises = () => {
   const { theme } = useAppSettingStore();
@@ -27,8 +28,11 @@ const ViewExercises = () => {
         />
 
         {fullExerciseDetailsPopupVisible !== null ? (
-          <FullExerciseDetailsPopUp />
-        ) : null}
+          <EnhancedExerciseDetailsModal
+            exercise={fullExerciseDetailsPopupVisible}
+          />
+        ) : // <FullExerciseDetailsPopUp />
+        null}
       </View>
     </View>
   );
