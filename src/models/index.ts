@@ -83,12 +83,14 @@ export async function loadDefaultMuscleGroupsWithMuscles() {
             .get<MuscleGroup>("muscle_groups")
             .create((muscleGroup: MuscleGroup) => {
               muscleGroup.name = muscleGroupWithMuscle.name;
+              muscleGroup.isPrimary = isPrimaryToUse;
             });
           // Muscle init for each muscle group
           for (const muscleEntry of muscleGroupWithMuscle.muscles) {
             // console.log("Muscle: " + muscleEntry);
             await database.get<Muscle>("muscles").create((muscle: Muscle) => {
               muscle.name = muscleEntry;
+              muscle.isPrimary = isPrimaryToUse;
               muscle.muscleGroup.set(newMuscleGroup);
             });
           }
@@ -286,7 +288,10 @@ export async function loadExerciseMuscle(
   try {
     const muscle = await database
       .get<Muscle>("muscles")
-      .query(Q.where("name", muscleName))
+      .query(
+        Q.and(Q.where("name", muscleName), Q.where("isPrimary", isPrimary)),
+      )
+
       .fetch()
       .catch((error) => {
         console.error(error);
@@ -298,7 +303,7 @@ export async function loadExerciseMuscle(
         .create((newExerciseMuscle: ExerciseMuscle) => {
           newExerciseMuscle.exercise.set(exercise);
           newExerciseMuscle.muscle.set(muscle[0]);
-          newExerciseMuscle.isPrimary = isPrimary;
+          // newExerciseMuscle.isPrimary = isPrimary;
         });
     });
   } catch (error) {
@@ -365,7 +370,12 @@ export async function loadExerciseMuscleGroup(
   try {
     const muscleGroup = await database
       .get<MuscleGroup>("muscle_groups")
-      .query(Q.where("name", muscleGroupName))
+      .query(
+        Q.and(
+          Q.where("name", muscleGroupName),
+          Q.where("isPrimary", isPrimary),
+        ),
+      )
       .fetch()
       .catch((error) => {
         console.error(error);
@@ -377,7 +387,7 @@ export async function loadExerciseMuscleGroup(
         .create((newExerciseMuscleGroup: ExerciseMuscleGroup) => {
           newExerciseMuscleGroup.exercise.set(exercise);
           newExerciseMuscleGroup.muscleGroup.set(muscleGroup[0]);
-          newExerciseMuscleGroup.isPrimary = isPrimary;
+          // newExerciseMuscleGroup.isPrimary = isPrimary;
         });
     });
   } catch (error) {

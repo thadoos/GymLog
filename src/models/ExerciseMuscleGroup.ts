@@ -10,9 +10,8 @@ export default class ExerciseMuscleGroup extends Model {
     muscle_groups: { type: "belongs_to" as const, key: "muscle_group_id" },
   };
 
-  @field("isPrimary") isPrimary: boolean;
+  // @field("isPrimary") isPrimary: boolean;
   @immutableRelation("exercises", "exercise_id") exercise: Relation<Exercise>;
   @immutableRelation("muscle_groups", "muscle_group_id")
   muscleGroup: Relation<MuscleGroup>;
 }
-

@@ -7,7 +7,7 @@ export default appSchema({
       name: "muscles",
       columns: [
         { name: "name", type: "string" },
-        // { name: "is_primary", type: "boolean" },
+        { name: "is_primary", type: "boolean" },
 
         { name: "muscle_group_id", type: "string", isIndexed: true },
       ],
@@ -17,7 +17,7 @@ export default appSchema({
       name: "muscle_groups",
       columns: [
         { name: "name", type: "string" },
-        // { name: "is_primary", type: "boolean" },
+        { name: "is_primary", type: "boolean" },
       ],
     }),
 
@@ -26,7 +26,7 @@ export default appSchema({
       columns: [
         { name: "exercise_id", type: "string", isIndexed: true },
         { name: "muscle_id", type: "string", isIndexed: true },
-        { name: "isPrimary", type: "boolean" },
+        // { name: "isPrimary", type: "boolean" },
       ],
     }),
 
@@ -35,7 +35,7 @@ export default appSchema({
       columns: [
         { name: "exercise_id", type: "string", isIndexed: true },
         { name: "muscle_group_id", type: "string", isIndexed: true },
-        { name: "isPrimary", type: "boolean" },
+        // { name: "isPrimary", type: "boolean" },
       ],
     }),
 

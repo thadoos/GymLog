@@ -19,7 +19,7 @@ export default class MuscleGroup extends Model {
     },
   };
   @text("name") name!: string;
-  // @field('is_primary') isPrimary : boolean;
+  @field("is_primary") isPrimary: boolean;
 
   // @relation('muscles', 'muscle_id') muscles : Relation<Muscle>;
   @children("muscles") muscles?: Query<Muscle>;

@@ -45,23 +45,28 @@ interface ExerciseDetailsModalProps {
   exercise: Exercise;
   exerciseType: TypeModel;
   equipment: Equipment;
-  muscles: Muscle[];
-  muscleGroups: MuscleGroup[];
+  muscleRecords: Muscle[];
+  muscleGroupRecords: MuscleGroup[];
 }
 const ExerciseDetailsModal = ({
   exercise,
   exerciseType,
   equipment,
-  muscles,
-  muscleGroups,
+  muscleRecords,
+  muscleGroupRecords,
 }: ExerciseDetailsModalProps) => {
   const { theme } = useAppSettingStore();
   const setFullExerciseDetailsPopupVisible = useAppState(
     (state) => state.setFullExerciseDetailsPopupVisible,
   );
 
-  console.log(muscles);
-  console.log(muscleGroups);
+  var primaryMuscleGroups: Map<string, string[]> = new Map();
+  var secondaryMuscleGroups: Map<string, string[]> = new Map();
+
+  for (const muscleRecord of muscleRecords) {
+    if (muscleRecord.isPrimary) {
+    }
+  }
 
   return (
     <Modal
