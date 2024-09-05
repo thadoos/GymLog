@@ -54,7 +54,7 @@ const ExerciseFlatList: React.FC<ExerciseListProps> = ({
             >
               <Ionicons
                 name="help"
-                size={25}
+                size={16}
                 color={Colors[theme].iconDefault}
               />
             </TouchableOpacity>
@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   expandExerciseInfoButton: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
     aspectRatio: 1,
-    borderRadius: 15,
+    borderRadius: 10,
     borderWidth: 1,
     marginLeft: 15,
     alignItems: "center",

@@ -54,6 +54,7 @@ const SubMuscleView = ({ arrayToUse }) => {
   const { theme } = useAppSettingStore();
   return (
     <FlatList
+      scrollEnabled={false}
       style={styles.muscleBlockFlatList}
       data={arrayToUse}
       renderItem={({ item }) => (
@@ -64,6 +65,7 @@ const SubMuscleView = ({ arrayToUse }) => {
             {item[0]}
           </Text>
           <FlatList
+            scrollEnabled={false}
             style={styles.subMuscleBlock}
             data={item[1]}
             renderItem={({ item }) => (
@@ -168,7 +170,10 @@ const ExerciseDetailsModal = ({
         <View
           style={[
             styles.mainContainer,
-            { backgroundColor: Colors[theme].modalBackground },
+            {
+              backgroundColor: Colors[theme].modalBackground,
+              shadowColor: Colors[theme].shadow,
+            },
           ]}
         >
           <View style={styles.topRow}>
@@ -233,7 +238,10 @@ const ExerciseDetailsModal = ({
             <View
               style={[
                 styles.notesContainer,
-                { backgroundColor: Colors[theme].modalBackground },
+                {
+                  backgroundColor: Colors[theme].modalBackground,
+                  shadowColor: Colors[theme].shadow,
+                },
               ]}
             >
               <Text
@@ -306,7 +314,10 @@ const styles = StyleSheet.create({
     width: "85%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    borderRadius: 15,
+    borderRadius: 20,
+    shadowRadius: 5,
+    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 0 },
   },
   topRow: {
     width: "100%",
@@ -346,7 +357,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 10,
     shadowRadius: 5,
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 0 },
@@ -388,7 +399,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 10,
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 10,
     shadowRadius: 5,
     shadowOpacity: 0.35,
     shadowOffset: { width: 0, height: 0 },

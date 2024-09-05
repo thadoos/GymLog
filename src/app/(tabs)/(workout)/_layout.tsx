@@ -78,7 +78,7 @@ export default function workout_stack() {
       />
 
       <Stack.Screen
-        name="addExercise"
+        name="AddExerciseScreen"
         options={{
           title: "Add Exercise",
         }}
@@ -145,4 +145,3 @@ const styles = StyleSheet.create({
     fontWeight: "900",
   },
 });
-

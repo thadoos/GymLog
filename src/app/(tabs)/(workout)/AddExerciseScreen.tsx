@@ -5,10 +5,17 @@ import Colors from "../../../constants/Colors";
 import ExerciseList from "../../../components/ExerciseList";
 import { useWorkoutStore } from "../../../store/workoutState";
 import EnhancedExerciseFlatList from "../../../components/EnhancedExerciseFlatList";
+import { useAppState } from "../../../store/appState";
+import EnhancedExerciseDetailsModal from "../../../components/EnhancedExerciseDetailsModal";
 
-const addExercise = () => {
+const onExercisePress = () => {};
+const AddExerciseScreen = () => {
   const colorTheme = useAppSettingStore((state) => state.theme);
   const addExercise = useWorkoutStore((state) => state.addExercise);
+  const {
+    fullExerciseDetailsPopupVisible,
+    setFullExerciseDetailsPopupVisible,
+  } = useAppState();
 
   return (
     <View
@@ -18,7 +25,14 @@ const addExercise = () => {
       ]}
     >
       <View style={styles.subContainer}>
-        <EnhancedExerciseFlatList />
+        <EnhancedExerciseFlatList showExpandExerciseInfoButton={true} />
+
+        {fullExerciseDetailsPopupVisible !== null ? (
+          <EnhancedExerciseDetailsModal
+            exercise={fullExerciseDetailsPopupVisible}
+          />
+        ) : // <FullExerciseDetailsPopUp />
+        null}
       </View>
     </View>
   );
@@ -34,7 +48,7 @@ const addExercise = () => {
 //   }
 //   onExercisePressAddExercise={true} //(exerciseID: number)=>addExercise
 // />
-export default addExercise;
+export default AddExerciseScreen;
 
 const styles = StyleSheet.create({
   container: {
