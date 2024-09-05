@@ -1,5 +1,13 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { BlurView } from "expo-blur";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import NewExerciseDetailLine from "./NewExerciseDetailLine";
@@ -18,6 +26,7 @@ import Equipment from "../models/Equipment";
 import ExerciseMuscle from "../models/ExerciseMuscle";
 import ExerciseMuscleGroup from "../models/ExerciseMuscleGroup";
 import { Relation } from "@nozbe/watermelondb";
+import { getMuscleGroupFromMuscle } from "../models";
 
 interface ExerciseDetailLineProps {
   keyword: string;
@@ -41,6 +50,35 @@ const ExerciseDetailLine = ({
   );
 };
 
+const SubMuscleView = ({ arrayToUse }) => {
+  const { theme } = useAppSettingStore();
+  return (
+    <FlatList
+      style={styles.muscleBlockFlatList}
+      data={arrayToUse}
+      renderItem={({ item }) => (
+        <View style={styles.muscleBlock}>
+          <Text
+            style={[styles.muscleGroupNameText, { color: Colors[theme].text }]}
+          >
+            {item[0]}
+          </Text>
+          <FlatList
+            style={styles.subMuscleBlock}
+            data={item[1]}
+            renderItem={({ item }) => (
+              <Text
+                style={[styles.muscleNameText, { color: Colors[theme].text }]}
+              >
+                {item}
+              </Text>
+            )}
+          />
+        </View>
+      )}
+    />
+  );
+};
 interface ExerciseDetailsModalProps {
   exercise: Exercise;
   exerciseType: TypeModel;
@@ -63,10 +101,55 @@ const ExerciseDetailsModal = ({
   var primaryMuscleGroups: Map<string, string[]> = new Map();
   var secondaryMuscleGroups: Map<string, string[]> = new Map();
 
-  for (const muscleRecord of muscleRecords) {
-    if (muscleRecord.isPrimary) {
-    }
-  }
+  const [primaryMusclesArray, setPrimaryMusclesArray] = useState([]);
+  const [secondaryMusclesArray, setSecondaryMusclesArray] = useState([]);
+
+  // useEffect(() => {
+  //   setPrimaryMusclesArray(Array.from(primaryMuscleGroups));
+  //   console.log(primaryMusclesArray);
+  // }, [primaryMuscleGroups]);
+  //
+  // useEffect(() => {
+  //   setSecondaryMusclesArray(Array.from(secondaryMuscleGroups));
+  //   console.log(secondaryMusclesArray);
+  // }, [secondaryMuscleGroups]);
+
+  useEffect(() => {
+    const sortData = async () => {
+      const promises = muscleRecords.map(async (muscleRecord) => {
+        const muscleGroupName = await getMuscleGroupFromMuscle(muscleRecord);
+        if (muscleRecord.isPrimary) {
+          if (primaryMuscleGroups.has(muscleGroupName)) {
+            let tempArr = primaryMuscleGroups.get(muscleGroupName);
+            tempArr.push(muscleRecord.name);
+          } else {
+            primaryMuscleGroups.set(muscleGroupName, [muscleRecord.name]);
+          }
+        } else {
+          if (secondaryMuscleGroups.has(muscleGroupName)) {
+            let tempArr = secondaryMuscleGroups.get(muscleGroupName);
+            tempArr.push(muscleRecord.name);
+          } else {
+            secondaryMuscleGroups.set(muscleGroupName, [muscleRecord.name]);
+          }
+        }
+      });
+      await Promise.all(promises);
+    };
+    const prepData = async () => {
+      await sortData();
+      setPrimaryMusclesArray(Array.from(primaryMuscleGroups));
+      setSecondaryMusclesArray(Array.from(secondaryMuscleGroups));
+    };
+    prepData();
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(primaryMusclesArray);
+  // }, [primaryMusclesArray]);
+  // useEffect(() => {
+  //   console.log(secondaryMusclesArray);
+  // }, [secondaryMusclesArray]);
 
   return (
     <Modal
@@ -121,6 +204,56 @@ const ExerciseDetailsModal = ({
             keyword={"Equipment"}
             description={equipment.name}
           />
+
+          <View
+            style={[
+              styles.mainMuscleContainer,
+              {
+                backgroundColor: Colors[theme].modalBackground,
+                shadowColor: Colors[theme].shadow,
+              },
+              ,
+            ]}
+          >
+            <Text
+              style={[
+                styles.muscleBlockHeaderText,
+                { color: Colors[theme].text },
+              ]}
+            >
+              Muscles Used
+            </Text>
+            <View style={styles.subMuscleContainer}>
+              <SubMuscleView arrayToUse={primaryMusclesArray} />
+              <SubMuscleView arrayToUse={secondaryMusclesArray} />
+            </View>
+          </View>
+
+          {exercise.note !== "" ? (
+            <View
+              style={[
+                styles.notesContainer,
+                { backgroundColor: Colors[theme].modalBackground },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.keywordText,
+                  {
+                    color: Colors[theme].text,
+                    marginBottom: 5,
+                  },
+                ]}
+              >
+                Notes
+              </Text>
+              <ScrollView style={[styles.notesScrollView, {}]}>
+                <Text style={[styles.notesText, { color: Colors[theme].text }]}>
+                  {exercise.note}
+                </Text>
+              </ScrollView>
+            </View>
+          ) : null}
         </View>
       </BlurView>
     </Modal>
@@ -134,8 +267,8 @@ const enhance = compose(
     equipment: exercise.equipment,
     // exerciseMuscles: exercise.exerciseMuscles,
     // exerciseMuscleGroups: exercise.exerciseMuscleGroups,
-    muscles: exercise.muscles,
-    muscleGroups: exercise.muscleGroups,
+    muscleRecords: exercise.muscles,
+    muscleGroupRecords: exercise.muscleGroups,
     // muscles: exercise.exerciseMuscles
     //   .observe()
     //   .pipe(
@@ -203,6 +336,67 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   descText: {
+    fontSize: 16,
+    fontWeight: "300",
+  },
+  mainMuscleContainer: {
+    flexDirection: "column",
+    width: "100%",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 15,
+    shadowRadius: 5,
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  subMuscleContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+  },
+  muscleBlockFlatList: {
+    width: "48%",
+  },
+  muscleBlock: {
+    width: "100%",
+  },
+  muscleBlockHeaderText: {
+    fontSize: 18,
+    fontWeight: "700",
+    textDecorationLine: "underline",
+    marginBottom: 5,
+  },
+  subMuscleBlock: {
+    paddingLeft: 15,
+  },
+  muscleGroupNameText: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginTop: 5,
+  },
+  muscleNameText: {
+    fontSize: 16,
+    fontWeight: "300",
+  },
+  notesContainer: {
+    width: "100%",
+    // NOTE: Not sure whether to limit the maxHeight or not
+    // maxHeight: 150,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 15,
+    shadowRadius: 5,
+    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  notesScrollView: {
+    width: "100%",
+  },
+  notesText: {
     fontSize: 16,
     fontWeight: "300",
   },

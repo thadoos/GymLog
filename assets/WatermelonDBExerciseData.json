@@ -5,6 +5,7 @@
       "type": "Strength",
       "equipment": "Barbell",
       "twoSided": true,
+      "notes": "Some random text to test this length of text",
       "muscles": [
         { "name": "Middle Chest", "isPrimary": true },
         { "name": "Upper Chest", "isPrimary": false },
@@ -23,6 +24,7 @@
       "type": "Strength",
       "equipment": "Barbell",
       "twoSided": true,
+      "notes": "Some random text to test this length of text, this is going to be a longer text i wonder if this will be long enough or not. Should i keep going? Not sure about this lets goo",
       "muscles": [
         { "name": "Middle Chest", "isPrimary": true },
         { "name": "Upper Chest", "isPrimary": true },
@@ -41,6 +43,7 @@
       "type": "Strength",
       "equipment": "Barbell",
       "twoSided": true,
+      "notes": "Some random text to test this length of text, this is going to be a longer text i wonder if this will be long enough or not. Should i keep going? Not sure about this lets gooSome random text to test this length of text, this is going to be a longer text i wonder if this will be long enough or not. Should i keep going? Not sure about this lets gooSome random text to test this length of text, this is going to be a longer text i wonder if this will be long enough or not. Should i keep going? Not sure about this lets goo",
       "muscles": [
         { "name": "Lower Chest", "isPrimary": true },
         { "name": "Middle Chest", "isPrimary": false },
@@ -59,6 +62,7 @@
       "type": "Strength",
       "equipment": "Machine",
       "twoSided": true,
+      "notes": "",
       "muscles": [
         { "name": "Middle Chest", "isPrimary": true },
         { "name": "Upper Chest", "isPrimary": false },
@@ -77,6 +81,7 @@
       "type": "Strength",
       "equipment": "Smith Machine",
       "twoSided": true,
+      "notes": "",
       "muscles": [
         { "name": "Middle Chest", "isPrimary": true },
         { "name": "Upper Chest", "isPrimary": true },
@@ -95,6 +100,7 @@
       "type": "Strength",
       "equipment": "Smith Machine",
       "twoSided": true,
+      "notes": "",
       "muscles": [
         { "name": "Middle Chest", "isPrimary": true },
         { "name": "Upper Chest", "isPrimary": false },
@@ -113,6 +119,7 @@
       "type": "Strength",
       "equipment": "Dumbbell",
       "twoSided": false,
+      "notes": "",
       "muscles": [
         { "name": "Middle Chest", "isPrimary": true },
         { "name": "Upper Chest", "isPrimary": false },
@@ -128,6 +135,7 @@
       "type": "Strength",
       "equipment": "Dumbbell",
       "twoSided": false,
+      "notes": "",
       "muscles": [
         { "name": "Upper Chest", "isPrimary": true },
         { "name": "Middle Chest", "isPrimary": false },
@@ -143,6 +151,7 @@
       "type": "Strength",
       "equipment": "Machine",
       "twoSided": true,
+      "notes": "",
       "muscles": [
         { "name": "Middle Chest", "isPrimary": true },
         { "name": "Lower Chest", "isPrimary": false },
@@ -158,6 +167,7 @@
       "type": "Strength",
       "equipment": "Cable Machine",
       "twoSided": true,
+      "notes": "",
       "muscles": [
         { "name": "Tricep Long Head", "isPrimary": true },
         { "name": "Tricep Short Head", "isPrimary": false },
@@ -170,6 +180,7 @@
       "type": "Strength",
       "equipment": "Cable Machine",
       "twoSided": false,
+      "notes": "",
       "muscles": [
         { "name": "Tricep Long Head", "isPrimary": true },
         { "name": "Tricep Short Head", "isPrimary": false },

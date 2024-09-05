@@ -21,7 +21,7 @@ export default class Muscle extends Model {
   @field("is_primary") isPrimary: boolean;
 
   @relation("muscle_groups", "muscle_group_id")
-  muscleGroup?: Relation<MuscleGroup>;
+  muscleGroup!: Relation<MuscleGroup>;
   @children("exercise_muscles") exerciseMuscles?: Query<ExerciseMuscle>;
 
   @lazy

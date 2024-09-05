@@ -71,7 +71,7 @@ export function resetAllWatermelonDB() {
   resetExercises();
 }
 
-// NOTE: Muscle Groups and Musles
+// NOTE: Muscle Groups and Muscles
 export async function loadDefaultMuscleGroupsWithMuscles() {
   try {
     await database.write(async () => {
@@ -112,6 +112,20 @@ export async function getAllMuscleGroups() {
   const muscleGroupsCollection = database.get<MuscleGroup>("muscle_groups");
   const allMuscleGroups = await muscleGroupsCollection.query().fetch();
   return allMuscleGroups;
+}
+
+export async function getMuscleGroupFromMuscle(muscle: Muscle) {
+  let name = "";
+  await muscle.muscleGroup
+    .fetch()
+    .catch((error) => console.error(error))
+    .then((mg) => {
+      if (mg) {
+        name = mg.name;
+      }
+    });
+
+  return name;
 }
 
 export async function getAllMuscleGroupsWithMuscles() {
@@ -289,7 +303,7 @@ export async function loadExerciseMuscle(
     const muscle = await database
       .get<Muscle>("muscles")
       .query(
-        Q.and(Q.where("name", muscleName), Q.where("isPrimary", isPrimary)),
+        Q.and(Q.where("name", muscleName), Q.where("is_primary", isPrimary)),
       )
 
       .fetch()
@@ -373,7 +387,7 @@ export async function loadExerciseMuscleGroup(
       .query(
         Q.and(
           Q.where("name", muscleGroupName),
-          Q.where("isPrimary", isPrimary),
+          Q.where("is_primary", isPrimary),
         ),
       )
       .fetch()
@@ -421,6 +435,7 @@ export async function loadDefaultExercises() {
           .create((exercise) => {
             exercise.name = exerciseEntry.name;
             exercise.isTwoSideWeight = exerciseEntry.twoSided;
+            exercise.note = exerciseEntry.notes;
             exercise.equipment.set(equipmentRecord);
             exercise.exerciseType.set(typeRecord);
           })
