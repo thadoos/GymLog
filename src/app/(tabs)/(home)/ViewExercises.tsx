@@ -1,12 +1,9 @@
 import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import React from "react";
-import ExerciseList from "../../../components/ExerciseList";
 import Colors from "../../../constants/Colors";
 import { useAppSettingStore } from "../../../store/appSettings";
-import NewExerciseList from "../../../components/NewExerciseList";
 import EnhancedExerciseFlatList from "../../../components/EnhancedExerciseFlatList";
 import { useAppState } from "../../../store/appState";
-import FullExerciseDetailsPopUp from "../../../components/FullExerciseDetailsPopUp";
 import EnhancedExerciseDetailsModal from "../../../components/EnhancedExerciseDetailsModal";
 
 const ViewExercises = () => {
@@ -31,34 +28,18 @@ const ViewExercises = () => {
           <EnhancedExerciseDetailsModal
             exercise={fullExerciseDetailsPopupVisible}
           />
-        ) : // <FullExerciseDetailsPopUp />
-        null}
+        ) : null}
       </View>
     </View>
   );
 };
 
-// <ExerciseList
-//   details={
-//     [
-//       {keyword:"Primary Muscle Group", description:"primaryGeneralMuscleGroup"},
-//       {keyword:"Secondary Muscle Group", description:"secondaryGeneralMuscleGroup"},
-//       {keyword:"Muscle Group", description:"primarySpecificMuscleGroup"},
-//       {keyword:"Equipment", description:"equipment"},
-//       {keyword:"Notes", description:"notes"},
-//     ]
-//   }
-//   onExercisePressAddExercise={false}
-// />
 export default ViewExercises;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   subContainer: {
     width: "90%",

@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useAppSettingStore } from "../../../store/appSettings";
 import Colors from "../../../constants/Colors";
-import ExerciseList from "../../../components/ExerciseList";
 import { useWorkoutStore } from "../../../store/workoutState";
 import EnhancedExerciseFlatList from "../../../components/EnhancedExerciseFlatList";
 import { useAppState } from "../../../store/appState";
@@ -31,23 +30,12 @@ const AddExerciseScreen = () => {
           <EnhancedExerciseDetailsModal
             exercise={fullExerciseDetailsPopupVisible}
           />
-        ) : // <FullExerciseDetailsPopUp />
-        null}
+        ) : null}
       </View>
     </View>
   );
 };
 
-// <ExerciseList
-//   details={
-//     [
-//       {keyword:"Primary Muscle Group", description:"primaryGeneralMuscleGroup"},
-//       {keyword:"Secondary Muscle Group", description:"secondaryGeneralMuscleGroup"},
-//       {keyword:"Primary Specific Muscle Group", description:"primarySpecificMuscleGroup"},
-//     ]
-//   }
-//   onExercisePressAddExercise={true} //(exerciseID: number)=>addExercise
-// />
 export default AddExerciseScreen;
 
 const styles = StyleSheet.create({

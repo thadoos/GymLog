@@ -14,7 +14,7 @@ import { useWorkoutStore } from "../store/workoutState";
 import { useRouter } from "expo-router";
 import { ExerciseDetail } from "../store/oldInterfaces";
 
-// TODO: Remove this component completely
+// TODO: Remove this component completely after updating ExerciseOptionsModal
 
 // TODO: Clean this - move it somewhere else. Things in question up till next TODO
 export type ExerciseDetailOptions =

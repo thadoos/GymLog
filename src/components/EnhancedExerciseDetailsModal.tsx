@@ -10,22 +10,16 @@ import {
 import React, { useEffect, useState } from "react";
 import { BlurView } from "expo-blur";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import NewExerciseDetailLine from "./NewExerciseDetailLine";
 import { useAppState } from "../store/appState";
 import Colors from "../constants/Colors";
 import { useAppSettingStore } from "../store/appSettings";
 
-import { of as of$ } from "rxjs";
-import { switchMap } from "rxjs/operators";
 import { compose, withObservables } from "@nozbe/watermelondb/react";
 import Exercise from "../models/Exercise";
 import TypeModel from "../models/TypeModel";
 import Muscle from "../models/Muscle";
 import MuscleGroup from "../models/MuscleGroup";
 import Equipment from "../models/Equipment";
-import ExerciseMuscle from "../models/ExerciseMuscle";
-import ExerciseMuscleGroup from "../models/ExerciseMuscleGroup";
-import { Relation } from "@nozbe/watermelondb";
 import { getMuscleGroupFromMuscle } from "../models";
 
 interface ExerciseDetailLineProps {
